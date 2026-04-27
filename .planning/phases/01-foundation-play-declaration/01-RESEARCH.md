@@ -1442,7 +1442,9 @@ Without this Wave 0 step, none of the §10 verification commands can be executed
 
 ---
 
-## 12. Validation Architecture
+## Validation Architecture
+
+(Section 12 — heading normalized to satisfy GSD validation-strategy detector grep.)
 
 ### Test Framework
 
