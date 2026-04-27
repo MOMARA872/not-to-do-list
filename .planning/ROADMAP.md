@@ -32,7 +32,12 @@
   3. AndroidManifest declares `<queries>` element with LAUNCHER intent filter (no `QUERY_ALL_PACKAGES`), no `SYSTEM_ALERT_WINDOW`, `allowBackup="false"`; accessibility service config sets `isAccessibilityTool="false"` and `accessibilityEventTypes="typeWindowStateChanged"` only; `flagRequestFilterKeyEvents`, `canPerformGestures`, `canRetrieveWindowContent` are NOT set.
   4. AccessibilityService is wired behind a Riverpod-abstracted swappable provider interface so a UsageStats-polling fallback can ship without rework if Play rejects the service.
   5. No telemetry / FCM / analytics SDKs in the dependency tree; Data Safety form draft committed in `docs/data-safety.md` declaring zero data collected and verified to match code.
-**Plans**: TBD
+**Plans**: 5 plans
+- [ ] 01-01-PLAN.md — Wave 0: Toolchain (Flutter 3.41.x, JDK 17, Android SDK platform-36) + Flutter scaffold + pinned pubspec + Gradle SDK lock + folder skeleton
+- [ ] 01-02-PLAN.md — Wave 1: AndroidManifest + a11y config XML + data_extraction_rules + strings + NotToDoAccessibilityService.kt + PauseActivity.kt stubs + docs/play-declaration.md + docs/data-safety.md
+- [ ] 01-03-PLAN.md — Wave 1: Drift 5-table schema (block_list, daily_streak, pause_events, daily_checkins, daily_usage_summary) + AppDatabase + Riverpod databaseProvider + round-trip test
+- [ ] 01-04-PLAN.md — Wave 1: 3 Pigeon @HostApi inputs + codegen + MainActivity.kt stub registrations + BlockedAppDetector interface (PLAY-02 by absence) + 2 stub impls + Riverpod selector (REL-05) + unit test
+- [ ] 01-05-PLAN.md — Wave 2: Empty home scaffold (main, app, theme, router, EmptyHomeScreen) + V1–V14 verification gate + APK build + 01-VALIDATION.md sign-off
 **UI hint**: yes
 
 ### Phase 2: List CRUD + Onboarding & Permissions
