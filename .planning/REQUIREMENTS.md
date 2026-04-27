@@ -167,17 +167,80 @@ Explicit exclusions to prevent scope creep. Anti-features are excluded from all 
 
 ## Traceability
 
-Filled by gsd-roadmapper during roadmap creation.
+Mapped by gsd-roadmapper on 2026-04-27. Every v1 REQ-ID maps to exactly one phase.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (to be populated) | — | Pending |
+| LIST-01 | Phase 2 | Pending |
+| LIST-02 | Phase 2 | Pending |
+| LIST-03 | Phase 2 | Pending |
+| LIST-04 | Phase 2 | Pending |
+| LIST-05 | Phase 2 | Pending |
+| LIST-06 | Phase 2 | Pending |
+| LIST-07 | Phase 2 | Pending |
+| ONBD-01 | Phase 2 | Pending |
+| ONBD-02 | Phase 2 | Pending |
+| ONBD-03 | Phase 2 | Pending |
+| ONBD-04 | Phase 2 | Pending |
+| ONBD-05 | Phase 2 | Pending |
+| ONBD-06 | Phase 2 | Pending |
+| ONBD-07 | Phase 2 | Pending |
+| PAUS-01 | Phase 4 | Pending |
+| PAUS-02 | Phase 4 | Pending |
+| PAUS-03 | Phase 4 | Pending |
+| PAUS-04 | Phase 4 | Pending |
+| PAUS-05 | Phase 4 | Pending |
+| PAUS-06 | Phase 4 | Pending |
+| PAUS-07 | Phase 4 | Pending |
+| PAUS-08 | Phase 4 | Pending |
+| DASH-01 | Phase 3 | Pending |
+| DASH-02 | Phase 3 | Pending |
+| DASH-03 | Phase 3 | Pending |
+| DASH-04 | Phase 3 | Pending |
+| DASH-05 | Phase 3 | Pending |
+| DASH-06 | Phase 3 | Pending |
+| DASH-07 | Phase 3 | Pending |
+| STRK-01 | Phase 5 | Pending |
+| STRK-02 | Phase 5 | Pending |
+| STRK-03 | Phase 5 | Pending |
+| STRK-04 | Phase 5 | Pending |
+| STRK-05 | Phase 5 | Pending |
+| STRK-06 | Phase 5 | Pending |
+| STRK-07 | Phase 5 | Pending |
+| STRK-08 | Phase 5 | Pending |
+| NOTF-01 | Phase 5 | Pending |
+| NOTF-02 | Phase 5 | Pending |
+| NOTF-03 | Phase 5 | Pending |
+| NOTF-04 | Phase 5 | Pending |
+| NOTF-05 | Phase 5 | Pending |
+| NOTF-06 | Phase 5 | Pending |
+| NOTF-07 | Phase 5 | Pending |
+| SETT-01 | Phase 6 | Pending |
+| SETT-02 | Phase 6 | Pending |
+| SETT-03 | Phase 1 | Pending |
+| SETT-04 | Phase 6 | Pending |
+| SETT-05 | Phase 6 | Pending |
+| PLAY-01 | Phase 1 | Pending |
+| PLAY-02 | Phase 1 | Pending |
+| PLAY-03 | Phase 1 | Pending |
+| PLAY-04 | Phase 1 | Pending |
+| PLAY-05 | Phase 1 | Pending |
+| PLAY-06 | Phase 2 | Pending |
+| PLAY-07 | Phase 1 | Pending |
+| PLAY-08 | Phase 6 | Pending |
+| PLAY-09 | Phase 1 | Pending |
+| REL-01 | Phase 4 | Pending |
+| REL-02 | Phase 2 | Pending |
+| REL-03 | Phase 2 | Pending |
+| REL-04 | Phase 4 | Pending |
+| REL-05 | Phase 1 | Pending |
 
 **Coverage:**
 - v1 requirements: 63 total (LIST 7, ONBD 7, PAUS 8, DASH 7, STRK 8, NOTF 7, SETT 5, PLAY 9, REL 5)
-- Mapped to phases: 0 (pre-roadmap)
-- Unmapped: 63 ⚠️ (resolved by next step)
+- Mapped to phases: 63 ✓
+- Unmapped: 0
+- By phase: Phase 1 = 9, Phase 2 = 17, Phase 3 = 7, Phase 4 = 10, Phase 5 = 15, Phase 6 = 5
 
 ---
 *Requirements defined: 2026-04-27*
-*Last updated: 2026-04-27 after initial definition*
+*Last updated: 2026-04-27 — traceability filled by gsd-roadmapper*
