@@ -1,45 +1,119 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- ===== Permissions ===== -->
+
+    <!-- Screen-time data source (Phase 3). Special permission, granted in Settings. -->
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
+                     tools:ignore="ProtectedPermissions" />
+
+    <!-- AccessibilityService binding (Phase 4). Granted in Settings. -->
+    <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE"
+                     tools:ignore="ProtectedPermissions" />
+
+    <!-- Daily reminder (Phase 5) and runtime prompt on Android 13+. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Re-arm daily reminder after reboot (Phase 5, NOTF-05). -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- User-perceived precise time for daily reminder (Phase 5).
+         Use SCHEDULE_EXACT_ALARM (user prompt). Do NOT use the alarm/calendar-class
+         exact-alarm permission — see V7 in the verification gate. -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
+    <!-- Foreground service that keeps the AccessibilityService in the Active bucket (Phase 4, REL-01). -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+
+    <!-- Battery-optimization exemption prompt (Phase 2, ONBD-01 step 4). -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
+    <!--
+        DELIBERATELY NOT DECLARED — verified by §10 grep checks (V5/V6/V7).
+        The forbidden permission names are listed in docs/play-declaration.md §6 to keep
+        their literal tokens out of this manifest (so the V5/V6/V7 absence-greps stay exact).
+    -->
+
+    <!-- ===== Package visibility (PLAY-04, Android 11+) =====
+         Required for the app picker (Phase 2, LIST-01) to enumerate launchable apps
+         without resorting to broad-package-query permissions. The element below
+         declares the narrow intent filter Play policy expects.
+    -->
+    <queries>
+        <intent>
+            <category android:name="android.intent.category.LAUNCHER" />
+            <action android:name="android.intent.action.MAIN" />
+        </intent>
+    </queries>
+
     <application
-        android:label="not_to_do_list"
+        android:label="Not To-Do List"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        tools:replace="android:allowBackup">
+
+        <!-- Main entry: empty home screen in Phase 1; full UI in Phase 2+. -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
-            android:taskAffinity=""
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
-            <!-- Specifies an Android theme to apply to this Activity as soon as
-                 the Android process has started. This theme is visible to the user
-                 while the Flutter UI initializes. After that, this theme continues
-                 to determine the Window background behind the Flutter UI. -->
             <meta-data
-              android:name="io.flutter.embedding.android.NormalTheme"
-              android:resource="@style/NormalTheme"
-              />
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme" />
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- Don't delete the meta-data below.
-             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+
+        <!--
+            PauseActivity (Phase 4 implementation). Declared in Phase 1 so the manifest is
+            structurally complete; the Kotlin class can be a no-op stub that finish()es.
+            singleInstance + excludeFromRecents required so each blocked-app launch starts a
+            fresh PauseActivity that doesn't appear in the Recents list (PAUS-01, PAUS-08).
+        -->
+        <activity
+            android:name=".PauseActivity"
+            android:exported="false"
+            android:launchMode="singleInstance"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""
+            android:showOnLockScreen="true"
+            android:theme="@style/LaunchTheme" />
+
+        <!--
+            STUB ONLY (PLAY-01, PLAY-03). The Kotlin service body is implemented in Phase 4.
+            The manifest entry must already be policy-correct in Phase 1 because the
+            <meta-data> XML it points to is the literal source of the declaration form copy
+            and is what reviewers grep.
+
+            isAccessibilityTool is set on the SERVICE config XML, not here.
+            permission="android.permission.BIND_ACCESSIBILITY_SERVICE" is mandatory.
+        -->
+        <service
+            android:name=".service.NotToDoAccessibilityService"
+            android:exported="false"
+            android:label="@string/a11y_service_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/not_todo_a11y_config" />
+        </service>
+
+        <!-- Flutter standard meta-data (auto-inserted by `flutter create`; preserve it). -->
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
-    <!-- Required to query activities that can process text, see:
-         https://developer.android.com/training/package-visibility and
-         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
-
-         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
-    <queries>
-        <intent>
-            <action android:name="android.intent.action.PROCESS_TEXT"/>
-            <data android:mimeType="text/plain"/>
-        </intent>
-    </queries>
 </manifest>
