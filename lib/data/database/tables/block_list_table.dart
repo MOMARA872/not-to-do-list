@@ -16,7 +16,8 @@ class BlockList extends Table {
   @override
   List<Set<Column>> get uniqueKeys => [
         // Same package can appear at most once for an app entry.
-        // Habits (packageName null) skip uniqueness via partial index in raw SQL if needed.
+        // Habits (packageName null) skip uniqueness via partial index in
+        // raw SQL if needed.
         {kind, packageName},
       ];
 }

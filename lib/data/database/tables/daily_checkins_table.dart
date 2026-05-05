@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart';
-import 'block_list_table.dart';
+import 'package:not_to_do_list/data/database/tables/block_list_table.dart';
 
 /// One self-report check-in per entry per day (STRK-03).
 class DailyCheckins extends Table {
