@@ -8,8 +8,13 @@ import 'package:pigeon/pigeon.dart';
     dartOut: 'lib/platform/usage_api.g.dart',
     kotlinOut:
         'android/app/src/main/kotlin/com/nottodo/not_to_do_list/platform/UsageApi.g.kt',
+    // Each Pigeon Kotlin output declares a `FlutterError` class at file level.
+    // When all 3 share a single Kotlin package, kotlinc fails with
+    // "Redeclaration: FlutterError". `errorClassName` gives each output a
+    // unique class name, fixing the clash without splitting packages.
     kotlinOptions: KotlinOptions(
       package: 'com.nottodo.not_to_do_list.platform',
+      errorClassName: 'UsageApiError',
     ),
     dartPackageName: 'not_to_do_list',
   ),
