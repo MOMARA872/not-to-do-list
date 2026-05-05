@@ -16,6 +16,8 @@ v1 ships as an Android-only, Flutter-based, account-free, fully on-device app. E
 - [ ] **LIST-05**: User can delete an entry; deletion removes its streak history and pause-event log
 - [ ] **LIST-06**: Home shows a unified list of all not-to-do entries (Apps + Habits together) sorted by recent activity
 - [ ] **LIST-07**: First-run flow offers a quick-add of common offenders (Instagram, TikTok, X, YouTube, Reddit) — user picks which to seed
+- [ ] **LIST-08**: User can configure each entry's block mode (`soft` / `hard`); `soft` is the default; only Apps support `hard` (Habits are self-report only)
+- [ ] **LIST-09**: User can configure a per-item active-window schedule — start time, end time, and weekday mask; `always-on` is the default; outside the window the entry is dormant (does not intercept)
 
 ### Onboarding & Permissions (ONBD)
 
@@ -37,6 +39,8 @@ v1 ships as an Android-only, Flutter-based, account-free, fully on-device app. E
 - [ ] **PAUS-06**: User can choose "Use anyway" to bypass; the event is recorded as a "used anyway" pause-event row
 - [ ] **PAUS-07**: Pause screen cold-start completes within 300 ms on a real mid-range Android device (FlutterEngineCache pre-warmed)
 - [ ] **PAUS-08**: Pause screen renders correctly over the lock screen (`setShowWhenLocked(true)` + `setTurnScreenOn(true)`)
+- [ ] **PAUS-09**: When an entry is in `hard` block mode, the pause screen does NOT show "Use anyway"; only Cancel and the cooldown timer are available; auto-close back to launcher when cooldown ends
+- [ ] **PAUS-10**: When an entry has a schedule, the AccessibilityService check fires the pause screen ONLY inside the active window; outside the window the launch is not intercepted; window evaluation uses the device's local timezone
 
 ### Screen Time Dashboard (DASH)
 
@@ -58,6 +62,7 @@ v1 ships as an Android-only, Flutter-based, account-free, fully on-device app. E
 - [ ] **STRK-06**: Clock tampering (>24 h jump from boot-monotonic clock) is detected and the affected day is flagged "incomplete data" rather than silently skipping
 - [ ] **STRK-07**: Home shows current streak and longest streak per entry
 - [ ] **STRK-08**: DST and timezone changes are handled (LocalDate anchored to home timezone; 23 h and 25 h test days pass)
+- [ ] **STRK-09**: For scheduled entries, only avoidance during the active window counts toward the streak; usage outside the window is recorded but does not break the streak
 
 ### Notifications (NOTF)
 
@@ -152,14 +157,17 @@ Explicit exclusions to prevent scope creep. Anti-features are excluded from all 
 | iOS in v1 | Avoid $99/yr Apple Developer cost + Family Controls entitlement complexity; deferred to Milestone 2 (IOS) |
 | Website blocking in v1 | Needs built-in browser, VPN-DNS, or fragile per-browser hooks; +2–4 weeks; deferred |
 | Content-type filtering in v1 | Needs paid API or weak self-host blocklists; conflicts with free/OSS budget; deferred to Milestone 2 (KID) |
-| Hard-block mode (no override) | Anti-mindfulness; soft-block + cooldown is the wedge |
+| Hard-block mode as DEFAULT | Soft-block + cooldown remains the default (mindful frame); hard-block is a per-item opt-in (LIST-08) added 2026-05-05 |
+| Parent PIN / Settings lock in v1 | Multi-user / parental-control territory — deferred to Milestone 2 with Kid Mode |
+| Anti-uninstall / device admin in v1 | Uninstall-resets-streak is by design; defending against the user's own uninstall is parental-control territory (deferred) |
+| Per-app daily quota limits | Quotas are a scheduling-product model (e.g., RescueTime); per-item schedules (LIST-09) cover the v1 user need without quota math |
 | `SYSTEM_ALERT_WINDOW` overlay UI | Architecture decision: pause UI is FlutterActivity; avoids overlay restrictions and Play scrutiny |
 | `QUERY_ALL_PACKAGES` permission | `<queries>` element with LAUNCHER intent filter is sufficient and Play-policy-friendly |
 | **Anti-feature: Social / leaderboards / streak sharing** | Solo focus is part of the wedge; explicitly not built |
 | **Anti-feature: Gamification (points, badges, coins, levels, mascots)** | Streak is the only reinforcement; gamification undermines the mindfulness frame |
 | **Anti-feature: AI / LLM coaching chatbot** | Reason note + check-in does the same job without external dependencies or trust complications |
 | **Anti-feature: Whitelisting / "allowed lists" / positive habit tracking** | Product is purely about avoidance; positive tracking is a different product |
-| **Anti-feature: Scheduled blocking / per-app daily limits** | Continuous avoidance with per-launch reflection is the wedge; scheduling is a different model |
+| **Anti-feature: Scheduling enabled by DEFAULT** | Always-on remains the default for new entries; per-item schedules (LIST-09) are opt-in only, added 2026-05-05 |
 | **Anti-feature: Uninstall protection / device admin** | Self-discipline framing — uninstall-resets-streak is by design |
 | **Anti-feature: Streak freeze / vacation mode** | Honest streaks; "incomplete data" markers are the right answer |
 | **Anti-feature: Math problems / typing tasks as bypass** | Soft-block + cooldown is enough; gimmicks undermine the mindful frame |
@@ -178,6 +186,8 @@ Mapped by gsd-roadmapper on 2026-04-27. Every v1 REQ-ID maps to exactly one phas
 | LIST-05 | Phase 2 | Pending |
 | LIST-06 | Phase 2 | Pending |
 | LIST-07 | Phase 2 | Pending |
+| LIST-08 | Phase 2 | Pending |
+| LIST-09 | Phase 2 | Pending |
 | ONBD-01 | Phase 2 | Pending |
 | ONBD-02 | Phase 2 | Pending |
 | ONBD-03 | Phase 2 | Pending |
@@ -193,6 +203,8 @@ Mapped by gsd-roadmapper on 2026-04-27. Every v1 REQ-ID maps to exactly one phas
 | PAUS-06 | Phase 4 | Pending |
 | PAUS-07 | Phase 4 | Pending |
 | PAUS-08 | Phase 4 | Pending |
+| PAUS-09 | Phase 4 | Pending |
+| PAUS-10 | Phase 4 | Pending |
 | DASH-01 | Phase 3 | Pending |
 | DASH-02 | Phase 3 | Pending |
 | DASH-03 | Phase 3 | Pending |
@@ -208,6 +220,7 @@ Mapped by gsd-roadmapper on 2026-04-27. Every v1 REQ-ID maps to exactly one phas
 | STRK-06 | Phase 5 | Pending |
 | STRK-07 | Phase 5 | Pending |
 | STRK-08 | Phase 5 | Pending |
+| STRK-09 | Phase 5 | Pending |
 | NOTF-01 | Phase 5 | Pending |
 | NOTF-02 | Phase 5 | Pending |
 | NOTF-03 | Phase 5 | Pending |
@@ -236,11 +249,11 @@ Mapped by gsd-roadmapper on 2026-04-27. Every v1 REQ-ID maps to exactly one phas
 | REL-05 | Phase 1 | Pending |
 
 **Coverage:**
-- v1 requirements: 63 total (LIST 7, ONBD 7, PAUS 8, DASH 7, STRK 8, NOTF 7, SETT 5, PLAY 9, REL 5)
-- Mapped to phases: 63 ✓
+- v1 requirements: 68 total (LIST 9, ONBD 7, PAUS 10, DASH 7, STRK 9, NOTF 7, SETT 5, PLAY 9, REL 5)
+- Mapped to phases: 68 ✓
 - Unmapped: 0
-- By phase: Phase 1 = 9, Phase 2 = 17, Phase 3 = 7, Phase 4 = 10, Phase 5 = 15, Phase 6 = 5
+- By phase: Phase 1 = 9, Phase 2 = 19, Phase 3 = 7, Phase 4 = 12, Phase 5 = 16, Phase 6 = 5
 
 ---
 *Requirements defined: 2026-04-27*
-*Last updated: 2026-04-27 — traceability filled by gsd-roadmapper*
+*Last updated: 2026-05-05 — added LIST-08/09, PAUS-09/10, STRK-09 (hard-block + schedules per /gsd-discuss-phase 2)*

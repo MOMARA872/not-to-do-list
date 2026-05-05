@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A mindfulness-based Android app that helps adults stick to user-defined avoidance goals — apps and habits they explicitly want to NOT do. Combines a "Not-To-Do List" with screen-time tracking and a soft-block-with-timer pause screen ("Do you really need it now?") that interrupts the impulse moment without forcing a hard block. v1 ships as a standalone, on-device, account-free Android app for self-disciplined adults.
+A self-control Android app for adults who want to stop themselves from opening specific apps and slipping into specific habits. The default mode is mindful: a "Not-To-Do List" + screen-time tracking + a soft-block-with-cooldown pause screen ("Do you really need it now?"). Each entry can additionally be set to **hard-block** (no override during cooldown) or to a **time-of-day schedule** (only active during the user's chosen window) — both opt-in per entry. v1 ships as a standalone, on-device, account-free Android app. **Adult self-control only — kid mode, parent PIN, content filtering, and parental controls remain deferred to later milestones.**
 
 ## Core Value
 
@@ -24,6 +24,8 @@ When a user opens an app on their not-to-do list, the pause screen + cooldown ti
 - [ ] User can build a not-to-do list of **habits** to avoid (self-report only — no system blocking)
 - [ ] App intercepts launches of blocked apps with a "Do you really need it now?" pause screen
 - [ ] User can pick a cooldown timer (1 / 3 / 5 / 10 min) on the pause screen; app auto-closes when the timer ends
+- [ ] User can mark an entry as **hard-block** mode (per-item opt-in) — pause screen omits "Use anyway"; cooldown still applies
+- [ ] User can set a per-item **time-of-day schedule** (e.g., 10pm–6am, weekdays) — entry intercepts launches only inside the active window
 - [ ] App tracks per-app screen time using Android `UsageStatsManager`
 - [ ] User sees daily / weekly / monthly screen-time dashboard, with not-to-do app time highlighted
 - [ ] Streak auto-breaks if usage on a blocked app exceeds a threshold; user also self-reports daily
@@ -41,16 +43,19 @@ When a user opens an app on their not-to-do list, the pause screen + cooldown ti
 - **Website blocking** — requires built-in browser, VPN-DNS filter, or fragile per-browser hooks; +2–4 weeks and invasive perms; deferred
 - **Content-type filtering (18+, gambling, violence)** — needs paid categorization API (e.g., CleanBrowsing) or weak self-hosted blocklists; conflicts with free/OSS budget; deferred to Milestone 2
 - **Kid Mode** — depends on content filter + parental PIN; deferred to Milestone 2
+- **Parent PIN / parental Settings lock** — multi-user model belongs with Kid Mode; deferred to Milestone 2
 - **Parental dashboard / remote control / email reports** — needs multi-device + backend; deferred to Milestone 3
 - **Premium / subscription / IAP** — v1 is free for validation; monetization deferred
 - **Social features, leaderboards, streak sharing** — explicitly excluded as an anti-feature; solo focus is part of the wedge
 - **Gamification (points, badges, coins, levels)** — explicitly excluded; the streak is the only reinforcement
 - **AI / LLM coaching chatbot** — explicitly excluded; we are not building an accountability chatbot
 - **Whitelisting / "allowed" lists / positive habit tracking** — explicitly excluded; product is purely about avoidance, not goal tracking
+- **Per-app daily quota limits** — different from per-item schedules; quotas-as-default belong to scheduling-product territory, not adult self-control
+- **Anti-uninstall / device admin** — uninstall-resets-streak is by design; defending against the user's own uninstall is parental-control territory (deferred)
 
 ## Context
 
-**The wedge.** The differentiator vs Apple Screen Time / Bark / Qustodio is that **the user defines their own avoidance goals** — not a generic block list. The "Not-To-Do" framing makes this an opt-in mindfulness tool, not a punitive parental control. v1 is positioned for self-disciplined adults; Kid Mode + parental dashboard are deliberate later milestones.
+**The wedge.** The differentiator vs Apple Screen Time / Bark / Qustodio is that **the user defines their own avoidance goals** — not a generic block list. v1 is positioned for **adult self-control**: soft-block + cooldown is the default behavior, hard-block and schedules are per-item opt-ins for users who want stricter discipline. The product is NOT parental control — Kid Mode, Parent PIN, and content filtering are deferred to Milestone 2 with their own product story.
 
 **Build context.** Solo developer, full-time, targeting v1 in 6–12 weeks. Habit-formation product — success means daily use and streak retention.
 
@@ -76,10 +81,13 @@ When a user opens an app on their not-to-do list, the pause screen + cooldown ti
 | Flutter (over RN / native dual codebase) | Reusable UI layer for future iOS port; native channels for platform APIs | — Pending |
 | No backend in v1 (local-only) | Privacy + zero sign-up friction; aligns with free/OSS budget | — Pending |
 | Apps + Habits categories only | Sites need built-in browser / VPN; content filter needs paid API; defer | — Pending |
-| Soft-block + cooldown timer (not hard block) | "Do you really need it now?" is the magic moment; hard block is anti-mindfulness | — Pending |
+| Soft-block + cooldown is the DEFAULT pause UX | "Do you really need it now?" is the magic moment | — Pending |
+| Hard-block as per-item opt-in (added 2026-05-05) | v1 positioning shifted toward "stronger adult self-control blocker"; users who want stricter discipline can opt in per entry; soft remains the default | — Pending |
+| Time-of-day schedules as per-item opt-in (added 2026-05-05) | Same shift — adult users with concrete time-bound goals (e.g., "no TikTok during work") can opt in per entry; always-on remains the default | — Pending |
 | System-detected + self-reported streak | Self-report alone isn't trustworthy; combined gives honest streaks | — Pending |
 | Daily reminder push notification at user-chosen time | Habit formation needs gentle nudges; user picks time so it isn't intrusive | — Pending |
 | Free v1 (no monetization) | Validate the wedge before building paywall infrastructure | — Pending |
+| **Adult self-control only — NO parental control in v1** (added 2026-05-05) | Kid Mode, Parent PIN, anti-uninstall, content filter belong to a different product surface with stronger Play Store policy review; staying out keeps the v1 audience clear | — Pending |
 
 ## Success Metric (v1, 90 days post-launch)
 
@@ -111,4 +119,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state (users, feedback, metrics)
 
 ---
-*Last updated: 2026-04-27 after initialization*
+*Last updated: 2026-05-05 after /gsd-discuss-phase 2 added hard-block opt-in + per-item schedules to v1 scope*
