@@ -1,10 +1,11 @@
 ---
 phase: 1
 slug: foundation-play-declaration
-status: draft
-nyquist_compliant: false
-wave_0_complete: false
+status: complete
+nyquist_compliant: true
+wave_0_complete: true
 created: 2026-04-27
+completed: 2026-04-26
 ---
 
 # Phase 1 — Validation Strategy
@@ -40,20 +41,20 @@ created: 2026-04-27
 
 | Task ID | Plan | Wave | Requirement | Threat Ref | Secure Behavior | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|------------|-----------------|-----------|-------------------|-------------|--------|
-| 1-01-01 | 01 | 0 | (env) | — | Toolchain present | shell | `flutter --version && java -version && sdkmanager --list` | ❌ Wave 0 | ⬜ |
-| 1-01-02 | 01 | 1 | PLAY-04 | — | `<queries>` element + LAUNCHER intent filter; no `QUERY_ALL_PACKAGES` | static | `grep -q '<queries>' android/app/src/main/AndroidManifest.xml && ! grep -q 'QUERY_ALL_PACKAGES' android/app/src/main/AndroidManifest.xml` | ❌ Wave 0 | ⬜ |
-| 1-01-03 | 01 | 1 | PLAY-05 | — | Manifest excludes `SYSTEM_ALERT_WINDOW`; PauseActivity is FlutterActivity (declared but stub) | static | `! grep -q 'SYSTEM_ALERT_WINDOW' android/app/src/main/AndroidManifest.xml` | ❌ Wave 0 | ⬜ |
-| 1-01-04 | 01 | 1 | PLAY-01 | — | A11y config XML sets `isAccessibilityTool="false"` | static | `grep -q 'isAccessibilityTool="false"' android/app/src/main/res/xml/notTodo_a11y_config.xml` | ❌ Wave 0 | ⬜ |
-| 1-01-05 | 01 | 1 | PLAY-03 | — | Event types scoped to `typeWindowStateChanged` only | static | `grep -q 'accessibilityEventTypes="typeWindowStateChanged"' android/app/src/main/res/xml/notTodo_a11y_config.xml && ! grep -qE 'typeAllMask\|typeViewClicked\|typeViewFocused\|canPerformGestures\|canRetrieveWindowContent\|flagRequestFilterKeyEvents' android/app/src/main/res/xml/notTodo_a11y_config.xml` | ❌ Wave 0 | ⬜ |
-| 1-02-01 | 02 | 1 | (foundation) | — | Drift schema compiles | unit | `flutter test test/data/database/app_database_test.dart` | ❌ Wave 0 | ⬜ |
-| 1-02-02 | 02 | 1 | (foundation) | — | Round-trip test passes (insert → query → assert) | unit | `flutter test test/data/database/app_database_test.dart -r expanded` | ❌ Wave 0 | ⬜ |
-| 1-03-01 | 03 | 1 | PLAY-02 | — | `BlockedAppDetector` interface has no `performAction`/`dispatchGesture`/`performGlobalAction` | static | `! grep -qE 'performAction\|dispatchGesture\|performGlobalAction' lib/domain/providers/blocked_app_detector.dart` | ❌ Wave 0 | ⬜ |
-| 1-03-02 | 03 | 1 | REL-05 | — | Riverpod selector switches concrete type when flag flips | unit | `flutter test test/domain/providers/blocked_app_detector_provider_test.dart` | ❌ Wave 0 | ⬜ |
-| 1-04-01 | 04 | 1 | PLAY-07 | — | `docs/play-declaration.md` exists, non-empty | static | `test -s docs/play-declaration.md` | ❌ Wave 0 | ⬜ |
-| 1-04-02 | 04 | 1 | PLAY-09 | — | `docs/data-safety.md` exists, declares zero collection | static | `test -s docs/data-safety.md && grep -q "no data collected\|Data Collected: None" docs/data-safety.md` | ❌ Wave 0 | ⬜ |
-| 1-04-03 | 04 | 1 | PLAY-09, SETT-03 | — | No telemetry / FCM / analytics SDKs in dep tree | static | `! flutter pub deps \| grep -iE "firebase\|fcm\|analytics\|crashlytics\|amplitude\|mixpanel\|segment"` | ❌ Wave 0 | ⬜ |
-| 1-04-04 | 04 | 1 | SETT-03 | — | No `INTERNET` permission in manifest | static | `! grep -q 'android.permission.INTERNET' android/app/src/main/AndroidManifest.xml` | ❌ Wave 0 | ⬜ |
-| 1-05-01 | 05 | 2 | (foundation) | — | App boots to empty home in debug build | shell | `flutter build apk --debug` | ❌ Wave 0 | ⬜ |
+| 1-01-01 | 01 | 0 | (env) | — | Toolchain present | shell | `flutter --version && java -version && sdkmanager --list` | ✅ | ✅ |
+| 1-01-02 | 01 | 1 | PLAY-04 | — | `<queries>` element + LAUNCHER intent filter; no `QUERY_ALL_PACKAGES` | static | `grep -q '<queries>' android/app/src/main/AndroidManifest.xml && ! grep -q 'QUERY_ALL_PACKAGES' android/app/src/main/AndroidManifest.xml` | ✅ | ✅ |
+| 1-01-03 | 01 | 1 | PLAY-05 | — | Manifest excludes `SYSTEM_ALERT_WINDOW`; PauseActivity is FlutterActivity (declared but stub) | static | `! grep -q 'SYSTEM_ALERT_WINDOW' android/app/src/main/AndroidManifest.xml` | ✅ | ✅ |
+| 1-01-04 | 01 | 1 | PLAY-01 | — | A11y config XML sets `isAccessibilityTool="false"` | static | `grep -q 'isAccessibilityTool="false"' android/app/src/main/res/xml/not_todo_a11y_config.xml` | ✅ | ✅ |
+| 1-01-05 | 01 | 1 | PLAY-03 | — | Event types scoped to `typeWindowStateChanged` only | static | `grep -q 'accessibilityEventTypes="typeWindowStateChanged"' android/app/src/main/res/xml/not_todo_a11y_config.xml && ! grep -qE 'typeAllMask\|typeViewClicked\|typeViewFocused\|canPerformGestures\|canRetrieveWindowContent\|flagRequestFilterKeyEvents' android/app/src/main/res/xml/not_todo_a11y_config.xml` | ✅ | ✅ |
+| 1-02-01 | 02 | 1 | (foundation) | — | Drift schema compiles | unit | `flutter test test/data/database/app_database_test.dart` | ✅ | ✅ |
+| 1-02-02 | 02 | 1 | (foundation) | — | Round-trip test passes (insert → query → assert) | unit | `flutter test test/data/database/app_database_test.dart -r expanded` | ✅ | ✅ |
+| 1-03-01 | 03 | 1 | PLAY-02 | — | `BlockedAppDetector` interface has no `performAction`/`dispatchGesture`/`performGlobalAction` | static | `! grep -qE 'performAction\|dispatchGesture\|performGlobalAction' lib/domain/blocked_app_detector.dart` | ✅ | ✅ |
+| 1-03-02 | 03 | 1 | REL-05 | — | Riverpod selector switches concrete type when flag flips | unit | `flutter test test/domain/providers/blocked_app_detector_provider_test.dart` | ✅ | ✅ |
+| 1-04-01 | 04 | 1 | PLAY-07 | — | `docs/play-declaration.md` exists, non-empty | static | `test -s docs/play-declaration.md` | ✅ | ✅ |
+| 1-04-02 | 04 | 1 | PLAY-09 | — | `docs/data-safety.md` exists, declares zero collection | static | `test -s docs/data-safety.md && grep -q "no data collected\|Data Collected: None" docs/data-safety.md` | ✅ | ✅ |
+| 1-04-03 | 04 | 1 | PLAY-09, SETT-03 | — | No telemetry / FCM / analytics SDKs in dep tree | static | `! flutter pub deps \| grep -iE "firebase\|fcm\|analytics\|crashlytics\|amplitude\|mixpanel\|segment"` | ✅ | ✅ |
+| 1-04-04 | 04 | 1 | SETT-03 | — | No `INTERNET` permission in manifest | static | `! grep -q 'android.permission.INTERNET' android/app/src/main/AndroidManifest.xml` | ✅ | ✅ |
+| 1-05-01 | 05 | 2 | (foundation) | — | App boots to empty home in debug build | shell | `flutter build apk --debug` | ✅ | ✅ |
 
 ---
 
@@ -87,4 +88,4 @@ created: 2026-04-27
 - [ ] Feedback latency < 30 s for the quick command
 - [ ] `nyquist_compliant: true` set in frontmatter once planner finishes and all task IDs above are filled in
 
-**Approval:** pending
+**Approval:** granted (auto) — 2026-04-26 — V1–V14 + SETT-03 all green; `flutter build apk --debug` produced `build/app/outputs/flutter-apk/app-debug.apk` (171.6 MB).

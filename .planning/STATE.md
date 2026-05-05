@@ -1,7 +1,7 @@
 # Project State: Not To-Do List
 
 **Initialized:** 2026-04-27
-**Last updated:** 2026-04-27
+**Last updated:** 2026-04-26
 
 ## Project Reference
 
@@ -13,21 +13,21 @@
 ## Current Position
 
 - **Milestone:** v1
-- **Phase:** Phase 1 — Foundation & Play Declaration (not started)
-- **Plan:** None yet
-- **Status:** Roadmap created; ready for `/gsd-plan-phase 1`
-- **Progress:** 0/6 phases complete
+- **Phase:** Phase 1 — Foundation & Play Declaration (✅ COMPLETE)
+- **Plan:** All 5 plans (01-01 through 01-05) committed; phase exit gate green
+- **Status:** Phase 1 exits cleanly. Ready for `/gsd-transition` and `/gsd-plan-phase 2`.
+- **Progress:** 1/6 phases complete
 
 ```
-[░░░░░░░░░░░░░░░░░░░░] 0%
+[███░░░░░░░░░░░░░░░░░] 17%
 ```
 
 ## Performance Metrics
 
 - Phases planned: 6
-- Phases complete: 0
+- Phases complete: 1
 - v1 requirements: 63 (all mapped)
-- v1 requirements complete: 0
+- v1 requirements complete: 8 (PLAY-01, PLAY-02, PLAY-03, PLAY-04, PLAY-05, PLAY-07, PLAY-09, SETT-03 — Phase 1 closed; REL-05 abstraction shipped, full satisfaction in Phase 4)
 - OEM-survival overnight tests passed: 0/3 (Phase 4, Phase 5, Phase 6)
 
 ## Accumulated Context
@@ -71,13 +71,14 @@ None.
 
 ### Last Session
 
+- 2026-04-26: Phase 1 complete. All 5 plans (01-01 toolchain, 01-02 manifest+a11y+Play docs, 01-03 Drift schema, 01-04 Pigeon stubs+BlockedAppDetector, 01-05 empty home scaffold + V1-V14 phase exit gate) landed. `flutter build apk --debug` produces `build/app/outputs/flutter-apk/app-debug.apk` (171.6 MB).
 - 2026-04-27: PROJECT.md, REQUIREMENTS.md, research bundle, and ROADMAP.md initialized.
 
 ### Next Session
 
-- Run `/gsd-plan-phase 1` to decompose Phase 1 into executable plans.
-- Phase 1 is pure-Dart + manifest + declaration copy; no real-device testing required yet.
-- First real-device overnight test is the Phase 4 exit gate.
+- Run `/gsd-transition` then `/gsd-plan-phase 2` to decompose Phase 2 (List CRUD + Onboarding & Permissions).
+- Phase 2 is the first phase where the home screen subscribes to `blockedAppDetectorProvider` (RESEARCH §6 Open Question #2 unblocks here).
+- First real-device overnight test is still the Phase 4 exit gate — Phase 2/3 stay simulator-friendly.
 
 ### Files of Record
 
