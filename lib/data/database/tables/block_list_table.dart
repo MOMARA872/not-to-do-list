@@ -13,6 +13,13 @@ class BlockList extends Table {
   DateTimeColumn get createdAt => dateTime()();
   DateTimeColumn get updatedAt => dateTime()();
 
+  // Phase 2 additions
+  TextColumn get blockMode =>
+      text().withDefault(const Constant('soft'))();
+  IntColumn get scheduleStartMinutes => integer().nullable()();
+  IntColumn get scheduleEndMinutes => integer().nullable()();
+  IntColumn get scheduleWeekdayMask => integer().nullable()();
+
   @override
   List<Set<Column>> get uniqueKeys => [
         // Same package can appear at most once for an app entry.

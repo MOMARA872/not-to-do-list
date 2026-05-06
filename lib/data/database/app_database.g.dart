@@ -63,6 +63,32 @@ class $BlockListTable extends BlockList
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
       'updated_at', aliasedName, false,
       type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _blockModeMeta =
+      const VerificationMeta('blockMode');
+  @override
+  late final GeneratedColumn<String> blockMode = GeneratedColumn<String>(
+      'block_mode', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant('soft'));
+  static const VerificationMeta _scheduleStartMinutesMeta =
+      const VerificationMeta('scheduleStartMinutes');
+  @override
+  late final GeneratedColumn<int> scheduleStartMinutes = GeneratedColumn<int>(
+      'schedule_start_minutes', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _scheduleEndMinutesMeta =
+      const VerificationMeta('scheduleEndMinutes');
+  @override
+  late final GeneratedColumn<int> scheduleEndMinutes = GeneratedColumn<int>(
+      'schedule_end_minutes', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _scheduleWeekdayMaskMeta =
+      const VerificationMeta('scheduleWeekdayMask');
+  @override
+  late final GeneratedColumn<int> scheduleWeekdayMask = GeneratedColumn<int>(
+      'schedule_weekday_mask', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -72,7 +98,11 @@ class $BlockListTable extends BlockList
         reasonNote,
         streakBreakThresholdMinutes,
         createdAt,
-        updatedAt
+        updatedAt,
+        blockMode,
+        scheduleStartMinutes,
+        scheduleEndMinutes,
+        scheduleWeekdayMask
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -132,6 +162,28 @@ class $BlockListTable extends BlockList
     } else if (isInserting) {
       context.missing(_updatedAtMeta);
     }
+    if (data.containsKey('block_mode')) {
+      context.handle(_blockModeMeta,
+          blockMode.isAcceptableOrUnknown(data['block_mode']!, _blockModeMeta));
+    }
+    if (data.containsKey('schedule_start_minutes')) {
+      context.handle(
+          _scheduleStartMinutesMeta,
+          scheduleStartMinutes.isAcceptableOrUnknown(
+              data['schedule_start_minutes']!, _scheduleStartMinutesMeta));
+    }
+    if (data.containsKey('schedule_end_minutes')) {
+      context.handle(
+          _scheduleEndMinutesMeta,
+          scheduleEndMinutes.isAcceptableOrUnknown(
+              data['schedule_end_minutes']!, _scheduleEndMinutesMeta));
+    }
+    if (data.containsKey('schedule_weekday_mask')) {
+      context.handle(
+          _scheduleWeekdayMaskMeta,
+          scheduleWeekdayMask.isAcceptableOrUnknown(
+              data['schedule_weekday_mask']!, _scheduleWeekdayMaskMeta));
+    }
     return context;
   }
 
@@ -162,6 +214,14 @@ class $BlockListTable extends BlockList
           .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
       updatedAt: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+      blockMode: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}block_mode'])!,
+      scheduleStartMinutes: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}schedule_start_minutes']),
+      scheduleEndMinutes: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}schedule_end_minutes']),
+      scheduleWeekdayMask: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}schedule_weekday_mask']),
     );
   }
 
@@ -180,6 +240,10 @@ class BlockListData extends DataClass implements Insertable<BlockListData> {
   final int streakBreakThresholdMinutes;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final String blockMode;
+  final int? scheduleStartMinutes;
+  final int? scheduleEndMinutes;
+  final int? scheduleWeekdayMask;
   const BlockListData(
       {required this.id,
       required this.kind,
@@ -188,7 +252,11 @@ class BlockListData extends DataClass implements Insertable<BlockListData> {
       required this.reasonNote,
       required this.streakBreakThresholdMinutes,
       required this.createdAt,
-      required this.updatedAt});
+      required this.updatedAt,
+      required this.blockMode,
+      this.scheduleStartMinutes,
+      this.scheduleEndMinutes,
+      this.scheduleWeekdayMask});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -203,6 +271,16 @@ class BlockListData extends DataClass implements Insertable<BlockListData> {
         Variable<int>(streakBreakThresholdMinutes);
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
+    map['block_mode'] = Variable<String>(blockMode);
+    if (!nullToAbsent || scheduleStartMinutes != null) {
+      map['schedule_start_minutes'] = Variable<int>(scheduleStartMinutes);
+    }
+    if (!nullToAbsent || scheduleEndMinutes != null) {
+      map['schedule_end_minutes'] = Variable<int>(scheduleEndMinutes);
+    }
+    if (!nullToAbsent || scheduleWeekdayMask != null) {
+      map['schedule_weekday_mask'] = Variable<int>(scheduleWeekdayMask);
+    }
     return map;
   }
 
@@ -218,6 +296,16 @@ class BlockListData extends DataClass implements Insertable<BlockListData> {
       streakBreakThresholdMinutes: Value(streakBreakThresholdMinutes),
       createdAt: Value(createdAt),
       updatedAt: Value(updatedAt),
+      blockMode: Value(blockMode),
+      scheduleStartMinutes: scheduleStartMinutes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(scheduleStartMinutes),
+      scheduleEndMinutes: scheduleEndMinutes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(scheduleEndMinutes),
+      scheduleWeekdayMask: scheduleWeekdayMask == null && nullToAbsent
+          ? const Value.absent()
+          : Value(scheduleWeekdayMask),
     );
   }
 
@@ -234,6 +322,12 @@ class BlockListData extends DataClass implements Insertable<BlockListData> {
           serializer.fromJson<int>(json['streakBreakThresholdMinutes']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+      blockMode: serializer.fromJson<String>(json['blockMode']),
+      scheduleStartMinutes:
+          serializer.fromJson<int?>(json['scheduleStartMinutes']),
+      scheduleEndMinutes: serializer.fromJson<int?>(json['scheduleEndMinutes']),
+      scheduleWeekdayMask:
+          serializer.fromJson<int?>(json['scheduleWeekdayMask']),
     );
   }
   @override
@@ -249,6 +343,10 @@ class BlockListData extends DataClass implements Insertable<BlockListData> {
           serializer.toJson<int>(streakBreakThresholdMinutes),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
+      'blockMode': serializer.toJson<String>(blockMode),
+      'scheduleStartMinutes': serializer.toJson<int?>(scheduleStartMinutes),
+      'scheduleEndMinutes': serializer.toJson<int?>(scheduleEndMinutes),
+      'scheduleWeekdayMask': serializer.toJson<int?>(scheduleWeekdayMask),
     };
   }
 
@@ -260,7 +358,11 @@ class BlockListData extends DataClass implements Insertable<BlockListData> {
           String? reasonNote,
           int? streakBreakThresholdMinutes,
           DateTime? createdAt,
-          DateTime? updatedAt}) =>
+          DateTime? updatedAt,
+          String? blockMode,
+          Value<int?> scheduleStartMinutes = const Value.absent(),
+          Value<int?> scheduleEndMinutes = const Value.absent(),
+          Value<int?> scheduleWeekdayMask = const Value.absent()}) =>
       BlockListData(
         id: id ?? this.id,
         kind: kind ?? this.kind,
@@ -271,6 +373,16 @@ class BlockListData extends DataClass implements Insertable<BlockListData> {
             streakBreakThresholdMinutes ?? this.streakBreakThresholdMinutes,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
+        blockMode: blockMode ?? this.blockMode,
+        scheduleStartMinutes: scheduleStartMinutes.present
+            ? scheduleStartMinutes.value
+            : this.scheduleStartMinutes,
+        scheduleEndMinutes: scheduleEndMinutes.present
+            ? scheduleEndMinutes.value
+            : this.scheduleEndMinutes,
+        scheduleWeekdayMask: scheduleWeekdayMask.present
+            ? scheduleWeekdayMask.value
+            : this.scheduleWeekdayMask,
       );
   BlockListData copyWithCompanion(BlockListCompanion data) {
     return BlockListData(
@@ -287,6 +399,16 @@ class BlockListData extends DataClass implements Insertable<BlockListData> {
           : this.streakBreakThresholdMinutes,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      blockMode: data.blockMode.present ? data.blockMode.value : this.blockMode,
+      scheduleStartMinutes: data.scheduleStartMinutes.present
+          ? data.scheduleStartMinutes.value
+          : this.scheduleStartMinutes,
+      scheduleEndMinutes: data.scheduleEndMinutes.present
+          ? data.scheduleEndMinutes.value
+          : this.scheduleEndMinutes,
+      scheduleWeekdayMask: data.scheduleWeekdayMask.present
+          ? data.scheduleWeekdayMask.value
+          : this.scheduleWeekdayMask,
     );
   }
 
@@ -300,14 +422,29 @@ class BlockListData extends DataClass implements Insertable<BlockListData> {
           ..write('reasonNote: $reasonNote, ')
           ..write('streakBreakThresholdMinutes: $streakBreakThresholdMinutes, ')
           ..write('createdAt: $createdAt, ')
-          ..write('updatedAt: $updatedAt')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('blockMode: $blockMode, ')
+          ..write('scheduleStartMinutes: $scheduleStartMinutes, ')
+          ..write('scheduleEndMinutes: $scheduleEndMinutes, ')
+          ..write('scheduleWeekdayMask: $scheduleWeekdayMask')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, kind, packageName, displayName,
-      reasonNote, streakBreakThresholdMinutes, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+      id,
+      kind,
+      packageName,
+      displayName,
+      reasonNote,
+      streakBreakThresholdMinutes,
+      createdAt,
+      updatedAt,
+      blockMode,
+      scheduleStartMinutes,
+      scheduleEndMinutes,
+      scheduleWeekdayMask);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -320,7 +457,11 @@ class BlockListData extends DataClass implements Insertable<BlockListData> {
           other.streakBreakThresholdMinutes ==
               this.streakBreakThresholdMinutes &&
           other.createdAt == this.createdAt &&
-          other.updatedAt == this.updatedAt);
+          other.updatedAt == this.updatedAt &&
+          other.blockMode == this.blockMode &&
+          other.scheduleStartMinutes == this.scheduleStartMinutes &&
+          other.scheduleEndMinutes == this.scheduleEndMinutes &&
+          other.scheduleWeekdayMask == this.scheduleWeekdayMask);
 }
 
 class BlockListCompanion extends UpdateCompanion<BlockListData> {
@@ -332,6 +473,10 @@ class BlockListCompanion extends UpdateCompanion<BlockListData> {
   final Value<int> streakBreakThresholdMinutes;
   final Value<DateTime> createdAt;
   final Value<DateTime> updatedAt;
+  final Value<String> blockMode;
+  final Value<int?> scheduleStartMinutes;
+  final Value<int?> scheduleEndMinutes;
+  final Value<int?> scheduleWeekdayMask;
   const BlockListCompanion({
     this.id = const Value.absent(),
     this.kind = const Value.absent(),
@@ -341,6 +486,10 @@ class BlockListCompanion extends UpdateCompanion<BlockListData> {
     this.streakBreakThresholdMinutes = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
+    this.blockMode = const Value.absent(),
+    this.scheduleStartMinutes = const Value.absent(),
+    this.scheduleEndMinutes = const Value.absent(),
+    this.scheduleWeekdayMask = const Value.absent(),
   });
   BlockListCompanion.insert({
     this.id = const Value.absent(),
@@ -351,6 +500,10 @@ class BlockListCompanion extends UpdateCompanion<BlockListData> {
     this.streakBreakThresholdMinutes = const Value.absent(),
     required DateTime createdAt,
     required DateTime updatedAt,
+    this.blockMode = const Value.absent(),
+    this.scheduleStartMinutes = const Value.absent(),
+    this.scheduleEndMinutes = const Value.absent(),
+    this.scheduleWeekdayMask = const Value.absent(),
   })  : kind = Value(kind),
         displayName = Value(displayName),
         createdAt = Value(createdAt),
@@ -364,6 +517,10 @@ class BlockListCompanion extends UpdateCompanion<BlockListData> {
     Expression<int>? streakBreakThresholdMinutes,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
+    Expression<String>? blockMode,
+    Expression<int>? scheduleStartMinutes,
+    Expression<int>? scheduleEndMinutes,
+    Expression<int>? scheduleWeekdayMask,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -375,6 +532,13 @@ class BlockListCompanion extends UpdateCompanion<BlockListData> {
         'streak_break_threshold_minutes': streakBreakThresholdMinutes,
       if (createdAt != null) 'created_at': createdAt,
       if (updatedAt != null) 'updated_at': updatedAt,
+      if (blockMode != null) 'block_mode': blockMode,
+      if (scheduleStartMinutes != null)
+        'schedule_start_minutes': scheduleStartMinutes,
+      if (scheduleEndMinutes != null)
+        'schedule_end_minutes': scheduleEndMinutes,
+      if (scheduleWeekdayMask != null)
+        'schedule_weekday_mask': scheduleWeekdayMask,
     });
   }
 
@@ -386,7 +550,11 @@ class BlockListCompanion extends UpdateCompanion<BlockListData> {
       Value<String>? reasonNote,
       Value<int>? streakBreakThresholdMinutes,
       Value<DateTime>? createdAt,
-      Value<DateTime>? updatedAt}) {
+      Value<DateTime>? updatedAt,
+      Value<String>? blockMode,
+      Value<int?>? scheduleStartMinutes,
+      Value<int?>? scheduleEndMinutes,
+      Value<int?>? scheduleWeekdayMask}) {
     return BlockListCompanion(
       id: id ?? this.id,
       kind: kind ?? this.kind,
@@ -397,6 +565,10 @@ class BlockListCompanion extends UpdateCompanion<BlockListData> {
           streakBreakThresholdMinutes ?? this.streakBreakThresholdMinutes,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      blockMode: blockMode ?? this.blockMode,
+      scheduleStartMinutes: scheduleStartMinutes ?? this.scheduleStartMinutes,
+      scheduleEndMinutes: scheduleEndMinutes ?? this.scheduleEndMinutes,
+      scheduleWeekdayMask: scheduleWeekdayMask ?? this.scheduleWeekdayMask,
     );
   }
 
@@ -428,6 +600,18 @@ class BlockListCompanion extends UpdateCompanion<BlockListData> {
     if (updatedAt.present) {
       map['updated_at'] = Variable<DateTime>(updatedAt.value);
     }
+    if (blockMode.present) {
+      map['block_mode'] = Variable<String>(blockMode.value);
+    }
+    if (scheduleStartMinutes.present) {
+      map['schedule_start_minutes'] = Variable<int>(scheduleStartMinutes.value);
+    }
+    if (scheduleEndMinutes.present) {
+      map['schedule_end_minutes'] = Variable<int>(scheduleEndMinutes.value);
+    }
+    if (scheduleWeekdayMask.present) {
+      map['schedule_weekday_mask'] = Variable<int>(scheduleWeekdayMask.value);
+    }
     return map;
   }
 
@@ -441,7 +625,11 @@ class BlockListCompanion extends UpdateCompanion<BlockListData> {
           ..write('reasonNote: $reasonNote, ')
           ..write('streakBreakThresholdMinutes: $streakBreakThresholdMinutes, ')
           ..write('createdAt: $createdAt, ')
-          ..write('updatedAt: $updatedAt')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('blockMode: $blockMode, ')
+          ..write('scheduleStartMinutes: $scheduleStartMinutes, ')
+          ..write('scheduleEndMinutes: $scheduleEndMinutes, ')
+          ..write('scheduleWeekdayMask: $scheduleWeekdayMask')
           ..write(')'))
         .toString();
   }
@@ -1908,6 +2096,10 @@ typedef $$BlockListTableCreateCompanionBuilder = BlockListCompanion Function({
   Value<int> streakBreakThresholdMinutes,
   required DateTime createdAt,
   required DateTime updatedAt,
+  Value<String> blockMode,
+  Value<int?> scheduleStartMinutes,
+  Value<int?> scheduleEndMinutes,
+  Value<int?> scheduleWeekdayMask,
 });
 typedef $$BlockListTableUpdateCompanionBuilder = BlockListCompanion Function({
   Value<int> id,
@@ -1918,6 +2110,10 @@ typedef $$BlockListTableUpdateCompanionBuilder = BlockListCompanion Function({
   Value<int> streakBreakThresholdMinutes,
   Value<DateTime> createdAt,
   Value<DateTime> updatedAt,
+  Value<String> blockMode,
+  Value<int?> scheduleStartMinutes,
+  Value<int?> scheduleEndMinutes,
+  Value<int?> scheduleWeekdayMask,
 });
 
 final class $$BlockListTableReferences
@@ -2003,6 +2199,21 @@ class $$BlockListTableFilterComposer
 
   ColumnFilters<DateTime> get updatedAt => $composableBuilder(
       column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get blockMode => $composableBuilder(
+      column: $table.blockMode, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get scheduleStartMinutes => $composableBuilder(
+      column: $table.scheduleStartMinutes,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get scheduleEndMinutes => $composableBuilder(
+      column: $table.scheduleEndMinutes,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get scheduleWeekdayMask => $composableBuilder(
+      column: $table.scheduleWeekdayMask,
+      builder: (column) => ColumnFilters(column));
 
   Expression<bool> dailyStreakRefs(
       Expression<bool> Function($$DailyStreakTableFilterComposer f) f) {
@@ -2101,6 +2312,21 @@ class $$BlockListTableOrderingComposer
 
   ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
       column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get blockMode => $composableBuilder(
+      column: $table.blockMode, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get scheduleStartMinutes => $composableBuilder(
+      column: $table.scheduleStartMinutes,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get scheduleEndMinutes => $composableBuilder(
+      column: $table.scheduleEndMinutes,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get scheduleWeekdayMask => $composableBuilder(
+      column: $table.scheduleWeekdayMask,
+      builder: (column) => ColumnOrderings(column));
 }
 
 class $$BlockListTableAnnotationComposer
@@ -2135,6 +2361,18 @@ class $$BlockListTableAnnotationComposer
 
   GeneratedColumn<DateTime> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<String> get blockMode =>
+      $composableBuilder(column: $table.blockMode, builder: (column) => column);
+
+  GeneratedColumn<int> get scheduleStartMinutes => $composableBuilder(
+      column: $table.scheduleStartMinutes, builder: (column) => column);
+
+  GeneratedColumn<int> get scheduleEndMinutes => $composableBuilder(
+      column: $table.scheduleEndMinutes, builder: (column) => column);
+
+  GeneratedColumn<int> get scheduleWeekdayMask => $composableBuilder(
+      column: $table.scheduleWeekdayMask, builder: (column) => column);
 
   Expression<T> dailyStreakRefs<T extends Object>(
       Expression<T> Function($$DailyStreakTableAnnotationComposer a) f) {
@@ -2232,6 +2470,10 @@ class $$BlockListTableTableManager extends RootTableManager<
             Value<int> streakBreakThresholdMinutes = const Value.absent(),
             Value<DateTime> createdAt = const Value.absent(),
             Value<DateTime> updatedAt = const Value.absent(),
+            Value<String> blockMode = const Value.absent(),
+            Value<int?> scheduleStartMinutes = const Value.absent(),
+            Value<int?> scheduleEndMinutes = const Value.absent(),
+            Value<int?> scheduleWeekdayMask = const Value.absent(),
           }) =>
               BlockListCompanion(
             id: id,
@@ -2242,6 +2484,10 @@ class $$BlockListTableTableManager extends RootTableManager<
             streakBreakThresholdMinutes: streakBreakThresholdMinutes,
             createdAt: createdAt,
             updatedAt: updatedAt,
+            blockMode: blockMode,
+            scheduleStartMinutes: scheduleStartMinutes,
+            scheduleEndMinutes: scheduleEndMinutes,
+            scheduleWeekdayMask: scheduleWeekdayMask,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
@@ -2252,6 +2498,10 @@ class $$BlockListTableTableManager extends RootTableManager<
             Value<int> streakBreakThresholdMinutes = const Value.absent(),
             required DateTime createdAt,
             required DateTime updatedAt,
+            Value<String> blockMode = const Value.absent(),
+            Value<int?> scheduleStartMinutes = const Value.absent(),
+            Value<int?> scheduleEndMinutes = const Value.absent(),
+            Value<int?> scheduleWeekdayMask = const Value.absent(),
           }) =>
               BlockListCompanion.insert(
             id: id,
@@ -2262,6 +2512,10 @@ class $$BlockListTableTableManager extends RootTableManager<
             streakBreakThresholdMinutes: streakBreakThresholdMinutes,
             createdAt: createdAt,
             updatedAt: updatedAt,
+            blockMode: blockMode,
+            scheduleStartMinutes: scheduleStartMinutes,
+            scheduleEndMinutes: scheduleEndMinutes,
+            scheduleWeekdayMask: scheduleWeekdayMask,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (
