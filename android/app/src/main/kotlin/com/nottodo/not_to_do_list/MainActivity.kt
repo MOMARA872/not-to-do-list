@@ -1,6 +1,8 @@
 package com.nottodo.not_to_do_list
 
 import com.nottodo.not_to_do_list.platform.AccessibilityApi
+import com.nottodo.not_to_do_list.platform.AppPickerApi
+import com.nottodo.not_to_do_list.platform.AppPickerHostImpl
 import com.nottodo.not_to_do_list.platform.NotificationApi
 import com.nottodo.not_to_do_list.platform.UsageApi
 import com.nottodo.not_to_do_list.platform.UsagePackageStat
@@ -11,8 +13,8 @@ class MainActivity : FlutterActivity() {
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
 
-        // Phase 1 wires UNIMPLEMENTED stubs so the app compiles and runs.
-        // Phase 3/4/5 will replace each setUp() with a real implementation.
+        // Phase 2 wires AppPickerApi + PermissionStatusApi as real impls;
+        // Phase 3/4/5 will replace UsageApi/NotificationApi.
 
         UsageApi.setUp(flutterEngine.dartExecutor.binaryMessenger, object : UsageApi {
             override fun queryRange(
@@ -23,6 +25,11 @@ class MainActivity : FlutterActivity() {
                 callback(Result.failure(NotImplementedError("UsageApi: implemented in Phase 3")))
             }
         })
+
+        AppPickerApi.setUp(
+            flutterEngine.dartExecutor.binaryMessenger,
+            AppPickerHostImpl(applicationContext),
+        )
 
         AccessibilityApi.setUp(flutterEngine.dartExecutor.binaryMessenger, object : AccessibilityApi {
             override fun isServiceEnabled(callback: (Result<Boolean>) -> Unit) {
