@@ -1,19 +1,7 @@
 // Phase 2 shared fixture: mock PermissionStatusApi for funnel + banner tests.
-// TODO(02-03): replace the local abstract below with
-//   import 'package:not_to_do_list/platform/permission_status_api.g.dart';
-// once Plan 02-03 lands the Pigeon codegen output.
+// Bound to real PermissionStatusApi from Plan 02-03.
 import 'package:mocktail/mocktail.dart';
-
-abstract class PermissionStatusApi {
-  Future<bool> isUsageAccessGranted();
-  Future<bool> isAccessibilityServiceEnabled();
-  Future<bool> isIgnoringBatteryOptimizations();
-  Future<String> currentBuildFingerprint();
-  Future<String> currentManufacturer();
-  Future<void> openUsageAccessSettings();
-  Future<void> openAccessibilitySettings();
-  Future<void> openBatteryOptSettings();
-}
+import 'package:not_to_do_list/platform/permission_status_api.g.dart';
 
 class MockPermissionStatusApi extends Mock implements PermissionStatusApi {}
 
