@@ -1,3 +1,17 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: executing
+last_updated: "2026-05-06T22:00:00.000Z"
+progress:
+  total_phases: 6
+  completed_phases: 1
+  total_plans: 15
+  completed_plans: 6
+  percent: 40
+---
+
 # Project State: Not To-Do List
 
 **Initialized:** 2026-04-27
@@ -12,14 +26,17 @@
 
 ## Current Position
 
+Phase: 02 (list-crud-onboarding-permissions) — EXECUTING
+Plan: 2 of 10 (Plan 02-01 ✅ complete; Wave 0 test-surface lock-in landed)
+
 - **Milestone:** v1
 - **Phase:** Phase 1 — Foundation & Play Declaration (✅ COMPLETE)
-- **Plan:** All 5 plans (01-01 through 01-05) committed; phase exit gate green
-- **Status:** Phase 1 exits cleanly. Ready for `/gsd-transition` and `/gsd-plan-phase 2`.
-- **Progress:** 1/6 phases complete
+- **Plan:** Phase 2 Plan 02-01 complete — 20 stub test files + Drift v1 schema fixture + shared mocktail fixture committed (7bb8eba, f835841, 1e9c76e). Test surface locked before any production code lands.
+- **Status:** Executing Phase 02
+- **Progress:** 1/6 phases complete; 6/15 plans complete
 
 ```
-[███░░░░░░░░░░░░░░░░░] 17%
+[████░░░░░░░░░░░░░░░░] 17%
 ```
 
 ## Performance Metrics
@@ -73,10 +90,11 @@ None.
 
 - 2026-04-26: Phase 1 complete. All 5 plans (01-01 toolchain, 01-02 manifest+a11y+Play docs, 01-03 Drift schema, 01-04 Pigeon stubs+BlockedAppDetector, 01-05 empty home scaffold + V1-V14 phase exit gate) landed. `flutter build apk --debug` produces `build/app/outputs/flutter-apk/app-debug.apk` (171.6 MB).
 - 2026-04-27: PROJECT.md, REQUIREMENTS.md, research bundle, and ROADMAP.md initialized.
+- 2026-05-06: Phase 2 Plan 02-01 (Wave 0) complete. Stubbed 20 test files (16 from VALIDATION.md + 4 from PATTERNS.md File Inventory), captured Drift v1 schema fixture at `drift_schemas/drift_schema_v1.json` (8 columns, no v2 cols), and added shared `MockPermissionStatusApi` fixture at `test/_fixtures/permission_status_mock.dart`. `flutter test` passes (+6 ~32). Test surface for Phase 2 is locked.
 
 ### Next Session
 
-- Run `/gsd-transition` then `/gsd-plan-phase 2` to decompose Phase 2 (List CRUD + Onboarding & Permissions).
+- Execute Plan 02-02 (Drift v1→v2 migration: add `block_mode` + `schedule_*` columns to `block_list`, fill `migration_v1_to_v2_test.dart` against `drift_schemas/drift_schema_v1.json`).
 - Phase 2 is the first phase where the home screen subscribes to `blockedAppDetectorProvider` (RESEARCH §6 Open Question #2 unblocks here).
 - First real-device overnight test is still the Phase 4 exit gate — Phase 2/3 stay simulator-friendly.
 

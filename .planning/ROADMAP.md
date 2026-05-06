@@ -112,7 +112,7 @@
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation & Play Declaration | 0/0 | Not started | - |
-| 2. List CRUD + Onboarding & Permissions | 0/0 | Not started | - |
+| 2. List CRUD + Onboarding & Permissions | 1/10 | In progress | - |
 | 3. Screen-Time Dashboard | 0/0 | Not started | - |
 | 4. Pause UX (the wedge) | 0/0 | Not started | - |
 | 5. Streak Engine & Daily Reminder | 0/0 | Not started | - |
