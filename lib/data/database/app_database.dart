@@ -24,13 +24,18 @@ class AppDatabase extends _$AppDatabase {
   /// Phase 1 = schema 1. Each later phase that adds a table or column bumps
   /// this and supplies a migration step in `migration` below.
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
         onCreate: (m) => m.createAll(),
         onUpgrade: (m, from, to) async {
-          // No upgrades yet — schema is at version 1.
+          if (from < 2) {
+            await m.addColumn(blockList, blockList.blockMode);
+            await m.addColumn(blockList, blockList.scheduleStartMinutes);
+            await m.addColumn(blockList, blockList.scheduleEndMinutes);
+            await m.addColumn(blockList, blockList.scheduleWeekdayMask);
+          }
         },
       );
 
