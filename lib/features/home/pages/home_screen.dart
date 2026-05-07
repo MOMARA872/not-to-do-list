@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:not_to_do_list/data/database/app_database.dart';
 import 'package:not_to_do_list/domain/providers/block_list_repo_provider.dart';
+import 'package:not_to_do_list/features/health/permission_health_provider.dart';
+import 'package:not_to_do_list/features/health/widgets/health_check_banner.dart';
 import 'package:not_to_do_list/features/home/widgets/block_list_row.dart';
 import 'package:not_to_do_list/features/home/widgets/empty_home_state.dart';
 
@@ -17,9 +19,10 @@ final StreamProvider<List<BlockListData>> _homeEntriesProvider =
 
 /// Surface 4 — unified Apps + Habits home list.
 ///
-/// Pure consumer of [blockListRepoProvider]'s reactive `watchAll()` stream;
-/// no business logic. Plan 02-09 will mount the HealthCheckBanner above
-/// this screen via the router shell, not inside this widget.
+/// Mounts [HealthCheckBanner] above the list in an [AnimatedSwitcher];
+/// the banner is visible iff [PermissionHealth.allHealthy] is false. The
+/// list itself is a pure consumer of [blockListRepoProvider]'s reactive
+/// `watchAll()` stream — no business logic.
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
@@ -27,21 +30,37 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final cs = Theme.of(context).colorScheme;
     final entriesAsync = ref.watch(_homeEntriesProvider);
+    final healthAsync = ref.watch(permissionHealthProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Not To-Do List'),
         centerTitle: false,
       ),
-      body: entriesAsync.when(
-        loading: () => const SizedBox.shrink(),
-        error: (e, _) => Center(child: Text('$e')),
-        data: (entries) {
-          if (entries.isEmpty) return const EmptyHomeState();
-          return ListView.builder(
-            itemCount: entries.length,
-            itemBuilder: (ctx, i) => BlockListRow(entry: entries[i]),
-          );
-        },
+      body: Column(
+        children: [
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 200),
+            child: healthAsync.maybeWhen(
+              data: (h) => h.allHealthy
+                  ? const SizedBox.shrink()
+                  : HealthCheckBanner(health: h),
+              orElse: () => const SizedBox.shrink(),
+            ),
+          ),
+          Expanded(
+            child: entriesAsync.when(
+              loading: () => const SizedBox.shrink(),
+              error: (e, _) => Center(child: Text('$e')),
+              data: (entries) {
+                if (entries.isEmpty) return const EmptyHomeState();
+                return ListView.builder(
+                  itemCount: entries.length,
+                  itemBuilder: (ctx, i) => BlockListRow(entry: entries[i]),
+                );
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
