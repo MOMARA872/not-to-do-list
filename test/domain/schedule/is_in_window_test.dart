@@ -1,117 +1,186 @@
-// Phase 2 Wave 0 stub. Truth-table assertions land in Plan 02-04.
-//
-// Pure-Dart test for `isInScheduleWindow(now, start, end, weekdayMask)` —
-// the contract that gates pause-screen interception (PAUS-10) and streak
-// counting (STRK-09) for entries with an active-window schedule.
-//
-// The 13 rows below are the canonical truth table from
-// 02-RESEARCH.md §Schedule Active-Window Evaluation.
+// Truth-table assertions for `isInScheduleWindow` — the canonical 13 cases
+// from 02-RESEARCH.md §Schedule Active-Window Evaluation. Pure-Dart test:
+// `flutter_test` is here only for `expect`/`group`/`test` plumbing.
 import 'package:flutter_test/flutter_test.dart';
+import 'package:not_to_do_list/domain/schedule/schedule_window.dart';
+
+// Reference dates pinned to known weekdays in May 2026 (verified via
+// DateTime.weekday at file-write time).
+//   2026-05-04  Mon
+//   2026-05-05  Tue
+//   2026-05-06  Wed
+//   2026-05-07  Thu
+//   2026-05-08  Fri
+//   2026-05-09  Sat
+//   2026-05-10  Sun
+DateTime monAt(int hour, int minute) => DateTime(2026, 5, 4, hour, minute);
+DateTime tueAt(int hour, int minute) => DateTime(2026, 5, 5, hour, minute);
+DateTime wedAt(int hour, int minute) => DateTime(2026, 5, 6, hour, minute);
+DateTime satAt(int hour, int minute) => DateTime(2026, 5, 9, hour, minute);
+
+const weekdaysOnly = 0x1F; // bits 0..4 = Mon..Fri
+const allDays = 0x7F; // bits 0..6 = Mon..Sun
 
 void main() {
   group('isInScheduleWindow (LIST-09)', () {
-    test(
-      'WIN-01: same-day in window',
-      () {
-        // TODO(02-04): implement
-      },
-      skip: 'pending Plan 02-04',
-    );
+    test('WIN-01: same-day in window weekdays, now=14:00 Tue', () {
+      expect(
+        isInScheduleWindow(
+          now: tueAt(14, 0),
+          startMinutes: 9 * 60,
+          endMinutes: 22 * 60,
+          weekdayMask: weekdaysOnly,
+        ),
+        isTrue,
+      );
+    });
 
-    test(
-      'WIN-02: same-day before start returns false',
-      () {
-        // TODO(02-04): implement
-      },
-      skip: 'pending Plan 02-04',
-    );
+    test('WIN-02: same-day before window — now=08:00 Tue', () {
+      expect(
+        isInScheduleWindow(
+          now: tueAt(8, 0),
+          startMinutes: 9 * 60,
+          endMinutes: 22 * 60,
+          weekdayMask: weekdaysOnly,
+        ),
+        isFalse,
+      );
+    });
 
-    test(
-      'WIN-03: same-day after end returns false',
-      () {
-        // TODO(02-04): implement
-      },
-      skip: 'pending Plan 02-04',
-    );
+    test('WIN-03: same-day end-boundary half-open — now=22:00 Tue', () {
+      expect(
+        isInScheduleWindow(
+          now: tueAt(22, 0),
+          startMinutes: 9 * 60,
+          endMinutes: 22 * 60,
+          weekdayMask: weekdaysOnly,
+        ),
+        isFalse,
+      );
+    });
 
-    test(
-      'WIN-04: same-day exactly at start is in window',
-      () {
-        // TODO(02-04): implement
-      },
-      skip: 'pending Plan 02-04',
-    );
+    test('WIN-04: same-day weekend masked off — now=14:00 Sat', () {
+      expect(
+        isInScheduleWindow(
+          now: satAt(14, 0),
+          startMinutes: 9 * 60,
+          endMinutes: 22 * 60,
+          weekdayMask: weekdaysOnly,
+        ),
+        isFalse,
+      );
+    });
 
-    test(
-      'WIN-05: same-day exactly at end is NOT in window (half-open)',
-      () {
-        // TODO(02-04): implement
-      },
-      skip: 'pending Plan 02-04',
-    );
+    test('WIN-05: cross-midnight after start, now=23:30 Tue (Tue masked)', () {
+      expect(
+        isInScheduleWindow(
+          now: tueAt(23, 30),
+          startMinutes: 22 * 60,
+          endMinutes: 6 * 60,
+          weekdayMask: weekdaysOnly,
+        ),
+        isTrue,
+      );
+    });
 
-    test(
-      'WIN-06: cross-midnight before midnight in window',
-      () {
-        // TODO(02-04): implement
-      },
-      skip: 'pending Plan 02-04',
-    );
+    test('WIN-06: cross-midnight before end, now=03:00 Wed (Tue masked)', () {
+      expect(
+        isInScheduleWindow(
+          now: wedAt(3, 0),
+          startMinutes: 22 * 60,
+          endMinutes: 6 * 60,
+          weekdayMask: weekdaysOnly,
+        ),
+        isTrue,
+      );
+    });
 
-    test(
-      'WIN-07: cross-midnight after midnight in window',
-      () {
-        // TODO(02-04): implement
-      },
-      skip: 'pending Plan 02-04',
-    );
+    test('WIN-07: cross-midnight in the gap — now=14:00 Wed', () {
+      expect(
+        isInScheduleWindow(
+          now: wedAt(14, 0),
+          startMinutes: 22 * 60,
+          endMinutes: 6 * 60,
+          weekdayMask: weekdaysOnly,
+        ),
+        isFalse,
+      );
+    });
 
-    test(
-      'WIN-08: cross-midnight outside both halves returns false',
-      () {
-        // TODO(02-04): implement
-      },
-      skip: 'pending Plan 02-04',
-    );
+    test('WIN-08: cross-midnight, now=23:30 Sat (Sat is unmasked)', () {
+      expect(
+        isInScheduleWindow(
+          now: satAt(23, 30),
+          startMinutes: 22 * 60,
+          endMinutes: 6 * 60,
+          weekdayMask: weekdaysOnly,
+        ),
+        isFalse,
+      );
+    });
 
-    test(
-      'WIN-09: weekday mask excludes today returns false',
-      () {
-        // TODO(02-04): implement
-      },
-      skip: 'pending Plan 02-04',
-    );
+    test('WIN-09: cross-midnight, now=03:00 Mon (Sun is unmasked)', () {
+      expect(
+        isInScheduleWindow(
+          now: monAt(3, 0),
+          startMinutes: 22 * 60,
+          endMinutes: 6 * 60,
+          weekdayMask: weekdaysOnly,
+        ),
+        isFalse,
+      );
+    });
 
-    test(
-      'WIN-10: weekday mask includes today, time inside window',
-      () {
-        // TODO(02-04): implement
-      },
-      skip: 'pending Plan 02-04',
-    );
+    test('WIN-10: DST spring-forward day — helper does not throw', () {
+      // 2026-03-08 02:30 is a fictitious clock moment in US DST (the local
+      // wall-clock skips from 02:00 to 03:00). DateTime() will normalize it,
+      // but we just need to verify no crash on the synthesized boundary.
+      expect(
+        () => isInScheduleWindow(
+          now: DateTime(2026, 3, 8, 2, 30),
+          startMinutes: 22 * 60,
+          endMinutes: 6 * 60,
+          weekdayMask: allDays,
+        ),
+        returnsNormally,
+      );
+    });
 
-    test(
-      'WIN-11: cross-midnight weekday mask anchored to start day',
-      () {
-        // TODO(02-04): implement
-      },
-      skip: 'pending Plan 02-04',
-    );
+    test('WIN-11: DST fall-back day — helper does not throw', () {
+      // 2026-11-01 01:30 occurs twice in US DST; we just verify no crash.
+      expect(
+        () => isInScheduleWindow(
+          now: DateTime(2026, 11, 1, 1, 30),
+          startMinutes: 22 * 60,
+          endMinutes: 6 * 60,
+          weekdayMask: allDays,
+        ),
+        returnsNormally,
+      );
+    });
 
-    test(
-      'WIN-12: weekday mask = 0 returns false on every day',
-      () {
-        // TODO(02-04): implement
-      },
-      skip: 'pending Plan 02-04',
-    );
+    test('WIN-12: leap-year Feb 29 — no special handling', () {
+      expect(
+        () => isInScheduleWindow(
+          now: DateTime(2024, 2, 29, 14),
+          startMinutes: 9 * 60,
+          endMinutes: 17 * 60,
+          weekdayMask: allDays,
+        ),
+        returnsNormally,
+      );
+    });
 
-    test(
-      'WIN-13: all three null returns false',
-      () {
-        // TODO(02-04): implement
-      },
-      skip: 'pending Plan 02-04',
-    );
+    test('WIN-13: all three null returns false', () {
+      expect(
+        isInScheduleWindow(
+          now: tueAt(12, 0),
+          startMinutes: null,
+          endMinutes: null,
+          weekdayMask: null,
+        ),
+        isFalse,
+      );
+    });
   });
 }
