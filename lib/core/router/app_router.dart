@@ -31,41 +31,14 @@ final Provider<GoRouter> appRouterProvider = Provider<GoRouter>((ref) {
     },
     routes: [
       GoRoute(path: '/', builder: (_, __) => const HomeScreen()),
-      GoRoute(
-        path: '/onboarding/welcome',
-        builder: (_, __) => const WelcomeScreen(),
-      ),
-      GoRoute(
-        path: '/onboarding/quick-add',
-        builder: (_, __) => const QuickAddScreen(),
-      ),
-      GoRoute(
-        path: '/onboarding/permissions/usage-access',
-        builder: (_, __) => const UsageAccessStep(),
-      ),
-      GoRoute(
-        path: '/onboarding/permissions/accessibility',
-        builder: (_, __) => const AccessibilityStep(),
-      ),
-      GoRoute(
-        path: '/onboarding/permissions/battery-opt',
-        builder: (_, __) => const BatteryOptStep(),
-      ),
-      GoRoute(
-        path: '/list/add-app',
-        builder: (_, __) => const AddAppPickerScreen(),
-      ),
-      GoRoute(
-        path: '/list/add-habit',
-        builder: (_, __) => const AddHabitScreen(),
-      ),
-      GoRoute(
-        path: '/list/edit/:id',
-        builder: (ctx, state) {
-          final id = int.parse(state.pathParameters['id']!);
-          return EditEntryScreen(id: id);
-        },
-      ),
+      GoRoute(path: '/onboarding/welcome', builder: (_, __) => const WelcomeScreen()),
+      GoRoute(path: '/onboarding/quick-add', builder: (_, __) => const QuickAddScreen()),
+      GoRoute(path: '/onboarding/permissions/usage-access', builder: (_, __) => const UsageAccessStep()),
+      GoRoute(path: '/onboarding/permissions/accessibility', builder: (_, __) => const AccessibilityStep()),
+      GoRoute(path: '/onboarding/permissions/battery-opt', builder: (_, __) => const BatteryOptStep()),
+      GoRoute(path: '/list/add-app', builder: (_, __) => const AddAppPickerScreen()),
+      GoRoute(path: '/list/add-habit', builder: (_, __) => const AddHabitScreen()),
+      GoRoute(path: '/list/edit/:id', builder: (ctx, state) => EditEntryScreen(id: int.parse(state.pathParameters['id']!))),
     ],
   );
 });
