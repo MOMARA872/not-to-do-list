@@ -11,11 +11,7 @@ abstract class AppTheme {
   /// the harmonized scheme via the optional [dynamic] parameter.
   static ThemeData light({ColorScheme? dynamic}) => ThemeData(
         useMaterial3: true,
-        colorScheme: dynamic ??
-            ColorScheme.fromSeed(
-              seedColor: seed,
-              brightness: Brightness.light,
-            ),
+        colorScheme: dynamic ?? ColorScheme.fromSeed(seedColor: seed),
         textTheme: _textTheme,
       );
 
