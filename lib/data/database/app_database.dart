@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
+import 'package:not_to_do_list/data/database/daos/block_list_dao.dart';
 import 'package:not_to_do_list/data/database/tables/block_list_table.dart';
 import 'package:not_to_do_list/data/database/tables/daily_checkins_table.dart';
 import 'package:not_to_do_list/data/database/tables/daily_streak_table.dart';
@@ -16,6 +17,7 @@ part 'app_database.g.dart';
     DailyCheckins,
     DailyUsageSummary,
   ],
+  daos: [BlockListDao],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor])
