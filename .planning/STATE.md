@@ -3,19 +3,19 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-07T00:49:27.732Z"
+last_updated: "2026-05-07T02:31:42.783Z"
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 15
-  completed_plans: 12
-  percent: 80
+  completed_plans: 13
+  percent: 87
 ---
 
 # Project State: Not To-Do List
 
 **Initialized:** 2026-04-27
-**Last updated:** 2026-05-07
+**Last updated:** 2026-05-05
 
 ## Project Reference
 
@@ -27,16 +27,16 @@ progress:
 ## Current Position
 
 Phase: 02 (list-crud-onboarding-permissions) — EXECUTING
-Plan: 4 of 10 next (Plans 02-01, 02-02, 02-03 ✅ complete; Wave 0 + Wave 1 schema/channels landed)
+Plan: 02-09 next (Wave 5 — router rewire + DynamicColorBuilder + HealthCheckBanner). Wave 4 closed: 02-07 HomeScreen + 02-08 onboarding wizard + 02-06 list-CRUD UI all green.
 
 - **Milestone:** v1
 - **Phase:** Phase 1 — Foundation & Play Declaration (✅ COMPLETE)
-- **Plan:** Phase 2 Plan 02-03 complete — Pigeon `AppPickerApi` (3 @async methods) and `PermissionStatusApi` (8 @async methods) channels defined + Kotlin HostApi impls landed; `MainActivity` registers both new channels alongside Phase 1's three; `AccessibilityApi.openAccessibilitySettings` no-op stub replaced with real `resolveActivity`-guarded launch (d5ef5e3, e2cbdd8, 6d353b1, 06d9e5b, fea309b). Plan 02-02 also landed in parallel (Drift v1→v2 migration: `block_mode` + 3 schedule columns, 254a4af, 7a84d47, 500f15e). Wave 1 closed.
+- **Plan:** Phase 2 Plan 02-07 complete — HomeScreen Surface 4 (unified Apps + Habits ListView via private autoDispose StreamProvider over `blockListRepoProvider.watchAll()`) + 64 dp `BlockListRow` (AppIcon for apps, `Icons.spa_outlined` for habits, em-dash trailing streak placeholder, no swipe / no long-press) + Surface 12 `EmptyHomeState` with locked verbatim copy ("Nothing on your list yet." + "Add an app or habit you want to avoid to get started.") + two `FloatingActionButton.extended` (`+ Add habit` surface/primary, `+ Add app` primary/onPrimary). Phase 1 `EmptyHomeScreen` preserved byte-identical (no orphan deletes). 10 widget tests pass; full project suite stays green at 110 passing, 2 sibling-stub skipped. Commits 63c3218, 6d93b65.
 - **Status:** Executing Phase 02
-- **Progress:** [██████░░░░] 60%
+- **Progress:** [█████████░] 87%
 
 ```
-[██████████░░░░░░░░░░] 53%
+[██████████████████░░] 93%
 ```
 
 ## Performance Metrics
@@ -66,6 +66,7 @@ Plan: 4 of 10 next (Plans 02-01, 02-02, 02-03 ✅ complete; Wave 0 + Wave 1 sche
 | Earned `POST_NOTIFICATIONS` prompt (after first not-to-do added) | research/PITFALLS.md (#10) | Roughly doubles allow rates vs first-launch prompt |
 | Phase 2 P04 | 25min | 3 tasks | 11 files |
 | Phase 2 P08 (Onboarding wizard) | 35min | 3 tasks | 16 files (10 created + 6 modified) |
+| Phase 2 P07 | 104 | 2 tasks | 4 files |
 
 ### Active Todos
 
@@ -96,11 +97,12 @@ None.
 - 2026-05-07: Phase 2 Wave 1 complete. Plan 02-02 (Drift v1→v2 migration: `block_mode` text + 3 nullable schedule columns; addColumn migration; PRAGMA foreign_keys=ON; cascade-delete tests; 254a4af, 7a84d47, 500f15e) and Plan 02-03 (Pigeon `AppPickerApi` + `PermissionStatusApi` channels with Kotlin HostApi impls; `MainActivity` registers both new channels; `AccessibilityApi.openAccessibilitySettings` real launch with `resolveActivity` guard; d5ef5e3, e2cbdd8, 6d353b1, 06d9e5b, fea309b) landed in parallel. `flutter build apk --debug` succeeds; `flutter test` exits 0 (+11 ~30).
 - 2026-05-05: Phase 2 Plan 02-08 complete (Wave 3) — Onboarding wizard: WelcomeScreen + QuickAddScreen (5 unchecked-by-default cards) + 3-step permission funnel (Usage Access → Accessibility[PLAY-06] → Battery-opt) with WidgetsBindingObserver onResume auto-advance + reactive OemFallbackPanel for {xiaomi/huawei/samsung/oppo/realme/vivo/oneplus}. PLAY-06 disclosure carries the 5 verbatim phrases enforced by source-grep test. BatteryOpt terminator persists fingerprint baseline + marks complete on grant OR skip. Commits 74ccb2f, 59f290c, 7c6ca3b. `flutter test` exits 0 (89 passing).
 - 2026-05-07: Phase 2 Plan 02-06 complete (Wave 3 — list CRUD + theme) — AppTheme seeded with `Color(0xFF2D6A4F)` for both light/dark, ready for 02-09's DynamicColorBuilder wiring; `dynamic_color` + `url_launcher` deps added; `assets/onboarding/` + `assets/logos/` declared. Three list-CRUD surfaces shipped: AddAppPickerScreen (search-first, 150ms debounce on display name only, already-blocked greyed-out, "Show all" toggle, recently-used gated on `isUsageAccessGranted()`); AddHabitScreen (kind=1, packageName=null, 500-char counter visible at length≥400); EditEntryScreen (kind-aware app-bar; Soft/Hard segmented hidden for habits per LIST-08; ScheduleEditor with atomic null/non-null trio, cross-midnight + 04:00 streak annotations; bottom-of-page destructive Delete with NO AlertDialog per Surface 10). Sub-widgets: AppIcon, BlockModeSegmented, ScheduleEditor; controllers: AppPickerController (debounce + show-all toggle), EditEntryController (AsyncNotifier-family hydrating from blockListRepoProvider). Commits 8b8e537, 2bc7809, 1d083eb, de5a907. Tests: +18 widget tests (4 picker + 4 search + 5 edit-screen + 6 schedule-editor); `flutter test` exits 0 (100 passing, 3 sibling-plan stubs).
+- 2026-05-05: Phase 2 Plan 02-07 complete (Wave 4 — HomeScreen unified list) — Surface 4 ships: `HomeScreen` `ConsumerWidget` consuming `blockListRepoProvider.watchAll()` via a private autoDispose `StreamProvider<List<BlockListData>>`; `BlockListRow` 64 dp ListTile (AppIcon for kind=0+packageName!=null, `Icons.spa_outlined` for kind=1; em-dash trailing streak placeholder for Phase 5; tap routes to `/list/edit/{id}`; no swipe / no long-press); `EmptyHomeState` Surface 12 with locked verbatim copy; two `FloatingActionButton.extended` (`+ Add habit` surface/primary, `+ Add app` primary/onPrimary) routing to `/list/add-habit` / `/list/add-app`. Auto-fixed deviations: comment grep collision in row file; 80-char lint in empty-state; `StreamBuilder` swapped for autoDispose `StreamProvider` to fix Drift's pending-timer leak in widget tests; `tester.runAsync` for the 1.1 s sort-test gaps; explicit `StreamProvider<…>` type to satisfy `specify_nonobvious_property_types`; `drainStreamTimers(tester)` helper drains Drift's `markAsClosed` microtask between tests. Phase 1 `EmptyHomeScreen` preserved byte-identical (Karpathy §3). Commits 63c3218, 6d93b65. Tests: +10 widget tests in `home_screen_unified_list_test.dart`; `flutter test` exits 0 (110 passing, 2 sibling-stub skipped); `dart analyze lib/features/home/ test/features/home/` clean.
 
 ### Next Session
 
-- Execute Wave 2 plans (02-04, 02-05): DAO + repository wiring, `BlockListRepository`, schedule-window helpers, Riverpod providers (`appPickerApiProvider`, `permissionStatusApiProvider`, `blockListRepoProvider`).
-- Phase 2 is the first phase where the home screen subscribes to `blockedAppDetectorProvider` (RESEARCH §6 Open Question #2 unblocks here).
+- Execute Plan 02-09 (Wave 5): rewire `app_router.dart` to point `/` at `HomeScreen` + register `/list/add-app`, `/list/add-habit`, `/list/edit/:id`; mount the `HealthCheckBanner` (Surface 11) — 02-07 SUMMARY documents two integration shapes (ShellRoute vs HomeScreen.body Column rewrite); wire `DynamicColorBuilder` into `AppTheme.light()` / `dark()` (the optional named arg already lands a harmonised scheme).
+- Plan 02-10 (Wave 5/6): final DI/main wiring + onboarding-completion gating router redirects, plus Phase 2 exit-gate harness.
 - First real-device overnight test is still the Phase 4 exit gate — Phase 2/3 stay simulator-friendly.
 
 ### Files of Record
