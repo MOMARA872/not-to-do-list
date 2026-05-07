@@ -9,7 +9,7 @@ import com.nottodo.not_to_do_list.platform.NotificationApi
 import com.nottodo.not_to_do_list.platform.PermissionStatusApi
 import com.nottodo.not_to_do_list.platform.PermissionStatusApiImpl
 import com.nottodo.not_to_do_list.platform.UsageApi
-import com.nottodo.not_to_do_list.platform.UsagePackageStat
+import com.nottodo.not_to_do_list.platform.UsageApiImpl
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 
@@ -17,18 +17,14 @@ class MainActivity : FlutterActivity() {
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
 
-        // Phase 2 wires AppPickerApi + PermissionStatusApi as real impls;
-        // Phase 3/4/5 will replace UsageApi/NotificationApi.
+        // Phase 2 wires AppPickerApi + PermissionStatusApi; Phase 3 wires UsageApi
+        // (DASH-01); Phase 4 will wire AccessibilityApi (PAUS-*); Phase 5 wires
+        // NotificationApi (NOTF-*).
 
-        UsageApi.setUp(flutterEngine.dartExecutor.binaryMessenger, object : UsageApi {
-            override fun queryRange(
-                startEpochMs: Long,
-                endEpochMs: Long,
-                callback: (Result<List<UsagePackageStat>>) -> Unit
-            ) {
-                callback(Result.failure(NotImplementedError("UsageApi: implemented in Phase 3")))
-            }
-        })
+        UsageApi.setUp(
+            flutterEngine.dartExecutor.binaryMessenger,
+            UsageApiImpl(applicationContext),
+        )
 
         AppPickerApi.setUp(
             flutterEngine.dartExecutor.binaryMessenger,
