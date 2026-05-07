@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-07T00:25:36.126Z"
+last_updated: "2026-05-05T00:00:00Z"
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 15
-  completed_plans: 10
-  percent: 67
+  completed_plans: 11
+  percent: 73
 ---
 
 # Project State: Not To-Do List
@@ -65,6 +65,7 @@ Plan: 4 of 10 next (Plans 02-01, 02-02, 02-03 ✅ complete; Wave 0 + Wave 1 sche
 | AccessibilityService swappable behind Riverpod abstraction | research/PITFALLS.md (#1) | UsageStats-polling fallback ships without rework if Play rejects the service |
 | Earned `POST_NOTIFICATIONS` prompt (after first not-to-do added) | research/PITFALLS.md (#10) | Roughly doubles allow rates vs first-launch prompt |
 | Phase 2 P04 | 25min | 3 tasks | 11 files |
+| Phase 2 P08 (Onboarding wizard) | 35min | 3 tasks | 16 files (10 created + 6 modified) |
 
 ### Active Todos
 
@@ -93,6 +94,7 @@ None.
 - 2026-04-27: PROJECT.md, REQUIREMENTS.md, research bundle, and ROADMAP.md initialized.
 - 2026-05-06: Phase 2 Plan 02-01 (Wave 0) complete. Stubbed 20 test files (16 from VALIDATION.md + 4 from PATTERNS.md File Inventory), captured Drift v1 schema fixture at `drift_schemas/drift_schema_v1.json` (8 columns, no v2 cols), and added shared `MockPermissionStatusApi` fixture at `test/_fixtures/permission_status_mock.dart`. `flutter test` passes (+6 ~32). Test surface for Phase 2 is locked.
 - 2026-05-07: Phase 2 Wave 1 complete. Plan 02-02 (Drift v1→v2 migration: `block_mode` text + 3 nullable schedule columns; addColumn migration; PRAGMA foreign_keys=ON; cascade-delete tests; 254a4af, 7a84d47, 500f15e) and Plan 02-03 (Pigeon `AppPickerApi` + `PermissionStatusApi` channels with Kotlin HostApi impls; `MainActivity` registers both new channels; `AccessibilityApi.openAccessibilitySettings` real launch with `resolveActivity` guard; d5ef5e3, e2cbdd8, 6d353b1, 06d9e5b, fea309b) landed in parallel. `flutter build apk --debug` succeeds; `flutter test` exits 0 (+11 ~30).
+- 2026-05-05: Phase 2 Plan 02-08 complete (Wave 3) — Onboarding wizard: WelcomeScreen + QuickAddScreen (5 unchecked-by-default cards) + 3-step permission funnel (Usage Access → Accessibility[PLAY-06] → Battery-opt) with WidgetsBindingObserver onResume auto-advance + reactive OemFallbackPanel for {xiaomi/huawei/samsung/oppo/realme/vivo/oneplus}. PLAY-06 disclosure carries the 5 verbatim phrases enforced by source-grep test. BatteryOpt terminator persists fingerprint baseline + marks complete on grant OR skip. Commits 74ccb2f, 59f290c, 7c6ca3b. `flutter test` exits 0 (89 passing).
 
 ### Next Session
 

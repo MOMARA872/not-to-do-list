@@ -15,17 +15,17 @@ v1 ships as an Android-only, Flutter-based, account-free, fully on-device app. E
 - [x] **LIST-04**: User can edit an entry's name, reason, and category
 - [x] **LIST-05**: User can delete an entry; deletion removes its streak history and pause-event log
 - [x] **LIST-06**: Home shows a unified list of all not-to-do entries (Apps + Habits together) sorted by recent activity
-- [ ] **LIST-07**: First-run flow offers a quick-add of common offenders (Instagram, TikTok, X, YouTube, Reddit) — user picks which to seed
+- [x] **LIST-07**: First-run flow offers a quick-add of common offenders (Instagram, TikTok, X, YouTube, Reddit) — user picks which to seed
 - [x] **LIST-08**: User can configure each entry's block mode (`soft` / `hard`); `soft` is the default; only Apps support `hard` (Habits are self-report only)
 - [x] **LIST-09**: User can configure a per-item active-window schedule — start time, end time, and weekday mask; `always-on` is the default; outside the window the entry is dormant (does not intercept)
 
 ### Onboarding & Permissions (ONBD)
 
-- [ ] **ONBD-01**: First-launch onboarding sequences four permission steps in order: notifications → Usage Access → Accessibility → battery-optimization exemption
-- [ ] **ONBD-02**: Each permission step shows a custom rationale screen before the system dialog or Settings deep-link
-- [ ] **ONBD-03**: App detects return from Settings on `onResume` and auto-advances when the permission has flipped to granted
-- [ ] **ONBD-04**: Each step has an OEM-aware fallback path (Build.MANUFACTURER lookup) when the standard Settings intent fails
-- [ ] **ONBD-05**: User can re-enter the onboarding flow from Settings if a step was skipped
+- [x] **ONBD-01**: First-launch onboarding sequences four permission steps in order: notifications → Usage Access → Accessibility → battery-optimization exemption (3 install-time steps shipped in Plan 02-08; POST_NOTIFICATIONS deferred to Phase 5 NOTF-06 as earned prompt per CONTEXT.md)
+- [x] **ONBD-02**: Each permission step shows a custom rationale screen before the system dialog or Settings deep-link
+- [x] **ONBD-03**: App detects return from Settings on `onResume` and auto-advances when the permission has flipped to granted
+- [x] **ONBD-04**: Each step has an OEM-aware fallback path (Build.MANUFACTURER lookup) when the standard Settings intent fails
+- [x] **ONBD-05**: User can re-enter the onboarding flow from Settings if a step was skipped
 - [ ] **ONBD-06**: App shows a persistent "Tracking offline — fix" banner on home if any required permission is later revoked
 - [ ] **ONBD-07**: After OS update (Build.FINGERPRINT change), permissions are re-verified on next launch
 
@@ -89,7 +89,7 @@ v1 ships as an Android-only, Flutter-based, account-free, fully on-device app. E
 - [ ] **PLAY-03**: Accessibility event types are scoped to `typeWindowStateChanged` only
 - [ ] **PLAY-04**: App-picker enumerates installed apps via `<queries>` element + LAUNCHER intent filter (NOT `QUERY_ALL_PACKAGES`)
 - [ ] **PLAY-05**: Manifest does NOT include `SYSTEM_ALERT_WINDOW`; pause UI is a `FlutterActivity`
-- [ ] **PLAY-06**: In-app prominent disclosure for Accessibility Service is shown before grant
+- [x] **PLAY-06**: In-app prominent disclosure for Accessibility Service is shown before grant
 - [ ] **PLAY-07**: Play Console Permission Declaration mirrors the literal mechanical text in `docs/play-declaration.md`
 - [ ] **PLAY-08**: App passes closed-track Play review before any public release
 - [ ] **PLAY-09**: Data Safety form matches actual code (no telemetry declared and none in code)
@@ -185,14 +185,14 @@ Mapped by gsd-roadmapper on 2026-04-27. Every v1 REQ-ID maps to exactly one phas
 | LIST-04 | Phase 2 | Complete |
 | LIST-05 | Phase 2 | Complete |
 | LIST-06 | Phase 2 | Complete |
-| LIST-07 | Phase 2 | Pending |
+| LIST-07 | Phase 2 | Complete (Plan 02-08 — QuickAddScreen 5-card unchecked-by-default seed via repo.insertMany) |
 | LIST-08 | Phase 2 | Complete |
 | LIST-09 | Phase 2 | Complete |
-| ONBD-01 | Phase 2 | Pending |
-| ONBD-02 | Phase 2 | Pending |
-| ONBD-03 | Phase 2 | Pending |
-| ONBD-04 | Phase 2 | Pending |
-| ONBD-05 | Phase 2 | Pending |
+| ONBD-01 | Phase 2 | Complete (Plan 02-08 — Welcome + 3-step funnel; NOTF-06 ships POST_NOTIFICATIONS earned prompt in Phase 5) |
+| ONBD-02 | Phase 2 | Complete (Plan 02-08 — RationaleScreen shared shell on every step) |
+| ONBD-03 | Phase 2 | Complete (Plan 02-08 — WidgetsBindingObserver + AppLifecycleState.resumed re-check on every step) |
+| ONBD-04 | Phase 2 | Complete (Plan 02-08 — OemFallbackPanel reactive trigger for 7 known vendors) |
+| ONBD-05 | Phase 2 | Complete (Plan 02-08 — funnel routes are stable; Plan 02-09 wires the health-banner re-entry path) |
 | ONBD-06 | Phase 2 | Pending |
 | ONBD-07 | Phase 2 | Pending |
 | PAUS-01 | Phase 4 | Pending |
@@ -238,7 +238,7 @@ Mapped by gsd-roadmapper on 2026-04-27. Every v1 REQ-ID maps to exactly one phas
 | PLAY-03 | Phase 1 | Pending |
 | PLAY-04 | Phase 1 | Pending |
 | PLAY-05 | Phase 1 | Pending |
-| PLAY-06 | Phase 2 | Pending |
+| PLAY-06 | Phase 2 | Complete (Plan 02-08 — accessibility_step.dart contains the 5 verbatim phrases enforced by source-grep test) |
 | PLAY-07 | Phase 1 | Pending |
 | PLAY-08 | Phase 6 | Pending |
 | PLAY-09 | Phase 1 | Pending |
