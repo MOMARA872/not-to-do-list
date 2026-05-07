@@ -10,8 +10,8 @@ class NotToDoApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       title: 'Not To-Do List',
-      theme: AppTheme.light,
-      darkTheme: AppTheme.dark,
+      theme: AppTheme.light(),
+      darkTheme: AppTheme.dark(),
       routerConfig: ref.watch(appRouterProvider),
     );
   }
