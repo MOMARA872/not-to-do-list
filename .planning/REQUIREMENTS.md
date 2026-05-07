@@ -26,8 +26,8 @@ v1 ships as an Android-only, Flutter-based, account-free, fully on-device app. E
 - [x] **ONBD-03**: App detects return from Settings on `onResume` and auto-advances when the permission has flipped to granted
 - [x] **ONBD-04**: Each step has an OEM-aware fallback path (Build.MANUFACTURER lookup) when the standard Settings intent fails
 - [x] **ONBD-05**: User can re-enter the onboarding flow from Settings if a step was skipped
-- [ ] **ONBD-06**: App shows a persistent "Tracking offline — fix" banner on home if any required permission is later revoked
-- [ ] **ONBD-07**: After OS update (Build.FINGERPRINT change), permissions are re-verified on next launch
+- [x] **ONBD-06**: App shows a persistent "Tracking offline — fix" banner on home if any required permission is later revoked
+- [x] **ONBD-07**: After OS update (Build.FINGERPRINT change), permissions are re-verified on next launch
 
 ### Pause UX (PAUS)
 
@@ -97,8 +97,8 @@ v1 ships as an Android-only, Flutter-based, account-free, fully on-device app. E
 ### Reliability & OEM Survival (REL)
 
 - [ ] **REL-01**: Companion foreground service keeps AccessibilityService in the Active App Standby Bucket
-- [ ] **REL-02**: Self-healing health check runs on every app open and shows actionable fix steps if any required permission/service is degraded
-- [ ] **REL-03**: OEM-specific guidance routes to community-maintained dontkillmyapp.com vendor pages from the health-check screen
+- [x] **REL-02**: Self-healing health check runs on every app open and shows actionable fix steps if any required permission/service is degraded
+- [x] **REL-03**: OEM-specific guidance routes to community-maintained dontkillmyapp.com vendor pages from the health-check screen
 - [ ] **REL-04**: Overnight survival test passes on a real Xiaomi or Samsung device (not Pixel-only) before each phase exit from Phase 4 onwards
 - [ ] **REL-05**: AccessibilityService is architected as a swappable provider behind a Riverpod abstraction so a UsageStats-polling fallback can ship without rework if Play rejects the service
 
@@ -193,8 +193,8 @@ Mapped by gsd-roadmapper on 2026-04-27. Every v1 REQ-ID maps to exactly one phas
 | ONBD-03 | Phase 2 | Complete (Plan 02-08 — WidgetsBindingObserver + AppLifecycleState.resumed re-check on every step) |
 | ONBD-04 | Phase 2 | Complete (Plan 02-08 — OemFallbackPanel reactive trigger for 7 known vendors) |
 | ONBD-05 | Phase 2 | Complete (Plan 02-08 — funnel routes are stable; Plan 02-09 wires the health-banner re-entry path) |
-| ONBD-06 | Phase 2 | Pending |
-| ONBD-07 | Phase 2 | Pending |
+| ONBD-06 | Phase 2 | Complete (Plan 02-09 — HealthCheckBanner with literal copy "Tracking is offline — tap to fix") |
+| ONBD-07 | Phase 2 | Complete (Plan 02-05/02-09 — Build.FINGERPRINT baseline persisted; banner re-walk on change) |
 | PAUS-01 | Phase 4 | Pending |
 | PAUS-02 | Phase 4 | Pending |
 | PAUS-03 | Phase 4 | Pending |
@@ -243,8 +243,8 @@ Mapped by gsd-roadmapper on 2026-04-27. Every v1 REQ-ID maps to exactly one phas
 | PLAY-08 | Phase 6 | Pending |
 | PLAY-09 | Phase 1 | Pending |
 | REL-01 | Phase 4 | Pending |
-| REL-02 | Phase 2 | Pending |
-| REL-03 | Phase 2 | Pending |
+| REL-02 | Phase 2 | Complete (Plan 02-05/02-09 — permissionHealthProvider + HealthLifecycleObserver re-checks on every resume) |
+| REL-03 | Phase 2 | Complete (Plan 02-08/02-09 — OemFallbackPanel + dontkillmyappUrl helper for 7 vendors) |
 | REL-04 | Phase 4 | Pending |
 | REL-05 | Phase 1 | Pending |
 

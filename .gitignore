@@ -12,6 +12,9 @@
 .swiftpm/
 migrate_working_dir/
 
+# Phase exit gate verification logs (local evidence only — never committed)
+.verification/
+
 # IntelliJ related
 *.iml
 *.ipr

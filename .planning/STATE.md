@@ -2,20 +2,20 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-last_updated: "2026-05-07T02:31:42.783Z"
+status: "Phase 2 complete; ready for Phase 3"
+last_updated: "2026-05-07T03:50:00.000Z"
 progress:
   total_phases: 6
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 15
-  completed_plans: 13
-  percent: 87
+  completed_plans: 15
+  percent: 33
 ---
 
 # Project State: Not To-Do List
 
 **Initialized:** 2026-04-27
-**Last updated:** 2026-05-05
+**Last updated:** 2026-05-07
 
 ## Project Reference
 
@@ -26,25 +26,25 @@ progress:
 
 ## Current Position
 
-Phase: 02 (list-crud-onboarding-permissions) — EXECUTING
-Plan: 02-09 next (Wave 5 — router rewire + DynamicColorBuilder + HealthCheckBanner). Wave 4 closed: 02-07 HomeScreen + 02-08 onboarding wizard + 02-06 list-CRUD UI all green.
+Phase: 02 (list-crud-onboarding-permissions) — ✅ COMPLETE 2026-05-07
+Next: Phase 03 (Screen-Time Dashboard).
 
 - **Milestone:** v1
-- **Phase:** Phase 1 — Foundation & Play Declaration (✅ COMPLETE)
-- **Plan:** Phase 2 Plan 02-07 complete — HomeScreen Surface 4 (unified Apps + Habits ListView via private autoDispose StreamProvider over `blockListRepoProvider.watchAll()`) + 64 dp `BlockListRow` (AppIcon for apps, `Icons.spa_outlined` for habits, em-dash trailing streak placeholder, no swipe / no long-press) + Surface 12 `EmptyHomeState` with locked verbatim copy ("Nothing on your list yet." + "Add an app or habit you want to avoid to get started.") + two `FloatingActionButton.extended` (`+ Add habit` surface/primary, `+ Add app` primary/onPrimary). Phase 1 `EmptyHomeScreen` preserved byte-identical (no orphan deletes). 10 widget tests pass; full project suite stays green at 110 passing, 2 sibling-stub skipped. Commits 63c3218, 6d93b65.
-- **Status:** Executing Phase 02
-- **Progress:** [█████████░] 87%
+- **Phase:** Phase 2 — List CRUD + Onboarding & Permissions (✅ COMPLETE)
+- **Plan:** Phase 2 Plan 02-10 (final exit gate) closes the phase. `test/policy/play_invariants_test.dart` (8 absence-grep invariants for PLAY-02..06 + v1-scope BIND_DEVICE_ADMIN + v1-scope forbidden-token sweep) green. `flutter test` exits 0 (124 passing, 0 skipped). `dart analyze` 0 errors / 0 warnings (18 pre-existing infos in pigeons/* + permission_status_mock.dart per deferred-items.md). `flutter build apk --debug` succeeds. AndroidManifest.xml audited — NO QUERY_ALL_PACKAGES, SYSTEM_ALERT_WINDOW, or BIND_DEVICE_ADMIN. Manual UAT (Plan 02-09-04) signed off 2026-05-07 on Pixel emulator stock Android 16. 02-VALIDATION.md frontmatter flipped to `status: complete` / `nyquist_compliant: true` / `wave_0_complete: true`; per-task verification map populated (32 task rows).
+- **Status:** Phase 2 complete; ready for Phase 3
+- **Progress:** [██████░░░░░░░░░░░░░░] 33% (2/6 phases)
 
 ```
-[██████████████████░░] 93%
+[██████░░░░░░░░░░░░░░] 33% (2/6 phases)
 ```
 
 ## Performance Metrics
 
 - Phases planned: 6
-- Phases complete: 1
+- Phases complete: 2
 - v1 requirements: 63 (all mapped)
-- v1 requirements complete: 8 (PLAY-01, PLAY-02, PLAY-03, PLAY-04, PLAY-05, PLAY-07, PLAY-09, SETT-03 — Phase 1 closed; REL-05 abstraction shipped, full satisfaction in Phase 4)
+- v1 requirements complete: 27 (Phase 1: PLAY-01..05, PLAY-07, PLAY-09, SETT-03 + REL-05 abstraction. Phase 2: LIST-01..09, ONBD-01..07, PLAY-06, REL-02, REL-03)
 - OEM-survival overnight tests passed: 0/3 (Phase 4, Phase 5, Phase 6)
 
 ## Accumulated Context
@@ -64,13 +64,27 @@ Plan: 02-09 next (Wave 5 — router rewire + DynamicColorBuilder + HealthCheckBa
 | Streak roll-over lazy-evaluated on every app open | research/PITFALLS.md (#6) | Robust against Doze, reboots, offline; "fire at 00:00" is fragile |
 | AccessibilityService swappable behind Riverpod abstraction | research/PITFALLS.md (#1) | UsageStats-polling fallback ships without rework if Play rejects the service |
 | Earned `POST_NOTIFICATIONS` prompt (after first not-to-do added) | research/PITFALLS.md (#10) | Roughly doubles allow rates vs first-launch prompt |
-| Phase 2 P04 | 25min | 3 tasks | 11 files |
-| Phase 2 P08 (Onboarding wizard) | 35min | 3 tasks | 16 files (10 created + 6 modified) |
-| Phase 2 P07 | 104 | 2 tasks | 4 files |
+| v1 = adult self-control only (NOT parental control) | PROJECT.md 2026-05-05 | Hard-block opt-in + schedules opt-in; Parent PIN / kid mode / content filter / anti-uninstall all deferred to M2/M3 |
+| Phase 2 cross-tree policy invariant test (`test/policy/play_invariants_test.dart`) | Plan 02-10 | 8 absence-grep tests lock PLAY-02/03/04/05/06 + v1-scope BIND_DEVICE_ADMIN + v1-scope forbidden-token sweep so future phases can't regress |
+
+### Performance Metrics Per Plan
+
+| Plan | Duration | Tasks | Files |
+|------|----------|-------|-------|
+| Phase 2 P01 (Wave 0 stubs)         | ~25min | 3 tasks | 22 files |
+| Phase 2 P02 (Drift v1→v2)          | ~30min | 3 tasks | 8 files  |
+| Phase 2 P03 (Pigeon channels)      | 79min  | 5 tasks | 13 files |
+| Phase 2 P04 (DAO + repo + helper)  | 25min  | 3 tasks | 11 files |
+| Phase 2 P05 (Riverpod providers)   | 25min  | 4 tasks | 12 files |
+| Phase 2 P06 (List-CRUD UI)         | ~60min | 3 tasks | 16 files |
+| Phase 2 P07 (HomeScreen)           | ~104min| 2 tasks | 4 files  |
+| Phase 2 P08 (Onboarding wizard)    | 35min  | 3 tasks | 16 files |
+| Phase 2 P09 (Health banner+router) | 35min  | 3 tasks | 16 files |
+| Phase 2 P10 (Exit gate)            | ~25min | 3 tasks | 4 files  |
 
 ### Active Todos
 
-None — awaiting `/gsd-plan-phase 1`.
+None — Phase 2 closed. Next action: `/gsd-discuss-phase 3` then `/gsd-plan-phase 3`.
 
 ### Blockers
 
@@ -80,9 +94,9 @@ None.
 
 | Risk | Source | Mitigation |
 |------|--------|------------|
-| Play Store rejection of AccessibilityService declaration | research/PITFALLS.md #1 | Phase 1: literal mechanical declaration in `docs/play-declaration.md`; `isAccessibilityTool="false"`; closed-track build before public release; UsageStats-polling fallback prototyped |
-| OEM battery managers silently kill the service (Xiaomi, Huawei, Samsung) | research/PITFALLS.md #2 | Phase 2: OEM-aware fix-it flows; Phases 4–6: real-device overnight test as phase-exit gate |
-| 4-Settings permission funnel collapses onboarding < 50% | research/PITFALLS.md #3 | Phase 2: sequenced contextual asks, animated GIFs, `onResume` auto-advance, OEM-specific fallbacks |
+| Play Store rejection of AccessibilityService declaration | research/PITFALLS.md #1 | Phase 1: literal mechanical declaration in `docs/play-declaration.md`; `isAccessibilityTool="false"`; closed-track build before public release; UsageStats-polling fallback prototyped. Phase 2: cross-tree absence-grep policy test (`test/policy/play_invariants_test.dart`) locks PLAY-02..06 invariants. |
+| OEM battery managers silently kill the service (Xiaomi, Huawei, Samsung) | research/PITFALLS.md #2 | Phase 2: OEM-aware fix-it flows shipped (OemFallbackPanel keyed on Build.MANUFACTURER for 7 vendors). Phases 4–6: real-device overnight test as phase-exit gate |
+| 4-Settings permission funnel collapses onboarding < 50% | research/PITFALLS.md #3 | Phase 2: sequenced contextual asks, static screenshots, `onResume` auto-advance, OEM-specific fallbacks shipped |
 | Pause screen >300 ms cold-start | research/PITFALLS.md (#perf) | Phase 4: `FlutterEngineCache` pre-warm; stopwatch-test on real low-end device as exit criterion |
 | Doze defers daily reminder | research/PITFALLS.md #6 | Phase 5: `setExactAndAllowWhileIdle`; `dumpsys deviceidle force-idle` test as exit criterion |
 | `POST_NOTIFICATIONS` denial on Android 13+ | research/PITFALLS.md #10 | Phase 5: earned prompt + custom rationale + in-app fallback banner |
@@ -91,25 +105,27 @@ None.
 
 ### Last Session
 
-- 2026-04-26: Phase 1 complete. All 5 plans (01-01 toolchain, 01-02 manifest+a11y+Play docs, 01-03 Drift schema, 01-04 Pigeon stubs+BlockedAppDetector, 01-05 empty home scaffold + V1-V14 phase exit gate) landed. `flutter build apk --debug` produces `build/app/outputs/flutter-apk/app-debug.apk` (171.6 MB).
+- 2026-04-26: Phase 1 complete. All 5 plans landed. `flutter build apk --debug` produces `build/app/outputs/flutter-apk/app-debug.apk` (171.6 MB).
 - 2026-04-27: PROJECT.md, REQUIREMENTS.md, research bundle, and ROADMAP.md initialized.
-- 2026-05-06: Phase 2 Plan 02-01 (Wave 0) complete. Stubbed 20 test files (16 from VALIDATION.md + 4 from PATTERNS.md File Inventory), captured Drift v1 schema fixture at `drift_schemas/drift_schema_v1.json` (8 columns, no v2 cols), and added shared `MockPermissionStatusApi` fixture at `test/_fixtures/permission_status_mock.dart`. `flutter test` passes (+6 ~32). Test surface for Phase 2 is locked.
-- 2026-05-07: Phase 2 Wave 1 complete. Plan 02-02 (Drift v1→v2 migration: `block_mode` text + 3 nullable schedule columns; addColumn migration; PRAGMA foreign_keys=ON; cascade-delete tests; 254a4af, 7a84d47, 500f15e) and Plan 02-03 (Pigeon `AppPickerApi` + `PermissionStatusApi` channels with Kotlin HostApi impls; `MainActivity` registers both new channels; `AccessibilityApi.openAccessibilitySettings` real launch with `resolveActivity` guard; d5ef5e3, e2cbdd8, 6d353b1, 06d9e5b, fea309b) landed in parallel. `flutter build apk --debug` succeeds; `flutter test` exits 0 (+11 ~30).
-- 2026-05-05: Phase 2 Plan 02-08 complete (Wave 3) — Onboarding wizard: WelcomeScreen + QuickAddScreen (5 unchecked-by-default cards) + 3-step permission funnel (Usage Access → Accessibility[PLAY-06] → Battery-opt) with WidgetsBindingObserver onResume auto-advance + reactive OemFallbackPanel for {xiaomi/huawei/samsung/oppo/realme/vivo/oneplus}. PLAY-06 disclosure carries the 5 verbatim phrases enforced by source-grep test. BatteryOpt terminator persists fingerprint baseline + marks complete on grant OR skip. Commits 74ccb2f, 59f290c, 7c6ca3b. `flutter test` exits 0 (89 passing).
-- 2026-05-07: Phase 2 Plan 02-06 complete (Wave 3 — list CRUD + theme) — AppTheme seeded with `Color(0xFF2D6A4F)` for both light/dark, ready for 02-09's DynamicColorBuilder wiring; `dynamic_color` + `url_launcher` deps added; `assets/onboarding/` + `assets/logos/` declared. Three list-CRUD surfaces shipped: AddAppPickerScreen (search-first, 150ms debounce on display name only, already-blocked greyed-out, "Show all" toggle, recently-used gated on `isUsageAccessGranted()`); AddHabitScreen (kind=1, packageName=null, 500-char counter visible at length≥400); EditEntryScreen (kind-aware app-bar; Soft/Hard segmented hidden for habits per LIST-08; ScheduleEditor with atomic null/non-null trio, cross-midnight + 04:00 streak annotations; bottom-of-page destructive Delete with NO AlertDialog per Surface 10). Sub-widgets: AppIcon, BlockModeSegmented, ScheduleEditor; controllers: AppPickerController (debounce + show-all toggle), EditEntryController (AsyncNotifier-family hydrating from blockListRepoProvider). Commits 8b8e537, 2bc7809, 1d083eb, de5a907. Tests: +18 widget tests (4 picker + 4 search + 5 edit-screen + 6 schedule-editor); `flutter test` exits 0 (100 passing, 3 sibling-plan stubs).
-- 2026-05-05: Phase 2 Plan 02-07 complete (Wave 4 — HomeScreen unified list) — Surface 4 ships: `HomeScreen` `ConsumerWidget` consuming `blockListRepoProvider.watchAll()` via a private autoDispose `StreamProvider<List<BlockListData>>`; `BlockListRow` 64 dp ListTile (AppIcon for kind=0+packageName!=null, `Icons.spa_outlined` for kind=1; em-dash trailing streak placeholder for Phase 5; tap routes to `/list/edit/{id}`; no swipe / no long-press); `EmptyHomeState` Surface 12 with locked verbatim copy; two `FloatingActionButton.extended` (`+ Add habit` surface/primary, `+ Add app` primary/onPrimary) routing to `/list/add-habit` / `/list/add-app`. Auto-fixed deviations: comment grep collision in row file; 80-char lint in empty-state; `StreamBuilder` swapped for autoDispose `StreamProvider` to fix Drift's pending-timer leak in widget tests; `tester.runAsync` for the 1.1 s sort-test gaps; explicit `StreamProvider<…>` type to satisfy `specify_nonobvious_property_types`; `drainStreamTimers(tester)` helper drains Drift's `markAsClosed` microtask between tests. Phase 1 `EmptyHomeScreen` preserved byte-identical (Karpathy §3). Commits 63c3218, 6d93b65. Tests: +10 widget tests in `home_screen_unified_list_test.dart`; `flutter test` exits 0 (110 passing, 2 sibling-stub skipped); `dart analyze lib/features/home/ test/features/home/` clean.
+- 2026-05-06: Phase 2 Plan 02-01 (Wave 0) complete. Stubbed 20 test files + Drift v1 schema fixture + shared MockPermissionStatusApi.
+- 2026-05-07: Phase 2 Wave 1 complete. Plan 02-02 (Drift v1→v2 migration) and Plan 02-03 (Pigeon channels) landed.
+- 2026-05-07: Phase 2 Wave 2 complete. Plan 02-04 (BlockListDao + BlockListRepository + isInScheduleWindow + streakDayFor) and Plan 02-05 (permission/onboarding/picker Riverpod providers + AppIconLruCache) landed.
+- 2026-05-05/2026-05-07: Phase 2 Wave 3 complete. Plan 02-06 (List-CRUD UI) + Plan 02-07 (HomeScreen unified list) + Plan 02-08 (Onboarding wizard with PLAY-06 disclosure).
+- 2026-05-07: Phase 2 Wave 5 complete. Plan 02-09 (HealthCheckBanner + 9-route GoRouter + DynamicColorBuilder + 8 placeholder PNGs). Commits 4698eb7, 904f4fd, 365dfc6, 99fbdb8, 4699fe8.
+- 2026-05-07: Phase 2 Plan 02-10 complete (Wave 6 — final exit gate). New `test/policy/play_invariants_test.dart` locks 8 cross-tree absence-grep invariants. Removed lone skipped placeholder in `test/platform/app_picker_api_test.dart`. `flutter test` exits 0 (124 passing, 0 skipped). `dart analyze` 0 errors / 0 warnings. `flutter build apk --debug` succeeds. Manual UAT signed off 2026-05-07 on Pixel emulator stock Android 16. 02-VALIDATION.md flipped to `status: complete` / `nyquist_compliant: true` / `wave_0_complete: true`. REQUIREMENTS.md ONBD-06/07 + REL-02/03 marked Complete; ROADMAP.md Phase 2 row checked off (10/10 plans, ✅ Complete 2026-05-07).
 
 ### Next Session
 
-- Execute Plan 02-09 (Wave 5): rewire `app_router.dart` to point `/` at `HomeScreen` + register `/list/add-app`, `/list/add-habit`, `/list/edit/:id`; mount the `HealthCheckBanner` (Surface 11) — 02-07 SUMMARY documents two integration shapes (ShellRoute vs HomeScreen.body Column rewrite); wire `DynamicColorBuilder` into `AppTheme.light()` / `dark()` (the optional named arg already lands a harmonised scheme).
-- Plan 02-10 (Wave 5/6): final DI/main wiring + onboarding-completion gating router redirects, plus Phase 2 exit-gate harness.
-- First real-device overnight test is still the Phase 4 exit gate — Phase 2/3 stay simulator-friendly.
+- Begin Phase 3 (Screen-Time Dashboard): `/gsd-discuss-phase 3` then `/gsd-plan-phase 3`. Phase 3 lights up the `usageApi.queryRange()` Pigeon channel for the daily/weekly/monthly dashboard with not-to-do entries highlighted, plus the "Avoided today" + cumulative totals home cards. Validates the Pigeon channel pattern on a low-risk surface before Phase 4's blocker depends on it.
+- First real-device overnight test is still the Phase 4 exit gate — Phase 3 stays simulator-friendly.
+- Phase 2 deferred items: 18 dart-analyze infos in pigeons/* + permission_status_mock.dart (Plan 02-03 frozen — see deferred-items.md). 8 placeholder PNGs at `assets/onboarding/` + `assets/logos/` await real Pixel-stock-Android-16 captures before Phase 6 PLAY-08 closed-track submission. OEM-survival overnight test deferred to Phase 4 exit gate.
 
 ### Files of Record
 
 - `/Users/jintanakhomwong/projects/not-to-do-list/.planning/PROJECT.md` — vision, constraints, key decisions
-- `/Users/jintanakhomwong/projects/not-to-do-list/.planning/REQUIREMENTS.md` — 63 v1 REQ-IDs + traceability table
-- `/Users/jintanakhomwong/projects/not-to-do-list/.planning/ROADMAP.md` — 6-phase plan with success criteria
+- `/Users/jintanakhomwong/projects/not-to-do-list/.planning/REQUIREMENTS.md` — 63 v1 REQ-IDs + traceability table (27 Complete after Phase 2)
+- `/Users/jintanakhomwong/projects/not-to-do-list/.planning/ROADMAP.md` — 6-phase plan with success criteria (Phases 1, 2 ✅ Complete)
+- `/Users/jintanakhomwong/projects/not-to-do-list/.planning/phases/02-list-crud-onboarding-permissions/02-VALIDATION.md` — Phase 2 validation (status: complete / nyquist_compliant: true)
 - `/Users/jintanakhomwong/projects/not-to-do-list/.planning/research/SUMMARY.md` — research executive summary
 - `/Users/jintanakhomwong/projects/not-to-do-list/.planning/research/ARCHITECTURE.md` — Flutter + Android architecture, build order
 - `/Users/jintanakhomwong/projects/not-to-do-list/.planning/research/PITFALLS.md` — 10 critical pitfalls + phase mapping
@@ -117,3 +133,4 @@ None.
 
 ---
 *State initialized: 2026-04-27 by gsd-roadmapper*
+*Phase 2 closed: 2026-05-07 by gsd-executor (Plan 02-10)*

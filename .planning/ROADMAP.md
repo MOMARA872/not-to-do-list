@@ -13,8 +13,8 @@
 
 ## Phases
 
-- [ ] **Phase 1: Foundation & Play Declaration** - Drift schema, domain skeleton, Pigeon scaffolding, manifest, and Play Console declaration copy committed before any service code
-- [ ] **Phase 2: List CRUD + Onboarding & Permissions** - User can build a not-to-do list and complete the 4-permission Settings hand-off flow with OEM-aware fallbacks
+- [x] **Phase 1: Foundation & Play Declaration** - Drift schema, domain skeleton, Pigeon scaffolding, manifest, and Play Console declaration copy committed before any service code
+- [x] **Phase 2: List CRUD + Onboarding & Permissions** - User can build a not-to-do list and complete the 4-permission Settings hand-off flow with OEM-aware fallbacks
 - [ ] **Phase 3: Screen-Time Dashboard** - UsageStatsManager bridge ships visible value and validates the Pigeon channel pattern on a low-risk surface
 - [ ] **Phase 4: Pause UX (the wedge)** - AccessibilityService + PauseActivity + cooldown timer deliver the reflection moment, OEM-survival overnight test gate begins
 - [ ] **Phase 5: Streak Engine & Daily Reminder** - Hybrid honest streak (system + self-report), daily check-in, exact-alarm daily reminder that survives reboot and Doze
@@ -111,8 +111,8 @@
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Play Declaration | 0/0 | Not started | - |
-| 2. List CRUD + Onboarding & Permissions | 8/10 | In Progress|  |
+| 1. Foundation & Play Declaration | 5/5 | ✅ Complete | 2026-04-26 |
+| 2. List CRUD + Onboarding & Permissions | 10/10 | ✅ Complete | 2026-05-07 |
 | 3. Screen-Time Dashboard | 0/0 | Not started | - |
 | 4. Pause UX (the wedge) | 0/0 | Not started | - |
 | 5. Streak Engine & Daily Reminder | 0/0 | Not started | - |
