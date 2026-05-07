@@ -3,19 +3,19 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-06T22:00:00.000Z"
+last_updated: "2026-05-07T00:03:19.000Z"
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 15
-  completed_plans: 6
-  percent: 40
+  completed_plans: 8
+  percent: 53
 ---
 
 # Project State: Not To-Do List
 
 **Initialized:** 2026-04-27
-**Last updated:** 2026-04-26
+**Last updated:** 2026-05-07
 
 ## Project Reference
 
@@ -27,16 +27,16 @@ progress:
 ## Current Position
 
 Phase: 02 (list-crud-onboarding-permissions) — EXECUTING
-Plan: 2 of 10 (Plan 02-01 ✅ complete; Wave 0 test-surface lock-in landed)
+Plan: 4 of 10 next (Plans 02-01, 02-02, 02-03 ✅ complete; Wave 0 + Wave 1 schema/channels landed)
 
 - **Milestone:** v1
 - **Phase:** Phase 1 — Foundation & Play Declaration (✅ COMPLETE)
-- **Plan:** Phase 2 Plan 02-01 complete — 20 stub test files + Drift v1 schema fixture + shared mocktail fixture committed (7bb8eba, f835841, 1e9c76e). Test surface locked before any production code lands.
+- **Plan:** Phase 2 Plan 02-03 complete — Pigeon `AppPickerApi` (3 @async methods) and `PermissionStatusApi` (8 @async methods) channels defined + Kotlin HostApi impls landed; `MainActivity` registers both new channels alongside Phase 1's three; `AccessibilityApi.openAccessibilitySettings` no-op stub replaced with real `resolveActivity`-guarded launch (d5ef5e3, e2cbdd8, 6d353b1, 06d9e5b, fea309b). Plan 02-02 also landed in parallel (Drift v1→v2 migration: `block_mode` + 3 schedule columns, 254a4af, 7a84d47, 500f15e). Wave 1 closed.
 - **Status:** Executing Phase 02
-- **Progress:** 1/6 phases complete; 6/15 plans complete
+- **Progress:** 1/6 phases complete; 8/15 plans complete
 
 ```
-[████░░░░░░░░░░░░░░░░] 17%
+[██████████░░░░░░░░░░] 53%
 ```
 
 ## Performance Metrics
@@ -91,10 +91,11 @@ None.
 - 2026-04-26: Phase 1 complete. All 5 plans (01-01 toolchain, 01-02 manifest+a11y+Play docs, 01-03 Drift schema, 01-04 Pigeon stubs+BlockedAppDetector, 01-05 empty home scaffold + V1-V14 phase exit gate) landed. `flutter build apk --debug` produces `build/app/outputs/flutter-apk/app-debug.apk` (171.6 MB).
 - 2026-04-27: PROJECT.md, REQUIREMENTS.md, research bundle, and ROADMAP.md initialized.
 - 2026-05-06: Phase 2 Plan 02-01 (Wave 0) complete. Stubbed 20 test files (16 from VALIDATION.md + 4 from PATTERNS.md File Inventory), captured Drift v1 schema fixture at `drift_schemas/drift_schema_v1.json` (8 columns, no v2 cols), and added shared `MockPermissionStatusApi` fixture at `test/_fixtures/permission_status_mock.dart`. `flutter test` passes (+6 ~32). Test surface for Phase 2 is locked.
+- 2026-05-07: Phase 2 Wave 1 complete. Plan 02-02 (Drift v1→v2 migration: `block_mode` text + 3 nullable schedule columns; addColumn migration; PRAGMA foreign_keys=ON; cascade-delete tests; 254a4af, 7a84d47, 500f15e) and Plan 02-03 (Pigeon `AppPickerApi` + `PermissionStatusApi` channels with Kotlin HostApi impls; `MainActivity` registers both new channels; `AccessibilityApi.openAccessibilitySettings` real launch with `resolveActivity` guard; d5ef5e3, e2cbdd8, 6d353b1, 06d9e5b, fea309b) landed in parallel. `flutter build apk --debug` succeeds; `flutter test` exits 0 (+11 ~30).
 
 ### Next Session
 
-- Execute Plan 02-02 (Drift v1→v2 migration: add `block_mode` + `schedule_*` columns to `block_list`, fill `migration_v1_to_v2_test.dart` against `drift_schemas/drift_schema_v1.json`).
+- Execute Wave 2 plans (02-04, 02-05): DAO + repository wiring, `BlockListRepository`, schedule-window helpers, Riverpod providers (`appPickerApiProvider`, `permissionStatusApiProvider`, `blockListRepoProvider`).
 - Phase 2 is the first phase where the home screen subscribes to `blockedAppDetectorProvider` (RESEARCH §6 Open Question #2 unblocks here).
 - First real-device overnight test is still the Phase 4 exit gate — Phase 2/3 stay simulator-friendly.
 
