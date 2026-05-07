@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: "Phase 2 complete; ready for Phase 3"
-last_updated: "2026-05-07T03:50:00.000Z"
+status: completed
+last_updated: "2026-05-07T17:27:13.758Z"
 progress:
   total_phases: 6
   completed_phases: 2
   total_plans: 15
   completed_plans: 15
-  percent: 33
+  percent: 100
 ---
 
 # Project State: Not To-Do List
@@ -32,7 +32,7 @@ Next: Phase 03 (Screen-Time Dashboard).
 - **Milestone:** v1
 - **Phase:** Phase 2 — List CRUD + Onboarding & Permissions (✅ COMPLETE)
 - **Plan:** Phase 2 Plan 02-10 (final exit gate) closes the phase. `test/policy/play_invariants_test.dart` (8 absence-grep invariants for PLAY-02..06 + v1-scope BIND_DEVICE_ADMIN + v1-scope forbidden-token sweep) green. `flutter test` exits 0 (124 passing, 0 skipped). `dart analyze` 0 errors / 0 warnings (18 pre-existing infos in pigeons/* + permission_status_mock.dart per deferred-items.md). `flutter build apk --debug` succeeds. AndroidManifest.xml audited — NO QUERY_ALL_PACKAGES, SYSTEM_ALERT_WINDOW, or BIND_DEVICE_ADMIN. Manual UAT (Plan 02-09-04) signed off 2026-05-07 on Pixel emulator stock Android 16. 02-VALIDATION.md frontmatter flipped to `status: complete` / `nyquist_compliant: true` / `wave_0_complete: true`; per-task verification map populated (32 task rows).
-- **Status:** Phase 2 complete; ready for Phase 3
+- **Status:** Phase 2 complete; Phase 3 context gathered (03-CONTEXT.md committed 7e8260c); ready for /gsd-plan-phase 3
 - **Progress:** [██████░░░░░░░░░░░░░░] 33% (2/6 phases)
 
 ```
@@ -113,10 +113,11 @@ None.
 - 2026-05-05/2026-05-07: Phase 2 Wave 3 complete. Plan 02-06 (List-CRUD UI) + Plan 02-07 (HomeScreen unified list) + Plan 02-08 (Onboarding wizard with PLAY-06 disclosure).
 - 2026-05-07: Phase 2 Wave 5 complete. Plan 02-09 (HealthCheckBanner + 9-route GoRouter + DynamicColorBuilder + 8 placeholder PNGs). Commits 4698eb7, 904f4fd, 365dfc6, 99fbdb8, 4699fe8.
 - 2026-05-07: Phase 2 Plan 02-10 complete (Wave 6 — final exit gate). New `test/policy/play_invariants_test.dart` locks 8 cross-tree absence-grep invariants. Removed lone skipped placeholder in `test/platform/app_picker_api_test.dart`. `flutter test` exits 0 (124 passing, 0 skipped). `dart analyze` 0 errors / 0 warnings. `flutter build apk --debug` succeeds. Manual UAT signed off 2026-05-07 on Pixel emulator stock Android 16. 02-VALIDATION.md flipped to `status: complete` / `nyquist_compliant: true` / `wave_0_complete: true`. REQUIREMENTS.md ONBD-06/07 + REL-02/03 marked Complete; ROADMAP.md Phase 2 row checked off (10/10 plans, ✅ Complete 2026-05-07).
+- 2026-05-07: Phase 3 (Screen-Time Dashboard) context captured via /gsd-discuss-phase 3 in --auto mode. 20 implementation decisions (D-01..20) locked across Pigeon impl, D/W/M nav, highlight treatment, "Avoided today" rule, cumulative totals, 5-min today-cache, no-permission fallback, lazy-on-open aggregation, bar-fill list rendering, home-card placement. Resume file: `.planning/phases/03-screen-time-dashboard/03-CONTEXT.md`. Audit trail in `03-DISCUSSION-LOG.md`. Committed 7e8260c.
 
 ### Next Session
 
-- Begin Phase 3 (Screen-Time Dashboard): `/gsd-discuss-phase 3` then `/gsd-plan-phase 3`. Phase 3 lights up the `usageApi.queryRange()` Pigeon channel for the daily/weekly/monthly dashboard with not-to-do entries highlighted, plus the "Avoided today" + cumulative totals home cards. Validates the Pigeon channel pattern on a low-risk surface before Phase 4's blocker depends on it.
+- Run `/gsd-plan-phase 3` (research → pattern mapping → planner → plan checker). 03-CONTEXT.md is the canonical input; downstream agents must read it before acting. Phase 3 is simulator-friendly by design — no real-device exit gate (that's Phase 4 REL-04). Validates the Pigeon channel pattern on a low-risk surface before Phase 4's blocker depends on it.
 - First real-device overnight test is still the Phase 4 exit gate — Phase 3 stays simulator-friendly.
 - Phase 2 deferred items: 18 dart-analyze infos in pigeons/* + permission_status_mock.dart (Plan 02-03 frozen — see deferred-items.md). 8 placeholder PNGs at `assets/onboarding/` + `assets/logos/` await real Pixel-stock-Android-16 captures before Phase 6 PLAY-08 closed-track submission. OEM-survival overnight test deferred to Phase 4 exit gate.
 
