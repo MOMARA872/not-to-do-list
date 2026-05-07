@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-07T00:03:19.000Z"
+last_updated: "2026-05-07T00:25:36.126Z"
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 15
-  completed_plans: 8
-  percent: 53
+  completed_plans: 10
+  percent: 67
 ---
 
 # Project State: Not To-Do List
@@ -33,7 +33,7 @@ Plan: 4 of 10 next (Plans 02-01, 02-02, 02-03 ✅ complete; Wave 0 + Wave 1 sche
 - **Phase:** Phase 1 — Foundation & Play Declaration (✅ COMPLETE)
 - **Plan:** Phase 2 Plan 02-03 complete — Pigeon `AppPickerApi` (3 @async methods) and `PermissionStatusApi` (8 @async methods) channels defined + Kotlin HostApi impls landed; `MainActivity` registers both new channels alongside Phase 1's three; `AccessibilityApi.openAccessibilitySettings` no-op stub replaced with real `resolveActivity`-guarded launch (d5ef5e3, e2cbdd8, 6d353b1, 06d9e5b, fea309b). Plan 02-02 also landed in parallel (Drift v1→v2 migration: `block_mode` + 3 schedule columns, 254a4af, 7a84d47, 500f15e). Wave 1 closed.
 - **Status:** Executing Phase 02
-- **Progress:** 1/6 phases complete; 8/15 plans complete
+- **Progress:** [██████░░░░] 60%
 
 ```
 [██████████░░░░░░░░░░] 53%
@@ -64,6 +64,7 @@ Plan: 4 of 10 next (Plans 02-01, 02-02, 02-03 ✅ complete; Wave 0 + Wave 1 sche
 | Streak roll-over lazy-evaluated on every app open | research/PITFALLS.md (#6) | Robust against Doze, reboots, offline; "fire at 00:00" is fragile |
 | AccessibilityService swappable behind Riverpod abstraction | research/PITFALLS.md (#1) | UsageStats-polling fallback ships without rework if Play rejects the service |
 | Earned `POST_NOTIFICATIONS` prompt (after first not-to-do added) | research/PITFALLS.md (#10) | Roughly doubles allow rates vs first-launch prompt |
+| Phase 2 P04 | 25min | 3 tasks | 11 files |
 
 ### Active Todos
 

@@ -10,14 +10,14 @@ v1 ships as an Android-only, Flutter-based, account-free, fully on-device app. E
 ### Avoidance List (LIST)
 
 - [ ] **LIST-01**: User can add a not-to-do entry for an Android app by picking from a list of installed launchable apps
-- [ ] **LIST-02**: User can add a not-to-do entry for a habit (text-only, no system blocking)
-- [ ] **LIST-03**: Each entry stores a reason / motivation note in free text
-- [ ] **LIST-04**: User can edit an entry's name, reason, and category
-- [ ] **LIST-05**: User can delete an entry; deletion removes its streak history and pause-event log
-- [ ] **LIST-06**: Home shows a unified list of all not-to-do entries (Apps + Habits together) sorted by recent activity
+- [x] **LIST-02**: User can add a not-to-do entry for a habit (text-only, no system blocking)
+- [x] **LIST-03**: Each entry stores a reason / motivation note in free text
+- [x] **LIST-04**: User can edit an entry's name, reason, and category
+- [x] **LIST-05**: User can delete an entry; deletion removes its streak history and pause-event log
+- [x] **LIST-06**: Home shows a unified list of all not-to-do entries (Apps + Habits together) sorted by recent activity
 - [ ] **LIST-07**: First-run flow offers a quick-add of common offenders (Instagram, TikTok, X, YouTube, Reddit) — user picks which to seed
-- [ ] **LIST-08**: User can configure each entry's block mode (`soft` / `hard`); `soft` is the default; only Apps support `hard` (Habits are self-report only)
-- [ ] **LIST-09**: User can configure a per-item active-window schedule — start time, end time, and weekday mask; `always-on` is the default; outside the window the entry is dormant (does not intercept)
+- [x] **LIST-08**: User can configure each entry's block mode (`soft` / `hard`); `soft` is the default; only Apps support `hard` (Habits are self-report only)
+- [x] **LIST-09**: User can configure a per-item active-window schedule — start time, end time, and weekday mask; `always-on` is the default; outside the window the entry is dormant (does not intercept)
 
 ### Onboarding & Permissions (ONBD)
 
@@ -180,14 +180,14 @@ Mapped by gsd-roadmapper on 2026-04-27. Every v1 REQ-ID maps to exactly one phas
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | LIST-01 | Phase 2 | Pending |
-| LIST-02 | Phase 2 | Pending |
-| LIST-03 | Phase 2 | Pending |
-| LIST-04 | Phase 2 | Pending |
-| LIST-05 | Phase 2 | Pending |
-| LIST-06 | Phase 2 | Pending |
+| LIST-02 | Phase 2 | Complete |
+| LIST-03 | Phase 2 | Complete |
+| LIST-04 | Phase 2 | Complete |
+| LIST-05 | Phase 2 | Complete |
+| LIST-06 | Phase 2 | Complete |
 | LIST-07 | Phase 2 | Pending |
-| LIST-08 | Phase 2 | Pending |
-| LIST-09 | Phase 2 | Pending |
+| LIST-08 | Phase 2 | Complete |
+| LIST-09 | Phase 2 | Complete |
 | ONBD-01 | Phase 2 | Pending |
 | ONBD-02 | Phase 2 | Pending |
 | ONBD-03 | Phase 2 | Pending |
