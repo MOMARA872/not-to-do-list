@@ -2054,6 +2054,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $DailyUsageSummaryTable dailyUsageSummary =
       $DailyUsageSummaryTable(this);
   late final BlockListDao blockListDao = BlockListDao(this as AppDatabase);
+  late final DailyUsageSummaryDao dailyUsageSummaryDao =
+      DailyUsageSummaryDao(this as AppDatabase);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
