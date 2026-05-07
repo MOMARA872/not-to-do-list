@@ -9,7 +9,7 @@ v1 ships as an Android-only, Flutter-based, account-free, fully on-device app. E
 
 ### Avoidance List (LIST)
 
-- [ ] **LIST-01**: User can add a not-to-do entry for an Android app by picking from a list of installed launchable apps
+- [x] **LIST-01**: User can add a not-to-do entry for an Android app by picking from a list of installed launchable apps
 - [x] **LIST-02**: User can add a not-to-do entry for a habit (text-only, no system blocking)
 - [x] **LIST-03**: Each entry stores a reason / motivation note in free text
 - [x] **LIST-04**: User can edit an entry's name, reason, and category
@@ -179,7 +179,7 @@ Mapped by gsd-roadmapper on 2026-04-27. Every v1 REQ-ID maps to exactly one phas
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| LIST-01 | Phase 2 | Pending |
+| LIST-01 | Phase 2 | Complete |
 | LIST-02 | Phase 2 | Complete |
 | LIST-03 | Phase 2 | Complete |
 | LIST-04 | Phase 2 | Complete |
