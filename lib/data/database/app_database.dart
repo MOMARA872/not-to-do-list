@@ -37,6 +37,13 @@ class AppDatabase extends _$AppDatabase {
             await m.addColumn(blockList, blockList.scheduleWeekdayMask);
           }
         },
+        // SQLite's default is PRAGMA foreign_keys=OFF; without this, the
+        // onDelete: KeyAction.cascade clauses on daily_streak / pause_events
+        // / daily_checkins are silently inert (LIST-05). Enable it on every
+        // open. Required by both production and tests.
+        beforeOpen: (details) async {
+          await customStatement('PRAGMA foreign_keys = ON;');
+        },
       );
 
   static QueryExecutor _openConnection() {

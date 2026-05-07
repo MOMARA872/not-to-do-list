@@ -6,6 +6,10 @@ analyzer:
     - "**/*.freezed.dart"
     - "build/**"
     - ".dart_tool/**"
+    # drift_dev `schema generate` output (used by migration round-trip
+    # tests). Generated files don't use the .g.dart suffix, so the
+    # default glob misses them.
+    - "test/generated_migrations/**"
 
 linter:
   rules:
