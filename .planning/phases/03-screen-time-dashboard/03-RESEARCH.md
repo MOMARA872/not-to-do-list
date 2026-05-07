@@ -1238,22 +1238,22 @@ void didChangeAppLifecycleState(AppLifecycleState state) {
 
 **If this table is empty:** Most claims in this research were verified or cited from the codebase. The 6 assumptions above are honest residual uncertainties that the planner and `/gsd-discuss-phase` follow-ups should treat as low-priority confirmations (not blockers).
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **Schedule-aware "Avoided today" thresholding (per A6):**
+1. **Schedule-aware "Avoided today" thresholding (per A6):** RESOLVED.
    - What we know: D-08 says "only foreground time within the active window counts (mirrors STRK-09)." Phase 5 STRK-09 owns the strict computation.
    - What's unclear: Does Phase 3 need to ship the schedule-aware version of the query, or can it ship the simpler "daily-total threshold" version with a documented Phase 5 upgrade path?
-   - Recommendation: Phase 3 ships the simpler version (faster, no Phase 5 dependency); document the simplification explicitly in the plan + the `avoidedTodayProvider` docstring; flip the implementation in Phase 5 with no public-stream interface change. **Defer to plan-checker** if this is a gray area for the planner.
+   - **Resolution:** Phase 3 ships the simpler daily-total-threshold version. Schedule-window filtering deferred to Phase 5 STRK-09 with no public-stream interface change. Both 03-CONTEXT.md `<specifics>` and the planner's plan acceptance criteria explicitly document the A6 carve-out and the Phase 5 upgrade path. The `avoidedTodayProvider` docstring cites this as an A6 simplification.
 
-2. **Where does `HealthCheckBanner` mount on `/dashboard`?**
+2. **Where does `HealthCheckBanner` mount on `/dashboard`?** RESOLVED.
    - What we know: D-13 says the dashboard reuses the banner with the same copy.
    - What's unclear: Is it a per-page mount (in `DashboardScreen`'s body) or a global lift to `ShellRoute`?
-   - Recommendation: Per-page mount. ShellRoute lift is a cross-cutting Phase-2 refactor and out of Phase 3 scope. Two banner instances (one in `HomeScreen`, one in `DashboardScreen`) is acceptable duplication for now.
+   - **Resolution:** Per-page mount. ShellRoute lift is a cross-cutting Phase-2 refactor and out of Phase 3 scope. Two banner instances (one in `HomeScreen`, one in `DashboardScreen`) is acceptable duplication for now.
 
-3. **Does `dashboardRangeProvider` survive a hot-reload in dev?**
+3. **Does `dashboardRangeProvider` survive a hot-reload in dev?** RESOLVED.
    - What we know: `StateProvider<DashboardRange>` is in-memory; default = `Day`.
    - What's unclear: Whether dev-loop friction (resetting to Day on every hot reload) is annoying enough to justify a `shared_preferences` write.
-   - Recommendation: D-05 explicitly says "no `shared_preferences` write — open-on-Day each cold start matches user expectation." Honor the decision. Hot-reload reset is a dev-only cost.
+   - **Resolution:** D-05 explicitly says "no `shared_preferences` write — open-on-Day each cold start matches user expectation." Honor the decision. Hot-reload reset is a dev-only cost.
 
 ## Environment Availability
 

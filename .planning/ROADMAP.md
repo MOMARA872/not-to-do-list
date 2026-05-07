@@ -63,7 +63,7 @@
   2. Daily view shows per-app screen time with not-to-do entries visually highlighted; weekly view aggregates the last 7 days; monthly view reads from the pre-aggregated `daily_usage_summary` table (not raw events).
   3. Home shows an "Avoided today" card summarizing successful avoidance for today.
   4. Home shows cumulative totals: total launches blocked, total time avoided.
-  5. Dashboard renders within 300 ms on a real mid-range Android device (measured, not estimated).
+  5. Dashboard first-frame renders within 300 ms — verified in Phase 3 via a host-side perf gate (`test/perf/dashboard_render_test.dart` against a seeded 30-day × 20-app fixture using `Stopwatch + tester.pumpWidget`). Real-device validation on a mid-range Pixel emulator is deferred to **Phase 4's first task** as a pre-flight check (per Phase 3 CONTEXT D-20 and RESEARCH A4). Phase 3 is simulator-friendly by research design.
 **Plans**: 6 plans
 - [ ] 03-01-PLAN.md — Wave 0: stub all 11 Phase 3 test files + 30d x 20-app Drift seed fixture (mirrors Phase 2 Plan 02-01)
 - [ ] 03-02-PLAN.md — Wave 1a: DailyUsageSummaryDao with upsertDay/getTodayFor/watchRange + AppDatabase daos: registration; NO schema bump
