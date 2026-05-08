@@ -44,13 +44,13 @@ v1 ships as an Android-only, Flutter-based, account-free, fully on-device app. E
 
 ### Screen Time Dashboard (DASH)
 
-- [ ] **DASH-01**: App reads per-app screen time via UsageStatsManager (background-thread only — never on UI thread)
-- [ ] **DASH-02**: Daily view shows screen time per app, with not-to-do entries highlighted
-- [ ] **DASH-03**: Weekly view aggregates the last 7 days
-- [ ] **DASH-04**: Monthly view reads from a pre-aggregated `daily_usage_summary` table (not raw events)
-- [ ] **DASH-05**: Home shows an "Avoided today" card summarizing successful avoidance for today
-- [ ] **DASH-06**: Home shows cumulative totals: total launches blocked, total time avoided
-- [ ] **DASH-07**: Dashboard renders within 300 ms on a mid-range device
+- [x] **DASH-01**: App reads per-app screen time via UsageStatsManager (background-thread only — never on UI thread)
+- [x] **DASH-02**: Daily view shows screen time per app, with not-to-do entries highlighted
+- [x] **DASH-03**: Weekly view aggregates the last 7 days
+- [x] **DASH-04**: Monthly view reads from a pre-aggregated `daily_usage_summary` table (not raw events)
+- [x] **DASH-05**: Home shows an "Avoided today" card summarizing successful avoidance for today
+- [x] **DASH-06**: Home shows cumulative totals: total launches blocked, total time avoided
+- [x] **DASH-07**: Dashboard renders within 300 ms on a mid-range device
 
 ### Streak Engine (STRK)
 
@@ -205,13 +205,13 @@ Mapped by gsd-roadmapper on 2026-04-27. Every v1 REQ-ID maps to exactly one phas
 | PAUS-08 | Phase 4 | Pending |
 | PAUS-09 | Phase 4 | Pending |
 | PAUS-10 | Phase 4 | Pending |
-| DASH-01 | Phase 3 | Pending |
-| DASH-02 | Phase 3 | Pending |
-| DASH-03 | Phase 3 | Pending |
-| DASH-04 | Phase 3 | Pending |
-| DASH-05 | Phase 3 | Pending |
-| DASH-06 | Phase 3 | Pending |
-| DASH-07 | Phase 3 | Pending |
+| DASH-01 | Phase 3 | Complete |
+| DASH-02 | Phase 3 | Complete |
+| DASH-03 | Phase 3 | Complete |
+| DASH-04 | Phase 3 | Complete |
+| DASH-05 | Phase 3 | Complete |
+| DASH-06 | Phase 3 | Complete |
+| DASH-07 | Phase 3 | Complete (host-proxy gate; real-device measurement deferred to Phase 4 first task per CONTEXT D-20) |
 | STRK-01 | Phase 5 | Pending |
 | STRK-02 | Phase 5 | Pending |
 | STRK-03 | Phase 5 | Pending |
