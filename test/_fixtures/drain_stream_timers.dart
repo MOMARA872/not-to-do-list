@@ -12,6 +12,7 @@
 // Phase 2's home_screen_unified_list_test.dart keeps its inline copy
 // unchanged — backporting Phase 2 is out of scope (Karpathy "Don't
 // refactor things that aren't broken").
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// Drains pending Drift stream-disposal timers between widget tests.
