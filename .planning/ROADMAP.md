@@ -15,7 +15,7 @@
 
 - [x] **Phase 1: Foundation & Play Declaration** - Drift schema, domain skeleton, Pigeon scaffolding, manifest, and Play Console declaration copy committed before any service code
 - [x] **Phase 2: List CRUD + Onboarding & Permissions** - User can build a not-to-do list and complete the 4-permission Settings hand-off flow with OEM-aware fallbacks
-- [ ] **Phase 3: Screen-Time Dashboard** - UsageStatsManager bridge ships visible value and validates the Pigeon channel pattern on a low-risk surface
+- [x] **Phase 3: Screen-Time Dashboard** - UsageStatsManager bridge ships visible value and validates the Pigeon channel pattern on a low-risk surface (completed 2026-05-08)
 - [ ] **Phase 4: Pause UX (the wedge)** - AccessibilityService + PauseActivity + cooldown timer deliver the reflection moment, OEM-survival overnight test gate begins
 - [ ] **Phase 5: Streak Engine & Daily Reminder** - Hybrid honest streak (system + self-report), daily check-in, exact-alarm daily reminder that survives reboot and Doze
 - [ ] **Phase 6: Polish & Play Store Submission** - Settings, theme, export/reset, prominent disclosure, closed-track Play submission passes review
@@ -70,7 +70,7 @@
 - [x] 03-03-PLAN.md — Wave 1b: UsageApiImpl.kt (Pigeon HostApi backed by UsageStatsManager.queryUsageStats on a background Executor + AppOps gate + null-safe locked-device) + MainActivity wire-up
 - [x] 03-04-PLAN.md — Wave 2: UsageRepository (refreshIfStale + watchRange) + DashboardRange domain helper + 7 hand-written Riverpod providers (D-19 names) + 3 DTO models
 - [x] 03-05-PLAN.md — Wave 3: DashboardScreen + 4 widgets (DashboardSegmented, DashboardRow, LetterAvatar, PeriodTotalRibbon) + GoRouter /dashboard route
-- [ ] 03-06-PLAN.md — Wave 4: AvoidedTodayCard + CumulativeTotalsCard inserted into HomeScreen + DASH-07 perf gate (Stopwatch + pumpWidget) + final phase exit
+- [x] 03-06-PLAN.md — Wave 4: AvoidedTodayCard + CumulativeTotalsCard inserted into HomeScreen + DASH-07 perf gate (Stopwatch + pumpWidget) + final phase exit
 **UI hint**: yes
 
 ### Phase 4: Pause UX (the wedge)
@@ -119,7 +119,7 @@
 |-------|----------------|--------|-----------|
 | 1. Foundation & Play Declaration | 5/5 | ✅ Complete | 2026-04-26 |
 | 2. List CRUD + Onboarding & Permissions | 10/10 | ✅ Complete | 2026-05-07 |
-| 3. Screen-Time Dashboard | 5/6 | In Progress|  |
+| 3. Screen-Time Dashboard | 6/6 | Complete   | 2026-05-08 |
 | 4. Pause UX (the wedge) | 0/0 | Not started | - |
 | 5. Streak Engine & Daily Reminder | 0/0 | Not started | - |
 | 6. Polish & Play Store Submission | 0/0 | Not started | - |
