@@ -68,7 +68,7 @@
 - [x] 03-01-PLAN.md — Wave 0: stub all 11 Phase 3 test files + 30d x 20-app Drift seed fixture (mirrors Phase 2 Plan 02-01)
 - [x] 03-02-PLAN.md — Wave 1a: DailyUsageSummaryDao with upsertDay/getTodayFor/watchRange + AppDatabase daos: registration; NO schema bump
 - [x] 03-03-PLAN.md — Wave 1b: UsageApiImpl.kt (Pigeon HostApi backed by UsageStatsManager.queryUsageStats on a background Executor + AppOps gate + null-safe locked-device) + MainActivity wire-up
-- [ ] 03-04-PLAN.md — Wave 2: UsageRepository (refreshIfStale + watchRange) + DashboardRange domain helper + 7 hand-written Riverpod providers (D-19 names) + 3 DTO models
+- [x] 03-04-PLAN.md — Wave 2: UsageRepository (refreshIfStale + watchRange) + DashboardRange domain helper + 7 hand-written Riverpod providers (D-19 names) + 3 DTO models
 - [ ] 03-05-PLAN.md — Wave 3: DashboardScreen + 4 widgets (DashboardSegmented, DashboardRow, LetterAvatar, PeriodTotalRibbon) + GoRouter /dashboard route
 - [ ] 03-06-PLAN.md — Wave 4: AvoidedTodayCard + CumulativeTotalsCard inserted into HomeScreen + DASH-07 perf gate (Stopwatch + pumpWidget) + final phase exit
 **UI hint**: yes
@@ -119,7 +119,7 @@
 |-------|----------------|--------|-----------|
 | 1. Foundation & Play Declaration | 5/5 | ✅ Complete | 2026-04-26 |
 | 2. List CRUD + Onboarding & Permissions | 10/10 | ✅ Complete | 2026-05-07 |
-| 3. Screen-Time Dashboard | 3/6 | In Progress|  |
+| 3. Screen-Time Dashboard | 4/6 | In Progress|  |
 | 4. Pause UX (the wedge) | 0/0 | Not started | - |
 | 5. Streak Engine & Daily Reminder | 0/0 | Not started | - |
 | 6. Polish & Play Store Submission | 0/0 | Not started | - |
