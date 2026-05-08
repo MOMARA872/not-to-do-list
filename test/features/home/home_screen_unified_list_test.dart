@@ -14,11 +14,12 @@ import 'package:not_to_do_list/data/database/app_database.dart';
 import 'package:not_to_do_list/data/database/daos/block_list_dao.dart';
 import 'package:not_to_do_list/data/repositories/block_list_repository.dart';
 import 'package:not_to_do_list/domain/providers/block_list_repo_provider.dart';
+import 'package:not_to_do_list/domain/providers/database_provider.dart';
 import 'package:not_to_do_list/features/home/pages/home_screen.dart';
 import 'package:not_to_do_list/features/home/widgets/block_list_row.dart';
 import 'package:not_to_do_list/features/list/providers/app_icon_cache_provider.dart';
 
-Widget _wrap({required BlockListRepository repo}) {
+Widget _wrap({required BlockListRepository repo, required AppDatabase db}) {
   final router = GoRouter(
     initialLocation: '/',
     routes: <RouteBase>[
@@ -41,6 +42,10 @@ Widget _wrap({required BlockListRepository repo}) {
   return ProviderScope(
     overrides: [
       blockListRepoProvider.overrideWithValue(repo),
+      // Phase 3 added AvoidedTodayCard + CumulativeTotalsCard which read
+      // databaseProvider via avoidedTodayProvider/cumulativeTotalsProvider.
+      // Override with the in-memory test db (no path_provider plugin in tests).
+      databaseProvider.overrideWithValue(db),
       // App icon fetcher hits a Pigeon channel in production; stub it to a
       // null-bytes future so AppIcon falls back to Icons.android instantly.
       appIconBytesProvider.overrideWith((ref, pkg) async => null),
@@ -74,7 +79,7 @@ void main() {
 
   group('HomeScreen unified list (LIST-04, LIST-05, LIST-06)', () {
     testWidgets('empty list shows EmptyHomeState message', (tester) async {
-      await tester.pumpWidget(_wrap(repo: repo));
+      await tester.pumpWidget(_wrap(repo: repo, db: db));
       await tester.pumpAndSettle();
       expect(find.text('Nothing on your list yet.'), findsOneWidget);
       expect(
@@ -92,7 +97,7 @@ void main() {
         displayName: 'Instagram',
         reasonNote: 'Doomscrolling',
       );
-      await tester.pumpWidget(_wrap(repo: repo));
+      await tester.pumpWidget(_wrap(repo: repo, db: db));
       await tester.pumpAndSettle();
       expect(find.text('Instagram'), findsOneWidget);
       expect(find.text('Doomscrolling'), findsOneWidget);
@@ -102,7 +107,7 @@ void main() {
     testWidgets('renders single habit entry with spa_outlined icon',
         (tester) async {
       await repo.add(kind: 1, displayName: 'Checking news');
-      await tester.pumpWidget(_wrap(repo: repo));
+      await tester.pumpWidget(_wrap(repo: repo, db: db));
       await tester.pumpAndSettle();
       expect(find.text('Checking news'), findsOneWidget);
       expect(find.byIcon(Icons.spa_outlined), findsOneWidget);
@@ -120,7 +125,7 @@ void main() {
           reasonNote: 'Doomscrolling',
         );
         await repo.add(kind: 1, displayName: 'Checking news');
-        await tester.pumpWidget(_wrap(repo: repo));
+        await tester.pumpWidget(_wrap(repo: repo, db: db));
         await tester.pumpAndSettle();
         expect(find.text('Instagram'), findsOneWidget);
         expect(find.text('Checking news'), findsOneWidget);
@@ -155,7 +160,7 @@ void main() {
         );
       });
 
-      await tester.pumpWidget(_wrap(repo: repo));
+      await tester.pumpWidget(_wrap(repo: repo, db: db));
       await tester.pumpAndSettle();
 
       final rows = tester.widgetList<BlockListRow>(find.byType(BlockListRow));
@@ -167,7 +172,7 @@ void main() {
     });
 
     testWidgets('+ Add app and + Add habit FABs both render', (tester) async {
-      await tester.pumpWidget(_wrap(repo: repo));
+      await tester.pumpWidget(_wrap(repo: repo, db: db));
       await tester.pumpAndSettle();
       expect(find.text('+ Add app'), findsOneWidget);
       expect(find.text('+ Add habit'), findsOneWidget);
@@ -175,7 +180,7 @@ void main() {
     });
 
     testWidgets('+ Add app FAB navigates to /list/add-app', (tester) async {
-      await tester.pumpWidget(_wrap(repo: repo));
+      await tester.pumpWidget(_wrap(repo: repo, db: db));
       await tester.pumpAndSettle();
       await tester.tap(find.text('+ Add app'));
       await tester.pumpAndSettle();
@@ -184,7 +189,7 @@ void main() {
     });
 
     testWidgets('+ Add habit FAB navigates to /list/add-habit', (tester) async {
-      await tester.pumpWidget(_wrap(repo: repo));
+      await tester.pumpWidget(_wrap(repo: repo, db: db));
       await tester.pumpAndSettle();
       await tester.tap(find.text('+ Add habit'));
       await tester.pumpAndSettle();
@@ -194,7 +199,7 @@ void main() {
 
     testWidgets('tap row navigates to /list/edit/{id}', (tester) async {
       final id = await repo.add(kind: 1, displayName: 'Checking news');
-      await tester.pumpWidget(_wrap(repo: repo));
+      await tester.pumpWidget(_wrap(repo: repo, db: db));
       await tester.pumpAndSettle();
       await tester.tap(find.text('Checking news'));
       await tester.pumpAndSettle();
@@ -208,7 +213,7 @@ void main() {
         packageName: 'com.instagram.android',
         displayName: 'Instagram',
       );
-      await tester.pumpWidget(_wrap(repo: repo));
+      await tester.pumpWidget(_wrap(repo: repo, db: db));
       await tester.pumpAndSettle();
       expect(find.text('—'), findsOneWidget);
       await drainStreamTimers(tester);
