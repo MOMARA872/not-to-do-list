@@ -5,7 +5,9 @@ import 'package:not_to_do_list/data/database/app_database.dart';
 import 'package:not_to_do_list/domain/providers/block_list_repo_provider.dart';
 import 'package:not_to_do_list/features/health/permission_health_provider.dart';
 import 'package:not_to_do_list/features/health/widgets/health_check_banner.dart';
+import 'package:not_to_do_list/features/home/widgets/avoided_today_card.dart';
 import 'package:not_to_do_list/features/home/widgets/block_list_row.dart';
+import 'package:not_to_do_list/features/home/widgets/cumulative_totals_card.dart';
 import 'package:not_to_do_list/features/home/widgets/empty_home_state.dart';
 
 /// Private stream provider over [blockListRepoProvider]'s `watchAll()`.
@@ -46,6 +48,17 @@ class HomeScreen extends ConsumerWidget {
                   : HealthCheckBanner(health: h),
               orElse: () => const SizedBox.shrink(),
             ),
+          ),
+          // Phase 3 D-17 — two home cards above the unified list. NOT
+          // wrapped in AnimatedSwitcher: they belong to the home identity,
+          // not transient state.
+          const Padding(
+            padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
+            child: AvoidedTodayCard(),
+          ),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
+            child: CumulativeTotalsCard(),
           ),
           Expanded(
             child: entriesAsync.when(
