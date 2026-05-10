@@ -26,19 +26,29 @@ progress:
 
 ## Current Position
 
-Phase: 3 (Screen-Time Dashboard) — EXECUTING
-Plan: 1 of 6
-Next: Phase 03 (Screen-Time Dashboard).
+Phase: 4 (Pause UX — the wedge) — PLANNED, ready to execute
+Plan: 0 of 8 (planning just completed 2026-05-10)
+Next: `/gsd-execute-phase 4` (or `/gsd-execute-phase 4 --wave 0` to start with the test scaffold).
 
 - **Milestone:** v1
-- **Phase:** Phase 2 — List CRUD + Onboarding & Permissions (✅ COMPLETE)
-- **Plan:** Phase 2 Plan 02-10 (final exit gate) closes the phase. `test/policy/play_invariants_test.dart` (8 absence-grep invariants for PLAY-02..06 + v1-scope BIND_DEVICE_ADMIN + v1-scope forbidden-token sweep) green. `flutter test` exits 0 (124 passing, 0 skipped). `dart analyze` 0 errors / 0 warnings (18 pre-existing infos in pigeons/* + permission_status_mock.dart per deferred-items.md). `flutter build apk --debug` succeeds. AndroidManifest.xml audited — NO QUERY_ALL_PACKAGES, SYSTEM_ALERT_WINDOW, or BIND_DEVICE_ADMIN. Manual UAT (Plan 02-09-04) signed off 2026-05-07 on Pixel emulator stock Android 16. 02-VALIDATION.md frontmatter flipped to `status: complete` / `nyquist_compliant: true` / `wave_0_complete: true`; per-task verification map populated (32 task rows).
-- **Status:** Executing Phase 3
-- **Progress:** [██████░░░░░░░░░░░░░░] 33% (2/6 phases)
+- **Phase:** Phase 3 — Screen-Time Dashboard (✅ COMPLETE 2026-05-08 per ROADMAP)
+- **Plan:** Phase 4 planned 2026-05-10 via `/gsd-plan-phase 4`. 8 plan files (04-01..04-08) + 04-PLAN-OVERVIEW.md across 5 waves. Plan-checker verdict PASS_WITH_FLAGS (0 BLOCK, 6 FLAG; 3 high-risk FLAGs — super.onCreate ordering, missing build.gradle.kts dependencies block, _health_lifecycle_observer.dart path — fixed in-place; 3 advisory FLAGs left for executor to resolve in seconds).
+- **Status:** Ready to execute Phase 4
+- **Progress:** [██████░░░░░░░░░░░░░░] 50% (3/6 phases)
 
 ```
-[██████░░░░░░░░░░░░░░] 33% (2/6 phases)
+[██████████░░░░░░░░░░] 50% (3/6 phases — Phase 4 planned, not yet executed)
 ```
+
+### Phase 4 Plan Inventory
+- 04-01-PLAN — Wave 0 — test scaffold (11 RED test files + REL-04 verification template)
+- 04-02-PLAN — Wave 1 — Kotlin `isInScheduleWindow` byte-for-byte port + JVM parity test
+- 04-03-PLAN — Wave 1 — `AccessibilityApiImpl.kt` + MainActivity `FlutterEngineCache.put("pause_engine")` pre-warm
+- 04-04-PLAN — Wave 2 — `BlocklistBroadcastApi` Pigeon channel + `BlockListRepository` LocalBroadcast emit + `AccessibilityBlockedAppDetector` body
+- 04-05-PLAN — Wave 2 — `NotToDoAccessibilityService` body (TYPE_WINDOW_STATE_CHANGED + 800ms debounce + Map<String, ScheduleSlice> + LocalBroadcastManager receiver + Intent-launch) — REL-01 ships WITHOUT FGS per CD-01
+- 04-06-PLAN — Wave 3 — `PauseActivity.kt` onCreate (setShowWhenLocked + setTurnScreenOn BEFORE super.onCreate; T-02 fail-closed extras validation; `withCachedEngine("pause_engine")` binding)
+- 04-07-PLAN — Wave 3 — Flutter pause UI (PauseScreen + 5 widgets + PauseController + PauseEventRepository) — D-01..D-08 honored verbatim
+- 04-08-PLAN — Wave 4 — exit gate: /pause/:entryId GoRoute + 9th PLAY-02 absence-grep invariant + CD-03 device-acquisition human-checkpoint + REL-04 overnight stopwatch test (<500ms detect-to-pause after 8h idle on Xiaomi/Samsung) + bookkeeping flips
 
 ## Performance Metrics
 
