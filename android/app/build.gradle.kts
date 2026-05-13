@@ -42,4 +42,5 @@ flutter {
 
 dependencies {
     testImplementation("junit:junit:4.13.2")
+    implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0")
 }

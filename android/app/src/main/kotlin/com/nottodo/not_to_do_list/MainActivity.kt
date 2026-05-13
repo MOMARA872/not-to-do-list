@@ -4,6 +4,8 @@ import android.os.Bundle
 import com.nottodo.not_to_do_list.platform.AccessibilityApi
 import com.nottodo.not_to_do_list.platform.AccessibilityApiImpl
 import com.nottodo.not_to_do_list.platform.AppPickerApi
+import com.nottodo.not_to_do_list.platform.BlocklistBroadcastApi
+import com.nottodo.not_to_do_list.platform.BlocklistBroadcastApiImpl
 import com.nottodo.not_to_do_list.platform.AppPickerHostImpl
 import com.nottodo.not_to_do_list.platform.NotificationApi
 import com.nottodo.not_to_do_list.platform.PermissionStatusApi
@@ -56,6 +58,11 @@ class MainActivity : FlutterActivity() {
         AccessibilityApi.setUp(
             flutterEngine.dartExecutor.binaryMessenger,
             AccessibilityApiImpl(applicationContext),
+        )
+
+        BlocklistBroadcastApi.setUp(
+            flutterEngine.dartExecutor.binaryMessenger,
+            BlocklistBroadcastApiImpl(applicationContext),
         )
 
         NotificationApi.setUp(flutterEngine.dartExecutor.binaryMessenger, object : NotificationApi {
