@@ -1,40 +1,122 @@
-// Phase 4 Plan 04-01 — Wave 0 stub for PauseEventRepository.
-// Implementation lands in Plan 04-07.
+// Plan 04-07 — Task 04-07-01: PauseEventRepository tests (D-13 single-writer).
 //
-// D-13 contract: Dart is the single writer to pause_events.
-// PauseActivity (Flutter side) writes one row per session at session-end
-// (insert-at-end pattern to avoid UPDATE-by-id race on activity kill).
-//
-// outcome mapping (from CONTEXT.md specifics):
-//   0 = cooldown auto-completed (timer ran to 0)
-//   1 = Cancel pressed (cooldownChosenSeconds may be null if no chip was tapped)
-//   2 = Use anyway pressed (soft entries only)
+// outcome mapping:
+//   0 = cooldown auto-completed
+//   1 = Cancel pressed
+//   2 = Use anyway pressed
+import 'package:drift/drift.dart' hide isNull;
+import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:not_to_do_list/data/database/app_database.dart';
+import 'package:not_to_do_list/data/database/daos/pause_event_dao.dart';
+import 'package:not_to_do_list/data/repositories/pause_event_repository.dart';
 
 void main() {
   group('PauseEventRepository.insertOutcome (D-13)', () {
-    group('outcome=0 cooldown-completed', () {
-      test(
-        'placeholder',
-        () {},
-        skip: 'Plan 04-07 fills (PAUS-04 cooldown drain outcome=0)',
-      );
+    late AppDatabase db;
+    late PauseEventRepository repo;
+    late int blockListEntryId;
+
+    setUp(() async {
+      db = AppDatabase(NativeDatabase.memory());
+      final dao = PauseEventDao(db);
+      repo = PauseEventRepository(dao);
+
+      // Insert a FK target row into block_list.
+      blockListEntryId = await db.into(db.blockList).insert(
+            BlockListCompanion.insert(
+              kind: 0,
+              packageName: const Value('com.instagram.android'),
+              displayName: 'Instagram',
+              createdAt: DateTime.utc(2026, 5, 10, 9),
+              updatedAt: DateTime.utc(2026, 5, 10, 9),
+            ),
+          );
     });
 
-    group('outcome=1 cancel', () {
-      test(
-        'placeholder',
-        () {},
-        skip: 'Plan 04-07 fills (PAUS-05 Cancel writes outcome=1)',
-      );
+    tearDown(() async {
+      await db.close();
     });
 
-    group('outcome=2 use-anyway', () {
-      test(
-        'placeholder',
-        () {},
-        skip: 'Plan 04-07 fills (PAUS-06 Use anyway writes outcome=2)',
-      );
-    });
+    test(
+      'insertOutcome with outcome=0 writes a cooldown-completed row',
+      () async {
+        final id = await repo.insertOutcome(
+          entryId: blockListEntryId,
+          packageName: 'com.instagram.android',
+          triggeredAt: DateTime.utc(2026, 5, 10, 9, 0),
+          cooldownChosenSeconds: 180,
+          outcome: 0,
+        );
+        expect(id, isPositive);
+
+        final rows = await db.select(db.pauseEvents).get();
+        expect(rows, hasLength(1));
+        expect(rows.first.outcome, 0);
+        expect(rows.first.cooldownChosenSeconds, 180);
+      },
+    );
+
+    test(
+      'insertOutcome with outcome=1 and null cooldownChosenSeconds writes a row with NULL column',
+      () async {
+        final id = await repo.insertOutcome(
+          entryId: blockListEntryId,
+          packageName: 'com.instagram.android',
+          triggeredAt: DateTime.utc(2026, 5, 10, 9, 1),
+          // no chip was tapped before Cancel
+          cooldownChosenSeconds: null,
+          outcome: 1,
+        );
+        expect(id, isPositive);
+
+        final rows = await db.select(db.pauseEvents).get();
+        expect(rows, hasLength(1));
+        expect(rows.first.outcome, 1);
+        expect(rows.first.cooldownChosenSeconds, isNull);
+      },
+    );
+
+    test(
+      'insertOutcome with outcome=2 writes a row that cumulativeTotalsProvider WHERE clause excludes',
+      () async {
+        // Insert outcome=0 (counts), outcome=1 (counts), outcome=2 (excluded).
+        await repo.insertOutcome(
+          entryId: blockListEntryId,
+          packageName: 'com.instagram.android',
+          triggeredAt: DateTime.utc(2026, 5, 10, 9, 0),
+          cooldownChosenSeconds: 300,
+          outcome: 0,
+        );
+        await repo.insertOutcome(
+          entryId: blockListEntryId,
+          packageName: 'com.instagram.android',
+          triggeredAt: DateTime.utc(2026, 5, 10, 9, 5),
+          cooldownChosenSeconds: 60,
+          outcome: 1,
+        );
+        await repo.insertOutcome(
+          entryId: blockListEntryId,
+          packageName: 'com.instagram.android',
+          triggeredAt: DateTime.utc(2026, 5, 10, 9, 10),
+          cooldownChosenSeconds: 180,
+          outcome: 2,
+        );
+
+        // Verify cumulativeTotalsProvider's WHERE outcome IN (0, 1) contract.
+        final result = await db
+            .customSelect(
+              'SELECT COUNT(*) AS n FROM pause_events WHERE outcome IN (0, 1)',
+            )
+            .getSingle();
+        // Only 2 rows qualify — the use-anyway (outcome=2) is excluded.
+        expect(result.read<int>('n'), 2);
+
+        // Total row count is 3 — the use-anyway row does exist, just excluded
+        // from the aggregate.
+        final total = await db.select(db.pauseEvents).get();
+        expect(total, hasLength(3));
+      },
+    );
   });
 }
