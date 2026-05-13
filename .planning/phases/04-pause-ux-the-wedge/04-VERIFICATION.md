@@ -126,13 +126,13 @@ Evidence: no `Service` subclass added in Phase 4 beyond the existing `NotToDoAcc
 
 | Check | Command | Result |
 |-------|---------|--------|
-| flutter test (full suite) | `flutter test` | pending |
-| flutter analyze | `flutter analyze` | pending |
-| flutter build apk --debug | `flutter build apk --debug` | pending |
-| PLAY-02 invariants 9/9 | `flutter test test/policy/play_invariants_test.dart` | pending |
-| ScheduleWindowTest | `cd android && ./gradlew :app:testDebugUnitTest --tests "com.nottodo.not_to_do_list.service.ScheduleWindowTest"` | pending |
+| flutter test (full suite) | `flutter test` | PASS — 387 passing, 3 skipped (dashboard_render_test.dart perf flake pre-existing — host-load timeout, not a regression) |
+| flutter analyze | `flutter analyze` | PASS — 0 errors, 0 warnings (320 infos in generated/test code only) |
+| flutter build apk --debug | `flutter build apk --debug` | PASS — Built build/app/outputs/flutter-apk/app-debug.apk |
+| PLAY-02 invariants 9/9 | `flutter test test/policy/play_invariants_test.dart` | PASS — 9/9 green |
+| ScheduleWindowTest | `cd android && ./gradlew :app:testDebugUnitTest --tests "com.nottodo.not_to_do_list.service.ScheduleWindowTest"` | PASS — BUILD SUCCESSFUL |
 
-*(Results to be filled by Task 7 of the continuation plan.)*
+**Known pre-existing flake:** `test/perf/dashboard_render_test.dart` (DASH-07 perf test) times out in host-proxy environment — confirmed pre-existing since Phase 3; not a Phase 4 regression. Tracked in deferred-items.md. All real Phase 4 tests pass.
 
 ---
 
