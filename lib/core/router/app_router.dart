@@ -11,6 +11,7 @@ import 'package:not_to_do_list/features/onboarding/pages/quick_add_screen.dart';
 import 'package:not_to_do_list/features/onboarding/pages/usage_access_step.dart';
 import 'package:not_to_do_list/features/onboarding/pages/welcome_screen.dart';
 import 'package:not_to_do_list/features/onboarding/providers/onboarding_complete_provider.dart';
+import 'package:not_to_do_list/features/pause/pages/pause_screen.dart';
 
 /// GoRouter provider — hand-written (no `@riverpod` codegen) because Plan 01-01
 /// dropped `riverpod_annotation`/`riverpod_generator` due to analyzer-pin
@@ -41,6 +42,17 @@ final Provider<GoRouter> appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/list/add-habit', builder: (_, __) => const AddHabitScreen()),
       GoRoute(path: '/list/edit/:id', builder: (ctx, state) => EditEntryScreen(id: int.parse(state.pathParameters['id']!))),
       GoRoute(path: '/dashboard', builder: (_, __) => const DashboardScreen()),
+      GoRoute(
+        path: '/pause/:entryId',
+        builder: (ctx, state) => PauseScreen(
+          entryId: int.parse(state.pathParameters['entryId']!),
+          packageName: state.uri.queryParameters['package'] ?? '',
+          blockMode: state.uri.queryParameters['mode'] ?? 'soft',
+          triggeredAt: DateTime.fromMillisecondsSinceEpoch(
+            int.tryParse(state.uri.queryParameters['triggeredAt'] ?? '') ?? 0,
+          ),
+        ),
+      ),
     ],
   );
 });
