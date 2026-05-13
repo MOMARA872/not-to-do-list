@@ -71,6 +71,53 @@ void main() {
       },
     );
 
+    // ---- PLAY-02 (Phase 4 expanded scope): service/ + root activity files ----
+    test(
+      'PLAY-02: no Kotlin source under service/ or the root not_to_do_list/ '
+      'package declares performAction / performGlobalAction / dispatchGesture',
+      () {
+        final dirs = <String>[
+          'android/app/src/main/kotlin/com/nottodo/not_to_do_list/service',
+          'android/app/src/main/kotlin/com/nottodo/not_to_do_list', // root only — recursive=false
+        ];
+        final forbidden = <String>[
+          r'\bperformAction\s*\(',
+          r'\bperformGlobalAction\s*\(',
+          r'\bdispatchGesture\s*\(',
+        ];
+        for (final dir in dirs) {
+          final d = Directory(dir);
+          if (!d.existsSync()) continue;
+          // For the root not_to_do_list/ scan, recursive=false so we only catch
+          // root files (MainActivity.kt, PauseActivity.kt) — sub-packages
+          // (platform/, service/) are scanned by their own dedicated tests above.
+          final recursive = !dir.endsWith('/not_to_do_list');
+          for (final entity
+              in d.listSync(recursive: recursive).whereType<File>()) {
+            if (!entity.path.endsWith('.kt')) continue;
+            final src = entity.readAsStringSync();
+            // Strip comment lines (// or leading * inside /** */) before scanning
+            // to allow doc-comment references to forbidden token NAMES (the Phase 1
+            // doc comment header on NotToDoAccessibilityService.kt mentions PLAY-02
+            // by name; that's allowed). Code lines containing the literal calls
+            // are NOT.
+            final codeOnly = src
+                .split('\n')
+                .where((line) => !RegExp(r'^\s*(//|\*)').hasMatch(line))
+                .join('\n');
+            for (final pat in forbidden) {
+              expect(
+                RegExp(pat).hasMatch(codeOnly),
+                isFalse,
+                reason: 'PLAY-02 (Phase 4 expanded scope): ${entity.path} '
+                    'contains forbidden symbol matching $pat in CODE line',
+              );
+            }
+          }
+        }
+      },
+    );
+
     // ---- PLAY-03: AccessibilityService events scoped to
     //               typeWindowStateChanged ----
     test(
