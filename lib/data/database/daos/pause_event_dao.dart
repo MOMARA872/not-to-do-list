@@ -11,7 +11,7 @@ part 'pause_event_dao.g.dart';
 @DriftAccessor(tables: [PauseEvents])
 class PauseEventDao extends DatabaseAccessor<AppDatabase>
     with _$PauseEventDaoMixin {
-  PauseEventDao(super.db);
+  PauseEventDao(super.attachedDatabase);
 
   /// Insert one pause_events row. Returns the new row id.
   Future<int> insertEvent(PauseEventsCompanion entry) =>

@@ -16,8 +16,8 @@ class PauseEventRepository {
     required int entryId,
     required String packageName,
     required DateTime triggeredAt,
-    int? cooldownChosenSeconds,
     required int outcome,
+    int? cooldownChosenSeconds,
   }) {
     assert(outcome >= 0 && outcome <= 2, 'outcome must be 0, 1, or 2');
     return _dao.insertEvent(
