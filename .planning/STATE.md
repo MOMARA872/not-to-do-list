@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-13T01:03:25.670Z"
+last_updated: "2026-05-13T00:00:00.000Z"
 progress:
   total_phases: 6
   completed_phases: 3
   total_plans: 29
-  completed_plans: 22
-  percent: 76
+  completed_plans: 29
+  percent: 83
 ---
 
 # Project State: Not To-Do List
@@ -26,38 +26,37 @@ progress:
 
 ## Current Position
 
-Phase: 04 (pause-ux-the-wedge) — EXECUTING
-Plan: 1 of 8
-Next: `/gsd-execute-phase 4` (or `/gsd-execute-phase 4 --wave 0` to start with the test scaffold).
+Phase: 04 (Pause UX) — SOFTWARE-COMPLETE; REL-04 overnight test pending (Samsung, within 2-3 days from 2026-05-13)
+Plan: 8 of 8 (all plans complete)
+Next: Phase 5 (Streak Engine & Daily Reminder) — `/gsd-plan-phase 5` (can run in parallel while REL-04 overnight test is pending; they do not block each other)
 
 - **Milestone:** v1
-- **Phase:** Phase 3 — Screen-Time Dashboard (✅ COMPLETE 2026-05-08 per ROADMAP)
-- **Plan:** Phase 4 planned 2026-05-10 via `/gsd-plan-phase 4`. 8 plan files (04-01..04-08) + 04-PLAN-OVERVIEW.md across 5 waves. Plan-checker verdict PASS_WITH_FLAGS (0 BLOCK, 6 FLAG; 3 high-risk FLAGs — super.onCreate ordering, missing build.gradle.kts dependencies block, _health_lifecycle_observer.dart path — fixed in-place; 3 advisory FLAGs left for executor to resolve in seconds).
-- **Status:** Executing Phase 04
-- **Progress:** [██████░░░░░░░░░░░░░░] 50% (3/6 phases)
+- **Phase:** Phase 4 — Pause UX (SOFTWARE-COMPLETE 2026-05-13; REL-04 pending overnight test)
+- **Status:** Phase 4 software-complete; REL-04 is the only open gate
+- **Progress:** [████████████░░░░░░░░] 83% (29/29 plans through Phase 4)
 
 ```
-[██████████░░░░░░░░░░] 50% (3/6 phases — Phase 4 planned, not yet executed)
+[████████████░░░░░░░░] Phase 4 software-complete — REL-04 overnight test pending (Samsung)
 ```
 
-### Phase 4 Plan Inventory
+### Phase 4 Plan Inventory (all complete)
 
-- 04-01-PLAN — Wave 0 — test scaffold (11 RED test files + REL-04 verification template)
-- 04-02-PLAN — Wave 1 — Kotlin `isInScheduleWindow` byte-for-byte port + JVM parity test
-- 04-03-PLAN — Wave 1 — `AccessibilityApiImpl.kt` + MainActivity `FlutterEngineCache.put("pause_engine")` pre-warm
-- 04-04-PLAN — Wave 2 — `BlocklistBroadcastApi` Pigeon channel + `BlockListRepository` LocalBroadcast emit + `AccessibilityBlockedAppDetector` body
-- 04-05-PLAN — Wave 2 — `NotToDoAccessibilityService` body (TYPE_WINDOW_STATE_CHANGED + 800ms debounce + Map<String, ScheduleSlice> + LocalBroadcastManager receiver + Intent-launch) — REL-01 ships WITHOUT FGS per CD-01
-- 04-06-PLAN — Wave 3 — `PauseActivity.kt` onCreate (setShowWhenLocked + setTurnScreenOn BEFORE super.onCreate; T-02 fail-closed extras validation; `withCachedEngine("pause_engine")` binding)
-- 04-07-PLAN — Wave 3 — Flutter pause UI (PauseScreen + 5 widgets + PauseController + PauseEventRepository) — D-01..D-08 honored verbatim
-- 04-08-PLAN — Wave 4 — exit gate: /pause/:entryId GoRoute + 9th PLAY-02 absence-grep invariant + CD-03 device-acquisition human-checkpoint + REL-04 overnight stopwatch test (<500ms detect-to-pause after 8h idle on Xiaomi/Samsung) + bookkeeping flips
+- 04-01-PLAN — Wave 0 — test scaffold (11 RED test files + REL-04 verification template) ✅
+- 04-02-PLAN — Wave 1 — Kotlin `isInScheduleWindow` byte-for-byte port + JVM parity test ✅
+- 04-03-PLAN — Wave 1 — `AccessibilityApiImpl.kt` + MainActivity `FlutterEngineCache.put("pause_engine")` pre-warm ✅
+- 04-04-PLAN — Wave 2 — `BlocklistBroadcastApi` Pigeon channel + `BlockListRepository` LocalBroadcast emit + `AccessibilityBlockedAppDetector` body ✅
+- 04-05-PLAN — Wave 2 — `NotToDoAccessibilityService` body (TYPE_WINDOW_STATE_CHANGED + 800ms debounce + Map<String, ScheduleSlice> + LocalBroadcastManager receiver + Intent-launch) — REL-01 ships WITHOUT FGS per CD-01 ✅
+- 04-06-PLAN — Wave 3 — `PauseActivity.kt` onCreate (setShowWhenLocked + setTurnScreenOn BEFORE super.onCreate; T-02 fail-closed extras validation; `withCachedEngine("pause_engine")` binding) ✅
+- 04-07-PLAN — Wave 3 — Flutter pause UI (PauseScreen + 5 widgets + PauseController + PauseEventRepository) — D-01..D-08 honored verbatim ✅
+- 04-08-PLAN — Wave 4 — exit gate: /pause/:entryId GoRoute + 9th PLAY-02 absence-grep invariant + REL-04 overnight protocol (Samsung; pending 2026-05-13 to 2026-05-16) + bookkeeping flips ✅
 
 ## Performance Metrics
 
 - Phases planned: 6
-- Phases complete: 2
-- v1 requirements: 63 (all mapped)
-- v1 requirements complete: 27 (Phase 1: PLAY-01..05, PLAY-07, PLAY-09, SETT-03 + REL-05 abstraction. Phase 2: LIST-01..09, ONBD-01..07, PLAY-06, REL-02, REL-03)
-- OEM-survival overnight tests passed: 0/3 (Phase 4, Phase 5, Phase 6)
+- Phases complete: 3 (Phases 1, 2, 3 fully complete; Phase 4 software-complete — REL-04 open)
+- v1 requirements: 68 (all mapped; updated 2026-05-05 — hard-block + schedules added)
+- v1 requirements complete: 39 (Phase 1: 9 reqs. Phase 2: 19 reqs. Phase 3: 7 reqs. Phase 4: PAUS-01..10 + REL-01 = 11 more reqs. REL-04: pending_overnight_run — not yet counted as complete)
+- OEM-survival overnight tests passed: 0/3 (Phase 4 pending Samsung overnight run; Phase 5, Phase 6 not started)
 
 ## Accumulated Context
 
@@ -78,6 +77,8 @@ Next: `/gsd-execute-phase 4` (or `/gsd-execute-phase 4 --wave 0` to start with t
 | Earned `POST_NOTIFICATIONS` prompt (after first not-to-do added) | research/PITFALLS.md (#10) | Roughly doubles allow rates vs first-launch prompt |
 | v1 = adult self-control only (NOT parental control) | PROJECT.md 2026-05-05 | Hard-block opt-in + schedules opt-in; Parent PIN / kid mode / content filter / anti-uninstall all deferred to M2/M3 |
 | Phase 2 cross-tree policy invariant test (`test/policy/play_invariants_test.dart`) | Plan 02-10 | 8 absence-grep tests lock PLAY-02/03/04/05/06 + v1-scope BIND_DEVICE_ADMIN + v1-scope forbidden-token sweep so future phases can't regress |
+| Phase 4 expanded PLAY-02 absence-grep to service/ + root activities | Plan 04-08 | 9th invariant covers `android/.../service/` + `android/.../not_to_do_list/` root — catches any future autonomous-action regression on Phase 4 surfaces |
+| REL-01 deferred: ship without companion FGS | Plan 04-05 (CD-01) | Research recommends against FGS in v1; AccessibilityService stays in Active Bucket via user-granted battery-opt exemption; revisit only if REL-04 OEM gate fails on additional OEMs |
 
 ### Performance Metrics Per Plan
 
@@ -93,10 +94,20 @@ Next: `/gsd-execute-phase 4` (or `/gsd-execute-phase 4 --wave 0` to start with t
 | Phase 2 P08 (Onboarding wizard)    | 35min  | 3 tasks | 16 files |
 | Phase 2 P09 (Health banner+router) | 35min  | 3 tasks | 16 files |
 | Phase 2 P10 (Exit gate)            | ~25min | 3 tasks | 4 files  |
+| Phase 4 P01 (Wave 0 stubs)         | — | — | 11 test stubs + verification template |
+| Phase 4 P02 (Kotlin schedule port) | — | — | ScheduleWindowKt + parity test |
+| Phase 4 P03 (A11y API + FlutterEngine pre-warm) | — | — | AccessibilityApiImpl + MainActivity pre-warm |
+| Phase 4 P04 (Blocklist broadcast)  | — | — | BlocklistBroadcastApi + Pigeon channel + Detector body |
+| Phase 4 P05 (A11y service body)    | — | — | NotToDoAccessibilityService.kt (full body) |
+| Phase 4 P06 (PauseActivity body)   | — | — | PauseActivity.kt (onCreate) |
+| Phase 4 P07 (Flutter pause UI)     | — | — | PauseScreen + 5 widgets + PauseController + event repo |
+| Phase 4 P08 (Phase exit gate)      | — | 5 tasks (Tasks 1-2 prev + 5a,5b,6 cont.) | /pause/:entryId route, 9th invariant, bookkeeping |
 
 ### Active Todos
 
-None — Phase 2 closed. Next action: `/gsd-discuss-phase 3` then `/gsd-plan-phase 3`.
+1. **REL-04 overnight run on Samsung device** — target window 2026-05-13 to 2026-05-16. Protocol documented in `.planning/phases/04-pause-ux-the-wedge/04-VERIFICATION.md`. Stopwatch detect-to-pause after 8h idle; record result in the device record table. PASS = < 500ms.
+2. **After REL-04 passes:** flip REL-04 status in REQUIREMENTS.md from `pending_overnight_run` to `Complete`; flip 04-VERIFICATION.md REL-04 outcome from `pending_overnight_run` to `PASS`; bump `completed_phases` in STATE.md to 4 and `v1 requirements complete` to 40.
+3. Phase 5 (Streak Engine & Daily Reminder) can be planned NOW via `/gsd-plan-phase 5` — does NOT require REL-04 to complete first.
 
 ### Blockers
 
@@ -126,12 +137,13 @@ None.
 - 2026-05-07: Phase 2 Wave 5 complete. Plan 02-09 (HealthCheckBanner + 9-route GoRouter + DynamicColorBuilder + 8 placeholder PNGs). Commits 4698eb7, 904f4fd, 365dfc6, 99fbdb8, 4699fe8.
 - 2026-05-07: Phase 2 Plan 02-10 complete (Wave 6 — final exit gate). New `test/policy/play_invariants_test.dart` locks 8 cross-tree absence-grep invariants. Removed lone skipped placeholder in `test/platform/app_picker_api_test.dart`. `flutter test` exits 0 (124 passing, 0 skipped). `dart analyze` 0 errors / 0 warnings. `flutter build apk --debug` succeeds. Manual UAT signed off 2026-05-07 on Pixel emulator stock Android 16. 02-VALIDATION.md flipped to `status: complete` / `nyquist_compliant: true` / `wave_0_complete: true`. REQUIREMENTS.md ONBD-06/07 + REL-02/03 marked Complete; ROADMAP.md Phase 2 row checked off (10/10 plans, ✅ Complete 2026-05-07).
 - 2026-05-07: Phase 3 (Screen-Time Dashboard) context captured via /gsd-discuss-phase 3 in --auto mode. 20 implementation decisions (D-01..20) locked across Pigeon impl, D/W/M nav, highlight treatment, "Avoided today" rule, cumulative totals, 5-min today-cache, no-permission fallback, lazy-on-open aggregation, bar-fill list rendering, home-card placement. Resume file: `.planning/phases/03-screen-time-dashboard/03-CONTEXT.md`. Audit trail in `03-DISCUSSION-LOG.md`. Committed 7e8260c.
+- 2026-05-13: Phase 4 (Pause UX) software-complete. All 8 plans landed. AccessibilityService body + PauseActivity + Flutter pause UI + LocalBroadcast block-list refresh + Kotlin schedule port all complete. PLAY-02 invariants expanded from 8 → 9 (added service/ + root not_to_do_list/ scope per Plan 04-08 Task 2). HealthCheckBanner truth-bearing end-to-end. REL-04 protocol documented; overnight test on Samsung scheduled within 2-3 days (Option A — user has device). CD-01 deferred (no FGS); CD-02 immediate Use-anyway shipped; CD-03 device-acquisition resolved Option A (Samsung confirmed).
 
 ### Next Session
 
-- Run `/gsd-plan-phase 3` (research → pattern mapping → planner → plan checker). 03-CONTEXT.md is the canonical input; downstream agents must read it before acting. Phase 3 is simulator-friendly by design — no real-device exit gate (that's Phase 4 REL-04). Validates the Pigeon channel pattern on a low-risk surface before Phase 4's blocker depends on it.
-- First real-device overnight test is still the Phase 4 exit gate — Phase 3 stays simulator-friendly.
-- Phase 2 deferred items: 18 dart-analyze infos in pigeons/* + permission_status_mock.dart (Plan 02-03 frozen — see deferred-items.md). 8 placeholder PNGs at `assets/onboarding/` + `assets/logos/` await real Pixel-stock-Android-16 captures before Phase 6 PLAY-08 closed-track submission. OEM-survival overnight test deferred to Phase 4 exit gate.
+- Run `/gsd-plan-phase 5` (Streak Engine & Daily Reminder). Can start immediately — Phase 5 does NOT require REL-04 to complete first (they are independent).
+- While planning/executing Phase 5: user runs REL-04 overnight test on Samsung (target 2026-05-13 to 2026-05-16). After PASS: update REQUIREMENTS.md REL-04 → Complete; 04-VERIFICATION.md outcome → PASS; STATE.md completed_phases → 4; v1 requirements complete → 40.
+- Deferred items still open: 18 dart-analyze infos in pigeons/* + permission_status_mock.dart (Plan 02-03 frozen — see deferred-items.md). 8 placeholder PNGs at `assets/onboarding/` + `assets/logos/` await real Pixel captures before Phase 6 PLAY-08 submission.
 
 ### Files of Record
 

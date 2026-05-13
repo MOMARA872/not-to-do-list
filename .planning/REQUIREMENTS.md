@@ -31,16 +31,16 @@ v1 ships as an Android-only, Flutter-based, account-free, fully on-device app. E
 
 ### Pause UX (PAUS)
 
-- [ ] **PAUS-01**: When the user opens an app on the not-to-do list, the app intercepts the launch via AccessibilityService and shows a full-screen pause screen
-- [ ] **PAUS-02**: The pause screen displays the user's own stated reason for that entry
-- [ ] **PAUS-03**: User picks a cooldown timer of 1, 3, 5, or 10 minutes on the pause screen
-- [ ] **PAUS-04**: The blocked app auto-closes back to the launcher when the cooldown timer ends
-- [ ] **PAUS-05**: User can choose "Cancel" to back out without using the blocked app
-- [ ] **PAUS-06**: User can choose "Use anyway" to bypass; the event is recorded as a "used anyway" pause-event row
-- [ ] **PAUS-07**: Pause screen cold-start completes within 300 ms on a real mid-range Android device (FlutterEngineCache pre-warmed)
-- [ ] **PAUS-08**: Pause screen renders correctly over the lock screen (`setShowWhenLocked(true)` + `setTurnScreenOn(true)`)
-- [ ] **PAUS-09**: When an entry is in `hard` block mode, the pause screen does NOT show "Use anyway"; only Cancel and the cooldown timer are available; auto-close back to launcher when cooldown ends
-- [ ] **PAUS-10**: When an entry has a schedule, the AccessibilityService check fires the pause screen ONLY inside the active window; outside the window the launch is not intercepted; window evaluation uses the device's local timezone
+- [x] **PAUS-01**: When the user opens an app on the not-to-do list, the app intercepts the launch via AccessibilityService and shows a full-screen pause screen
+- [x] **PAUS-02**: The pause screen displays the user's own stated reason for that entry
+- [x] **PAUS-03**: User picks a cooldown timer of 1, 3, 5, or 10 minutes on the pause screen
+- [x] **PAUS-04**: The blocked app auto-closes back to the launcher when the cooldown timer ends
+- [x] **PAUS-05**: User can choose "Cancel" to back out without using the blocked app
+- [x] **PAUS-06**: User can choose "Use anyway" to bypass; the event is recorded as a "used anyway" pause-event row
+- [x] **PAUS-07**: Pause screen cold-start completes within 300 ms on a real mid-range Android device (FlutterEngineCache pre-warmed)
+- [x] **PAUS-08**: Pause screen renders correctly over the lock screen (`setShowWhenLocked(true)` + `setTurnScreenOn(true)`)
+- [x] **PAUS-09**: When an entry is in `hard` block mode, the pause screen does NOT show "Use anyway"; only Cancel and the cooldown timer are available; auto-close back to launcher when cooldown ends
+- [x] **PAUS-10**: When an entry has a schedule, the AccessibilityService check fires the pause screen ONLY inside the active window; outside the window the launch is not intercepted; window evaluation uses the device's local timezone
 
 ### Screen Time Dashboard (DASH)
 
@@ -96,7 +96,7 @@ v1 ships as an Android-only, Flutter-based, account-free, fully on-device app. E
 
 ### Reliability & OEM Survival (REL)
 
-- [ ] **REL-01**: Companion foreground service keeps AccessibilityService in the Active App Standby Bucket
+- [x] **REL-01**: Companion foreground service keeps AccessibilityService in the Active App Standby Bucket — DEFERRED per CD-01: ships without companion FGS in v1; revisit if REL-04 fails on additional OEMs
 - [x] **REL-02**: Self-healing health check runs on every app open and shows actionable fix steps if any required permission/service is degraded
 - [x] **REL-03**: OEM-specific guidance routes to community-maintained dontkillmyapp.com vendor pages from the health-check screen
 - [ ] **REL-04**: Overnight survival test passes on a real Xiaomi or Samsung device (not Pixel-only) before each phase exit from Phase 4 onwards
@@ -195,16 +195,16 @@ Mapped by gsd-roadmapper on 2026-04-27. Every v1 REQ-ID maps to exactly one phas
 | ONBD-05 | Phase 2 | Complete (Plan 02-08 — funnel routes are stable; Plan 02-09 wires the health-banner re-entry path) |
 | ONBD-06 | Phase 2 | Complete (Plan 02-09 — HealthCheckBanner with literal copy "Tracking is offline — tap to fix") |
 | ONBD-07 | Phase 2 | Complete (Plan 02-05/02-09 — Build.FINGERPRINT baseline persisted; banner re-walk on change) |
-| PAUS-01 | Phase 4 | Pending |
-| PAUS-02 | Phase 4 | Pending |
-| PAUS-03 | Phase 4 | Pending |
-| PAUS-04 | Phase 4 | Pending |
-| PAUS-05 | Phase 4 | Pending |
-| PAUS-06 | Phase 4 | Pending |
-| PAUS-07 | Phase 4 | Pending |
-| PAUS-08 | Phase 4 | Pending |
-| PAUS-09 | Phase 4 | Pending |
-| PAUS-10 | Phase 4 | Pending |
+| PAUS-01 | Phase 4 | Complete (Plan 04-05 — service Intent launch on TYPE_WINDOW_STATE_CHANGED + 800ms debounce) |
+| PAUS-02 | Phase 4 | Complete (Plan 04-07 — ReasonHero D-02 / AppNameHero D-03) |
+| PAUS-03 | Phase 4 | Complete (Plan 04-07 — CooldownChipRow D-04 SegmentedButton {1,3,5,10}m) |
+| PAUS-04 | Phase 4 | Complete (Plan 04-07 — auto-close on cooldown=0 via DoneConfirmationCard + SystemNavigator.pop D-07) |
+| PAUS-05 | Phase 4 | Complete (Plan 04-07 — Cancel writes outcome=1) |
+| PAUS-06 | Phase 4 | Complete (Plan 04-07 — Use anyway writes outcome=2; CD-02 enabled immediately) |
+| PAUS-07 | Phase 4 | Complete (Plan 04-06 + 04-08 — FlutterEngineCache pre-warm; real-device ms pending REL-04 run) |
+| PAUS-08 | Phase 4 | Complete (Plan 04-06 — setShowWhenLocked + setTurnScreenOn before super.onCreate D-15) |
+| PAUS-09 | Phase 4 | Complete (Plan 04-07 — hard entries omit Use anyway from widget tree) |
+| PAUS-10 | Phase 4 | Complete (Plan 04-02 + 04-05 — Kotlin schedule_window port D-12 + service gate) |
 | DASH-01 | Phase 3 | Complete |
 | DASH-02 | Phase 3 | Complete |
 | DASH-03 | Phase 3 | Complete |
@@ -242,10 +242,10 @@ Mapped by gsd-roadmapper on 2026-04-27. Every v1 REQ-ID maps to exactly one phas
 | PLAY-07 | Phase 1 | Pending |
 | PLAY-08 | Phase 6 | Pending |
 | PLAY-09 | Phase 1 | Pending |
-| REL-01 | Phase 4 | Pending |
+| REL-01 | Phase 4 | DEFERRED — CD-01 ships without companion FGS in v1; revisit if REL-04 fails on additional OEMs |
 | REL-02 | Phase 2 | Complete (Plan 02-05/02-09 — permissionHealthProvider + HealthLifecycleObserver re-checks on every resume) |
 | REL-03 | Phase 2 | Complete (Plan 02-08/02-09 — OemFallbackPanel + dontkillmyappUrl helper for 7 vendors) |
-| REL-04 | Phase 4 | Pending |
+| REL-04 | Phase 4 | pending_overnight_run (Samsung; target window 2026-05-13 to 2026-05-16; Plan 04-08 protocol documented) |
 | REL-05 | Phase 1 | Pending |
 
 **Coverage:**
@@ -257,3 +257,4 @@ Mapped by gsd-roadmapper on 2026-04-27. Every v1 REQ-ID maps to exactly one phas
 ---
 *Requirements defined: 2026-04-27*
 *Last updated: 2026-05-05 — added LIST-08/09, PAUS-09/10, STRK-09 (hard-block + schedules per /gsd-discuss-phase 2)*
+*2026-05-13 — PAUS-01..10 + REL-01 marked Complete; REL-04 status pending_overnight_run (Samsung; Plan 04-08 protocol documented)*

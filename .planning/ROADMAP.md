@@ -16,7 +16,7 @@
 - [x] **Phase 1: Foundation & Play Declaration** - Drift schema, domain skeleton, Pigeon scaffolding, manifest, and Play Console declaration copy committed before any service code
 - [x] **Phase 2: List CRUD + Onboarding & Permissions** - User can build a not-to-do list and complete the 4-permission Settings hand-off flow with OEM-aware fallbacks
 - [x] **Phase 3: Screen-Time Dashboard** - UsageStatsManager bridge ships visible value and validates the Pigeon channel pattern on a low-risk surface (completed 2026-05-08)
-- [ ] **Phase 4: Pause UX (the wedge)** - AccessibilityService + PauseActivity + cooldown timer deliver the reflection moment, OEM-survival overnight test gate begins
+- [x] **Phase 4: Pause UX (the wedge)** - AccessibilityService + PauseActivity + cooldown timer deliver the reflection moment, OEM-survival overnight test gate begins — software-complete 2026-05-13; REL-04 overnight test pending (Samsung, target 2026-05-13 to 2026-05-16)
 - [ ] **Phase 5: Streak Engine & Daily Reminder** - Hybrid honest streak (system + self-report), daily check-in, exact-alarm daily reminder that survives reboot and Doze
 - [ ] **Phase 6: Polish & Play Store Submission** - Settings, theme, export/reset, prominent disclosure, closed-track Play submission passes review
 
@@ -83,7 +83,15 @@
   3. Pause screen cold-start completes within 300 ms on a real mid-range Android device with `FlutterEngineCache` pre-warmed; renders correctly over the lock screen via `setShowWhenLocked(true)` + `setTurnScreenOn(true)`.
   4. Companion foreground service keeps the AccessibilityService in the Active App Standby Bucket; service does not call `performAction`, `performGlobalAction`, or `dispatchGesture`; service is architected as a passive trigger (DB is source of truth — the service can die without losing state).
   5. **OEM-survival overnight exit gate:** Pause flow passes a real-device overnight test on Xiaomi or Samsung hardware (not Pixel-only) — phone idle 8+ hours, blocked-app launch the next morning still triggers PauseActivity within 500 ms detect-to-pause.
-**Plans**: TBD
+**Plans**: 8 plans
+- [x] 04-01-PLAN.md — Wave 0: test scaffold (11 RED test files + REL-04 verification template)
+- [x] 04-02-PLAN.md — Wave 1: Kotlin schedule_window port + JVM parity test (D-12)
+- [x] 04-03-PLAN.md — Wave 1: AccessibilityApiImpl + MainActivity FlutterEngineCache pre-warm (D-14)
+- [x] 04-04-PLAN.md — Wave 2: BlocklistBroadcast Pigeon channel + BlockListRepository emit + AccessibilityBlockedAppDetector body
+- [x] 04-05-PLAN.md — Wave 2: NotToDoAccessibilityService body (TYPE_WINDOW_STATE_CHANGED + 800ms debounce + Map<String, ScheduleSlice> + LocalBroadcast + Intent-launch); REL-01 ships WITHOUT FGS per CD-01
+- [x] 04-06-PLAN.md — Wave 3: PauseActivity.kt onCreate (setShowWhenLocked + setTurnScreenOn BEFORE super.onCreate; fail-closed extras validation; withCachedEngine binding)
+- [x] 04-07-PLAN.md — Wave 3: Flutter pause-screen UI (PauseScreen + 5 widgets + PauseController + pause_events writer) — D-01..D-08 honored verbatim
+- [x] 04-08-PLAN.md — Wave 4: Phase exit gate (/pause/:entryId GoRoute, 9th PLAY-02 invariant, REL-04 overnight protocol documented)
 **UI hint**: yes
 
 ### Phase 5: Streak Engine & Daily Reminder
@@ -120,7 +128,7 @@
 | 1. Foundation & Play Declaration | 5/5 | ✅ Complete | 2026-04-26 |
 | 2. List CRUD + Onboarding & Permissions | 10/10 | ✅ Complete | 2026-05-07 |
 | 3. Screen-Time Dashboard | 6/6 | Complete   | 2026-05-08 |
-| 4. Pause UX (the wedge) | 0/0 | Not started | - |
+| 4. Pause UX (the wedge) | 8/8 | Software-complete (REL-04 overnight test pending) | 2026-05-13 |
 | 5. Streak Engine & Daily Reminder | 0/0 | Not started | - |
 | 6. Polish & Play Store Submission | 0/0 | Not started | - |
 
@@ -151,3 +159,4 @@
 ---
 *Roadmap created: 2026-04-27*
 *Phase 3 plans created: 2026-05-07*
+*Phase 4 software-complete: 2026-05-13 — 8/8 plans landed; REL-04 overnight test pending (Samsung; target 2026-05-13 to 2026-05-16)*
