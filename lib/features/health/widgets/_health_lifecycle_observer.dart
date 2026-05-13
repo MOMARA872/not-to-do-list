@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:not_to_do_list/domain/providers/block_list_repo_provider.dart';
 import 'package:not_to_do_list/features/health/permission_health_provider.dart';
 
 /// Top-level `WidgetsBindingObserver` that triggers
@@ -44,6 +45,9 @@ class _HealthLifecycleObserverState
       // screen are harmless; refresh() simply re-reads the 3 permission
       // signals and updates state.
       unawaited(ref.read(permissionHealthProvider.notifier).refresh());
+      // D-10: re-publish the block-list snapshot to the AccessibilityService's
+      // in-memory map. Cheap (one Pigeon round-trip + one LocalBroadcast).
+      unawaited(ref.read(blockListRepoProvider).republishCurrent());
     }
   }
 
