@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:not_to_do_list/data/database/app_database.dart';
 import 'package:not_to_do_list/data/database/daos/block_list_dao.dart';
+import 'package:not_to_do_list/platform/blocklist_broadcast_api.g.dart';
 
 /// Quick-add seed entry shape — kept on the repository surface so callers
 /// don't have to know about Drift companions.
@@ -9,9 +10,13 @@ typedef BlockListSeed = ({int kind, String? packageName, String displayName});
 /// Domain-language wrapper around [BlockListDao]. UI + onboarding code
 /// depends on this seam, NOT directly on the DAO.
 class BlockListRepository {
-  BlockListRepository(this._dao);
+  BlockListRepository(this._dao, [this._broadcaster]);
 
   final BlockListDao _dao;
+
+  /// Optional broadcaster — null in Phase 2 tests that don't care about the
+  /// broadcast side effect. In production always non-null (T-4-04-04 accept).
+  final BlocklistBroadcastApi? _broadcaster;
 
   Future<List<BlockListData>> getAll() => _dao.getAll();
 
@@ -29,9 +34,9 @@ class BlockListRepository {
     int? scheduleStartMinutes,
     int? scheduleEndMinutes,
     int? scheduleWeekdayMask,
-  }) {
+  }) async {
     final now = DateTime.now();
-    return _dao.insertEntry(
+    final id = await _dao.insertEntry(
       BlockListCompanion.insert(
         kind: kind,
         packageName: Value(packageName),
@@ -45,6 +50,8 @@ class BlockListRepository {
         scheduleWeekdayMask: Value(scheduleWeekdayMask),
       ),
     );
+    await _publishCurrent();
+    return id;
   }
 
   /// Quick-add seed (LIST-07). Pre-seeds the curated 5 common offenders
@@ -64,6 +71,7 @@ class BlockListRepository {
         )
         .toList();
     await _dao.insertMany(companions);
+    await _publishCurrent();
   }
 
   /// Update by id. Bumps `updatedAt` so the home-screen sort surfaces the
@@ -94,7 +102,39 @@ class BlockListRepository {
       scheduleWeekdayMask: Value(scheduleWeekdayMask),
     );
     await _dao.updateEntry(companion);
+    await _publishCurrent();
   }
 
-  Future<void> delete(int id) => _dao.deleteEntryById(id);
+  Future<void> delete(int id) async {
+    await _dao.deleteEntryById(id);
+    await _publishCurrent();
+  }
+
+  /// Re-publish the current block list — called by MainActivity.onResume so
+  /// the AccessibilityService's in-memory map is refreshed after a settings
+  /// round-trip. D-10.
+  Future<void> republishCurrent() => _publishCurrent();
+
+  /// Reads the current app-only block list and fires publishBlockList.
+  /// Habit entries (kind == 1, packageName == null) are filtered out —
+  /// the service only evaluates app launches, not self-report habits.
+  /// No-op when _broadcaster is null (test ergonomics — T-4-04-04 accept).
+  Future<void> _publishCurrent() async {
+    if (_broadcaster == null) return;
+    final all = await _dao.getAll();
+    final snapshots = all
+        .where((e) => e.kind == 0 && e.packageName != null)
+        .map(
+          (e) => BlockListEntrySnapshot(
+            entryId: e.id,
+            packageName: e.packageName!,
+            blockMode: e.blockMode,
+            scheduleStartMinutes: e.scheduleStartMinutes,
+            scheduleEndMinutes: e.scheduleEndMinutes,
+            scheduleWeekdayMask: e.scheduleWeekdayMask,
+          ),
+        )
+        .toList();
+    await _broadcaster.publishBlockList(snapshots);
+  }
 }
