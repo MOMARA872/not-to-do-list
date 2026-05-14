@@ -77,6 +77,16 @@ class PauseController extends Notifier<PauseSession> {
   }
 
   Future<void> _writeOutcomeAndClose({required int outcome}) async {
+    // CR-02: guard against double-write. If the timer drain and a user tap
+    // (Cancel / Use anyway) race, only the first call writes the DB row.
+    // isComplete is read synchronously here — before any await — so there is
+    // no second async gap within this guard.
+    if (state.isComplete) return;
+
+    // WR-03: capture the repo synchronously before the first await, while ref
+    // is guaranteed alive. If PauseActivity is killed mid-cooldown, Riverpod's
+    // autoDispose fires and ref becomes invalid; reading after an await would
+    // throw StateError on the event loop.
     final repo = ref.read(pauseEventRepositoryProvider);
     await repo.insertOutcome(
       entryId: _arg.entryId,
