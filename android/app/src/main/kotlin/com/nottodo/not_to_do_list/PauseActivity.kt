@@ -45,8 +45,12 @@ class PauseActivity : FlutterActivity() {
             (blockMode != "soft" && blockMode != "hard") ||
             triggeredAtMs <= 0L
         ) {
-            // Malformed Intent — silent dismissal. T-02.
-            super.onCreate(savedInstanceState)
+            // WR-02: Malformed Intent — silent dismissal without binding the
+            // FlutterEngine. Calling super.onCreate on a FlutterActivity triggers
+            // provideFlutterEngine(), consuming or allocating the cached engine
+            // before finish() is reached. Skipping super.onCreate is legal: the
+            // system creates the Activity in CREATED state; finish() transitions
+            // it to DESTROYED without engine lifecycle. T-02.
             finish()
             return
         }
