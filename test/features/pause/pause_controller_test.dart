@@ -7,6 +7,9 @@
 //   (insert-at-end to avoid UPDATE-by-id race on activity kill).
 //
 // onClose is injected via PauseSessionArgs for test isolation.
+import 'dart:async';
+
+import 'package:fake_async/fake_async.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -214,6 +217,114 @@ void main() {
         await controller.cancel();
 
         // Exactly one insertOutcome call (insert-at-end — D-13).
+        verify(
+          () => mockRepo.insertOutcome(
+            entryId: any(named: 'entryId'),
+            packageName: any(named: 'packageName'),
+            triggeredAt: any(named: 'triggeredAt'),
+            cooldownChosenSeconds: any(named: 'cooldownChosenSeconds'),
+            outcome: any(named: 'outcome'),
+          ),
+        ).called(1);
+      },
+    );
+  });
+
+  group('WR-05 fakeAsync drain — timer auto-completes outcome=0', () {
+    // Uses fakeAsync (transitive via flutter_test) to advance time without
+    // real wall-clock delay, verifying the Timer.periodic drain path.
+    // Also locks in the CR-02 isComplete guard: a second _writeOutcomeAndClose
+    // call after the timer drain must be a no-op.
+    test(
+      'timer drain to zero: remainingMs reaches 0 and triggers outcome write path',
+      () {
+        fakeAsync((fake) {
+          final args = (
+            entryId: 1,
+            packageName: 'com.instagram.android',
+            blockMode: 'soft',
+            triggeredAt: fakeTriggeredAt,
+            onClose: () async {},
+          );
+          final container = buildContainer(mockRepo: mockRepo, args: args);
+          // Keep the autoDispose provider alive throughout the fakeAsync block.
+          final sub = container.listen(
+            pauseControllerProvider(args),
+            (_, __) {},
+          );
+          final controller =
+              container.read(pauseControllerProvider(args).notifier);
+
+          // Start a 60-second cooldown (600 ticks of 100 ms each).
+          controller.startCooldown(60);
+
+          // Sanity: timer is running and remainingMs > 0.
+          expect(controller.state.remainingMs, greaterThan(0));
+
+          // Advance time past the full cooldown. All Timer.periodic ticks fire
+          // synchronously within fakeAsync.elapse, including the final tick
+          // that calls _cancelTimer() + unawaited(_writeOutcomeAndClose(0)).
+          fake.elapse(const Duration(milliseconds: 60100));
+
+          // After drain: remainingMs should be 0 (set synchronously by timer).
+          expect(controller.state.remainingMs, equals(0));
+
+          // Flush the microtask queue to let the unawaited future chain run:
+          // insertOutcome → isComplete=true → Future.delayed(1500ms) [fake timer].
+          fake.flushMicrotasks();
+
+          // insertOutcome must have been called by now (before the delayed).
+          verify(
+            () => mockRepo.insertOutcome(
+              entryId: 1,
+              packageName: 'com.instagram.android',
+              triggeredAt: fakeTriggeredAt,
+              cooldownChosenSeconds: 60,
+              outcome: 0,
+            ),
+          ).called(1);
+
+          sub.close();
+          container.dispose();
+        });
+      },
+    );
+
+    test(
+      'CR-02 guard: second _writeOutcomeAndClose after isComplete=true is a no-op',
+      () async {
+        // Directly verifies the isComplete guard added for CR-02:
+        // once a session is resolved, subsequent calls must not insert a row.
+        final args = (
+          entryId: 2,
+          packageName: 'com.twitter.android',
+          blockMode: 'soft',
+          triggeredAt: fakeTriggeredAt,
+          onClose: () async {},
+        );
+        final container = buildContainer(mockRepo: mockRepo, args: args);
+        // Keep the autoDispose provider alive by holding a listener reference
+        // throughout the test. Without a listener, autoDispose fires between
+        // the two cancel() calls (after the 1500ms Future.delayed completes)
+        // and the second cancel() would access a disposed ref.
+        final sub = container.listen(
+          pauseControllerProvider(args),
+          (_, __) {},
+        );
+
+        final controller =
+            container.read(pauseControllerProvider(args).notifier);
+
+        // First cancel resolves the session: inserts a row and sets isComplete.
+        await controller.cancel();
+
+        // isComplete is now true. A second cancel must be a no-op (guard fires).
+        await controller.cancel();
+
+        sub.close();
+        container.dispose();
+
+        // Exactly one insertOutcome call despite two cancel() invocations.
         verify(
           () => mockRepo.insertOutcome(
             entryId: any(named: 'entryId'),
