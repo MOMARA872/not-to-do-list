@@ -30,7 +30,9 @@
 //   Spring forward 2026-03-08: 02:00 → 03:00 local (gap at 02:00-03:00)
 //   Fall back 2025-11-02: 02:00 → 01:00 local (duplicate hour)
 // DST tuples in this Dart file use LOCAL DateTime and the machine's local TZ.
-// The Kotlin counterpart uses TimeZone.getTimeZone("America/Los_Angeles") explicitly.
+// The Kotlin counterpart also uses TimeZone.getDefault() (local TZ), not a pinned
+// Pacific timezone. Both sides are locally-consistent but neither exercises real
+// DST wall-clock gaps/folds. True DST testing would require pinned TZ + epoch math.
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:not_to_do_list/domain/schedule/schedule_window.dart';
@@ -426,8 +428,10 @@ List<_Tuple> _buildTuples() {
   //   At 02:00 local → kSun, window 00:00-02:00 → false (exclusive)
   //
   // DST-safety: both halves of the window use the same local date, so
-  // the weekday bit is consistent. The Kotlin counterpart uses
-  // TimeZone.getTimeZone("America/Los_Angeles") to test true DST behavior.
+  // the weekday bit is consistent. The Kotlin counterpart also uses
+  // TimeZone.getDefault() (local TZ), not a pinned Pacific timezone.
+  // Both sides are locally-consistent but neither exercises real DST
+  // wall-clock gaps/folds. True DST testing would require pinned TZ + epoch math.
   // ------------------------------------------------------------------
   tuples.addAll([
     // Spring forward 2026-03-08 (Sunday)
