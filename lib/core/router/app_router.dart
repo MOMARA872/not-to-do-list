@@ -44,14 +44,22 @@ final Provider<GoRouter> appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/dashboard', builder: (_, __) => const DashboardScreen()),
       GoRoute(
         path: '/pause/:entryId',
-        builder: (ctx, state) => PauseScreen(
-          entryId: int.parse(state.pathParameters['entryId']!),
-          packageName: state.uri.queryParameters['package'] ?? '',
-          blockMode: state.uri.queryParameters['mode'] ?? 'soft',
-          triggeredAt: DateTime.fromMillisecondsSinceEpoch(
-            int.tryParse(state.uri.queryParameters['triggeredAt'] ?? '') ?? 0,
-          ),
-        ),
+        builder: (ctx, state) {
+          // CR-01: fail-closed default for missing/unrecognised mode param.
+          // 'hard' means no "Use anyway" button — more restrictive than 'soft',
+          // so defaulting to 'hard' is the safe fallback per PAUS-09.
+          final rawMode = state.uri.queryParameters['mode'];
+          final blockMode =
+              (rawMode == 'soft' || rawMode == 'hard') ? rawMode! : 'hard';
+          return PauseScreen(
+            entryId: int.parse(state.pathParameters['entryId']!),
+            packageName: state.uri.queryParameters['package'] ?? '',
+            blockMode: blockMode,
+            triggeredAt: DateTime.fromMillisecondsSinceEpoch(
+              int.tryParse(state.uri.queryParameters['triggeredAt'] ?? '') ?? 0,
+            ),
+          );
+        },
       ),
     ],
   );
