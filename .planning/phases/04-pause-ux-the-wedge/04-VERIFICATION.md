@@ -70,18 +70,29 @@ gsd_verifier_date: 2026-05-10
 | Field | Value |
 |-------|-------|
 | Device manufacturer | Samsung |
-| Device model | __________ (fill when running — e.g., Galaxy S22, Galaxy A54) |
-| Android version | __________ |
-| OneUI version | __________ |
-| Idle duration (hours) | ≥ 8 |
-| Battery saver OFF — detect-to-pause (ms) | __________ |
-| Battery saver ON — detect-to-pause (ms, optional) | __________ |
-| Test date | __________ |
-| Sign-off date | __________ |
+| Device model | SM-G988U1 (Galaxy S20 Ultra 5G) |
+| Android version | 13 |
+| OneUI version | 5.1 (build 50100) |
+| Idle duration (hours) | ≥16 (engaged 2026-05-17 15:19:58 MST → measured 2026-05-18 ~15:45 MST) |
+| Battery saver OFF — detect-to-pause (ms) | **320 ms** (charging-confounded — see Outcome notes) |
+| Battery saver ON — detect-to-pause (ms, optional) | not measured |
+| Test date | 2026-05-17 → 2026-05-18 |
+| Sign-off date | pending clean unplugged re-run |
+
+**Run #1 logcat evidence (charging-confounded):**
+
+| Event | Timestamp (MST) |
+|-------|-----------------|
+| Launcher → `START com.google.android.youtube` (blocked-app tap) | 2026-05-18 15:45:18.479 |
+| Service → `START com.nottodo.not_to_do_list/.PauseActivity` (uid 11403) | 2026-05-18 15:45:18.799 |
+| **Detect-to-pause delta** | **320 ms** |
 
 ### Outcome
 
-**PASS / FAIL / pending_overnight_run:** `pending_overnight_run`
+**PASS / FAIL / pending_overnight_run:** `partial — soft PASS pending clean re-run`
+
+- Run #1 (2026-05-17 → 2026-05-18): detect-to-pause = **320 ms** (< 500 ms). Confounded by AC power overnight: `dumpsys battery` reported `AC powered: true` at wake → Samsung Doze policy is relaxed under charging, so OEM-kill behavior was NOT fully exercised. `dumpsys deviceidle` confirmed `mState=ACTIVE` at wake (Doze had exited), meaning the test devolved from "Doze-cold service revival" into "service responsive after Doze exit + screen wake." Software gate (PauseActivity wires up + cold-start under 500 ms threshold) is positively confirmed; full CD-03 OEM-survival criterion is NOT yet positively confirmed.
+- Required: Run #2 unplugged overnight (`AC powered: false` throughout), force-idle, do not unlock until measurement. Record second row in Device Record table.
 
 ---
 
