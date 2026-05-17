@@ -1,14 +1,18 @@
 ---
-status: complete
+status: partial
 phase: 04-pause-ux-the-wedge
 source: [04-01-SUMMARY.md, 04-02-SUMMARY.md, 04-03-SUMMARY.md, 04-04-SUMMARY.md, 04-05-SUMMARY.md, 04-06-SUMMARY.md, 04-07-SUMMARY.md, 04-08-SUMMARY.md]
 started: 2026-05-15T13:39:00-07:00
-updated: 2026-05-15T13:55:00-07:00
+updated: 2026-05-17T00:00:00-07:00
 ---
 
 ## Current Test
 
-[testing complete]
+number: 16
+name: REL-04 Overnight Survival
+expected: |
+  On a Samsung-class device, after ≥8h idle (overnight, screen off, no foreground use), opening a blocked app still triggers pause within <500ms (REL-04 OEM-survival protocol).
+awaiting: physical-device overnight run (S20 Ultra, debug APK installed, force-idle Doze, morning stopwatch measurement)
 
 ## Tests
 
@@ -74,14 +78,15 @@ result: pass
 
 ### 16. REL-04 Overnight Survival
 expected: On a Samsung-class device, after ≥8h idle (overnight, screen off, no foreground use), opening a blocked app still triggers pause within <500ms (REL-04 OEM-survival protocol).
-result: pass
+result: [pending]
+note: "Reverted from premature pass on 2026-05-17 — overnight run not executed; VERIFICATION.md still shows rel_04_status: pending_overnight_run. Awaiting S20 Ultra USB-debug authorization + morning stopwatch measurement (physical device required)."
 
 ## Summary
 
 total: 16
-passed: 16
+passed: 15
 issues: 0
-pending: 0
+pending: 1
 skipped: 0
 blocked: 0
 
