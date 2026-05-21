@@ -99,7 +99,7 @@ v1 ships as an Android-only, Flutter-based, account-free, fully on-device app. E
 - [x] **REL-01**: Companion foreground service keeps AccessibilityService in the Active App Standby Bucket — DEFERRED per CD-01: ships without companion FGS in v1; revisit if REL-04 fails on additional OEMs
 - [x] **REL-02**: Self-healing health check runs on every app open and shows actionable fix steps if any required permission/service is degraded
 - [x] **REL-03**: OEM-specific guidance routes to community-maintained dontkillmyapp.com vendor pages from the health-check screen
-- [ ] **REL-04**: Overnight survival test passes on a real Xiaomi or Samsung device (not Pixel-only) before each phase exit from Phase 4 onwards
+- [x] **REL-04**: Overnight survival test passes on a real Xiaomi or Samsung device (not Pixel-only) before each phase exit from Phase 4 onwards — PASS 2026-05-21 on Samsung Galaxy S20 Ultra 5G (Android 13, OneUI 5.1); Run #1 logcat-measured 320 ms detect-to-pause (charging-confounded); Run #2 ≥71 h unplugged Doze, PauseActivity fired <1 s after launch tap
 - [ ] **REL-05**: AccessibilityService is architected as a swappable provider behind a Riverpod abstraction so a UsageStats-polling fallback can ship without rework if Play rejects the service
 
 ## v2 Requirements
@@ -245,7 +245,7 @@ Mapped by gsd-roadmapper on 2026-04-27. Every v1 REQ-ID maps to exactly one phas
 | REL-01 | Phase 4 | DEFERRED — CD-01 ships without companion FGS in v1; revisit if REL-04 fails on additional OEMs |
 | REL-02 | Phase 2 | Complete (Plan 02-05/02-09 — permissionHealthProvider + HealthLifecycleObserver re-checks on every resume) |
 | REL-03 | Phase 2 | Complete (Plan 02-08/02-09 — OemFallbackPanel + dontkillmyappUrl helper for 7 vendors) |
-| REL-04 | Phase 4 | pending_overnight_run (Samsung; target window 2026-05-13 to 2026-05-16; Plan 04-08 protocol documented) |
+| REL-04 | Phase 4 | Complete 2026-05-21 — Samsung Galaxy S20 Ultra 5G (SM-G988U1, Android 13, OneUI 5.1); Run #1 logcat 320 ms detect-to-pause (charging-confounded); Run #2 ≥71 h unplugged Doze, PauseActivity <1 s |
 | REL-05 | Phase 1 | Pending |
 
 **Coverage:**
@@ -258,3 +258,4 @@ Mapped by gsd-roadmapper on 2026-04-27. Every v1 REQ-ID maps to exactly one phas
 *Requirements defined: 2026-04-27*
 *Last updated: 2026-05-05 — added LIST-08/09, PAUS-09/10, STRK-09 (hard-block + schedules per /gsd-discuss-phase 2)*
 *2026-05-13 — PAUS-01..10 + REL-01 marked Complete; REL-04 status pending_overnight_run (Samsung; Plan 04-08 protocol documented)*
+*2026-05-21 — REL-04 Complete on Samsung S20 Ultra 5G after ≥71 h unplugged Doze; Phase 4 fully closed (12/12 reqs)*

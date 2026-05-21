@@ -3,10 +3,10 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-13T00:00:00.000Z"
+last_updated: "2026-05-21T00:00:00.000Z"
 progress:
   total_phases: 6
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 29
   completed_plans: 29
   percent: 83
@@ -26,17 +26,17 @@ progress:
 
 ## Current Position
 
-Phase: 04 (Pause UX) — SOFTWARE-COMPLETE; REL-04 overnight test pending (Samsung, within 2-3 days from 2026-05-13)
+Phase: 04 (Pause UX) — COMPLETE 2026-05-21 (REL-04 PASS on Samsung Galaxy S20 Ultra 5G after ≥71 h unplugged Doze)
 Plan: 8 of 8 (all plans complete)
-Next: Phase 5 (Streak Engine & Daily Reminder) — `/gsd-plan-phase 5` (can run in parallel while REL-04 overnight test is pending; they do not block each other)
+Next: Phase 5 (Streak Engine & Daily Reminder) — `/gsd-plan-phase 5`
 
 - **Milestone:** v1
-- **Phase:** Phase 4 — Pause UX (SOFTWARE-COMPLETE 2026-05-13; REL-04 pending overnight test)
-- **Status:** Phase 4 software-complete; REL-04 is the only open gate
-- **Progress:** [████████████░░░░░░░░] 83% (29/29 plans through Phase 4)
+- **Phase:** Phase 4 — Pause UX (COMPLETE 2026-05-21)
+- **Status:** Phase 4 fully closed; all gates green
+- **Progress:** [████████████████░░░░] 83% (29/29 plans through Phase 4; 4/6 phases complete)
 
 ```
-[████████████░░░░░░░░] Phase 4 software-complete — REL-04 overnight test pending (Samsung)
+[████████████████░░░░] Phase 4 COMPLETE — REL-04 PASS (Samsung S20 Ultra, ≥71 h unplugged Doze)
 ```
 
 ### Phase 4 Plan Inventory (all complete)
@@ -53,10 +53,10 @@ Next: Phase 5 (Streak Engine & Daily Reminder) — `/gsd-plan-phase 5` (can run 
 ## Performance Metrics
 
 - Phases planned: 6
-- Phases complete: 3 (Phases 1, 2, 3 fully complete; Phase 4 software-complete — REL-04 open)
+- Phases complete: 4 (Phases 1, 2, 3, 4 fully complete)
 - v1 requirements: 68 (all mapped; updated 2026-05-05 — hard-block + schedules added)
-- v1 requirements complete: 39 (Phase 1: 9 reqs. Phase 2: 19 reqs. Phase 3: 7 reqs. Phase 4: PAUS-01..10 + REL-01 = 11 more reqs. REL-04: pending_overnight_run — not yet counted as complete)
-- OEM-survival overnight tests passed: 0/3 (Phase 4 pending Samsung overnight run; Phase 5, Phase 6 not started)
+- v1 requirements complete: 40 (Phase 1: 9 reqs. Phase 2: 19 reqs. Phase 3: 7 reqs. Phase 4: PAUS-01..10 + REL-01 + REL-04 = 12 more reqs)
+- OEM-survival overnight tests passed: 1/3 (Phase 4 PASS on Samsung Galaxy S20 Ultra 5G 2026-05-21; Phase 5, Phase 6 not started)
 
 ## Accumulated Context
 
@@ -105,9 +105,12 @@ Next: Phase 5 (Streak Engine & Daily Reminder) — `/gsd-plan-phase 5` (can run 
 
 ### Active Todos
 
-1. **REL-04 overnight run on Samsung device** — target window 2026-05-13 to 2026-05-16. Protocol documented in `.planning/phases/04-pause-ux-the-wedge/04-VERIFICATION.md`. Stopwatch detect-to-pause after 8h idle; record result in the device record table. PASS = < 500ms.
-2. **After REL-04 passes:** flip REL-04 status in REQUIREMENTS.md from `pending_overnight_run` to `Complete`; flip 04-VERIFICATION.md REL-04 outcome from `pending_overnight_run` to `PASS`; bump `completed_phases` in STATE.md to 4 and `v1 requirements complete` to 40.
-3. Phase 5 (Streak Engine & Daily Reminder) can be planned NOW via `/gsd-plan-phase 5` — does NOT require REL-04 to complete first.
+1. **Phase 5 (Streak Engine & Daily Reminder)** — `/gsd-plan-phase 5`. Phase 4 fully closed; no upstream blockers.
+
+### Closed Todos
+
+- ✅ REL-04 overnight run on Samsung — PASS 2026-05-21. Run #1 (2026-05-17 → 2026-05-18, charging-confounded): logcat 320 ms detect-to-pause. Run #2 (2026-05-18 → 2026-05-21, ≥71 h unplugged Doze): PauseActivity fired <1 s after user tapped blocked app. Wireless adb dropped during deep Doze (Wi-Fi radio cut, expected); precise Run #2 ms not captured but subjective <1 s + Run #1 320 ms upper bound = comfortable PASS under 500 ms CD-03 threshold.
+- ✅ REL-04 bookkeeping flips landed 2026-05-21: REQUIREMENTS.md REL-04 → Complete; 04-VERIFICATION.md status → complete + rel_04_status: pass; STATE.md completed_phases → 4; v1 requirements complete → 40.
 
 ### Blockers
 

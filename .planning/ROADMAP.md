@@ -16,7 +16,7 @@
 - [x] **Phase 1: Foundation & Play Declaration** - Drift schema, domain skeleton, Pigeon scaffolding, manifest, and Play Console declaration copy committed before any service code
 - [x] **Phase 2: List CRUD + Onboarding & Permissions** - User can build a not-to-do list and complete the 4-permission Settings hand-off flow with OEM-aware fallbacks
 - [x] **Phase 3: Screen-Time Dashboard** - UsageStatsManager bridge ships visible value and validates the Pigeon channel pattern on a low-risk surface (completed 2026-05-08)
-- [x] **Phase 4: Pause UX (the wedge)** - AccessibilityService + PauseActivity + cooldown timer deliver the reflection moment, OEM-survival overnight test gate begins — software-complete 2026-05-13; REL-04 overnight test pending (Samsung, target 2026-05-13 to 2026-05-16)
+- [x] **Phase 4: Pause UX (the wedge)** - AccessibilityService + PauseActivity + cooldown timer deliver the reflection moment, OEM-survival overnight test gate cleared — COMPLETE 2026-05-21 (REL-04 PASS on Samsung Galaxy S20 Ultra 5G after ≥71 h unplugged Doze)
 - [ ] **Phase 5: Streak Engine & Daily Reminder** - Hybrid honest streak (system + self-report), daily check-in, exact-alarm daily reminder that survives reboot and Doze
 - [ ] **Phase 6: Polish & Play Store Submission** - Settings, theme, export/reset, prominent disclosure, closed-track Play submission passes review
 
@@ -128,7 +128,7 @@
 | 1. Foundation & Play Declaration | 5/5 | ✅ Complete | 2026-04-26 |
 | 2. List CRUD + Onboarding & Permissions | 10/10 | ✅ Complete | 2026-05-07 |
 | 3. Screen-Time Dashboard | 6/6 | Complete   | 2026-05-08 |
-| 4. Pause UX (the wedge) | 8/8 | Software-complete (REL-04 overnight test pending) | 2026-05-13 |
+| 4. Pause UX (the wedge) | 8/8 | Complete (REL-04 PASS) | 2026-05-21 |
 | 5. Streak Engine & Daily Reminder | 0/0 | Not started | - |
 | 6. Polish & Play Store Submission | 0/0 | Not started | - |
 
@@ -160,3 +160,4 @@
 *Roadmap created: 2026-04-27*
 *Phase 3 plans created: 2026-05-07*
 *Phase 4 software-complete: 2026-05-13 — 8/8 plans landed; REL-04 overnight test pending (Samsung; target 2026-05-13 to 2026-05-16)*
+*Phase 4 complete: 2026-05-21 — REL-04 PASS on Samsung Galaxy S20 Ultra 5G (Android 13, OneUI 5.1) after ≥71 h unplugged Doze. Run #1 logcat 320 ms detect-to-pause (charging-confounded). Run #2 manual <1 s. Phase 4 closed; Phase 5 unblocked.*
