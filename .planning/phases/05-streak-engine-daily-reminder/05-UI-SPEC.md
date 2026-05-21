@@ -5,6 +5,7 @@ status: draft
 shadcn_initialized: false
 preset: not applicable
 created: 2026-05-21
+revised: 2026-05-21
 ---
 
 # Phase 5 — UI Design Contract
@@ -35,7 +36,7 @@ Declared values (multiples of 4). Carries forward from prior phases — all prio
 | Token | Value | Usage |
 |-------|-------|-------|
 | xs | 4px | Icon-to-label gap, inline badge padding, dot gap in calendar grid |
-| sm | 8px | Row subtitle gap, vertical padding in banner, chip row inter-gap |
+| sm | 8px | Row subtitle gap, vertical padding in banner, chip row inter-gap, icon-to-text gap in entry row |
 | md | 16px | Default horizontal screen padding, card internal padding, form field gap |
 | lg | 24px | Section separator between calendar grid and summary text, button group top margin |
 | xl | 32px | Bottom-of-screen breathing room below submit button |
@@ -45,6 +46,8 @@ Declared values (multiples of 4). Carries forward from prior phases — all prio
 Exceptions:
 - Touch targets for Yes/No toggles on `/checkin` screen: minimum 44px tall (Android accessibility minimum)
 - Calendar day dots in Streak history grid: 24px × 24px tap target per dot cell, dot itself 8px diameter
+
+Note: No 12px gaps exist in this phase. The entry row icon-to-text gap uses `sm` (8px) — see Screen 1 entry row layout.
 
 Source: `lib/features/home/widgets/block_list_row.dart` (64dp rows), `lib/features/list/pages/edit_entry_screen.dart` (16px padding, 24px/32px section gaps)
 
@@ -56,15 +59,23 @@ Carries forward from `AppTheme._textTheme` and Material 3 defaults. No new roles
 
 | Role | Size | Weight | Line Height | Usage in Phase 5 |
 |------|------|--------|-------------|-----------------|
-| Body | 14sp (labelSmall override) / 16sp (bodyMedium M3 default) | 400 | 1.5 | Banner copy, calendar day numbers, check-in row entry names, reminder settings label |
+| Body | See contexts below | 400 | 1.5 | Banner copy, calendar day numbers, check-in row entry names, reminder settings label |
 | Label | 14sp | 400 | 1.4 | Streak badge text (`🔥 3 · best 12`), day-status tooltip text, section helper copy |
 | Heading | 22sp (titleLarge M3 default) | 400 | 1.2 | Check-in screen heading, Streak history section heading in entry detail |
 | Subheading | 16sp (titleMedium M3 default) | 500 | 1.2 | Card titles (`Avoided today`, section labels in entry detail) |
+
+**Body size disambiguation — two contexts, one role:**
+
+| Context | Size | Token | Rationale |
+|---------|------|-------|-----------|
+| Check-in entry names, banner text, streak summary text, notification body | 16sp | `bodyMedium` (M3 default) | Standard reading copy; full-width text that needs comfortable legibility at arm's length |
+| Streak badge, dot tooltip, threshold help text, settings helper copy | 14sp | `labelSmall` (Phase 2 AppTheme override, pinned to 14sp/w400) | Compact secondary metadata; appears inline or in small containers where 16sp would crowd the layout |
 
 Rules:
 - No new font sizes beyond these four roles. Use Material 3 TextTheme tokens (`bodyMedium`, `titleMedium`, `labelSmall`, `titleLarge`) — never hard-code sp values in new widgets.
 - `labelSmall` is pinned to `fontSize: 14, fontWeight: FontWeight.w400` per Phase 2 UI-SPEC override in `AppTheme` — do not revert to M3 default 11sp.
 - Two weights only: 400 (regular) and 500 (medium — used for banner foreground text and card titles via `FontWeight.w500`).
+- When in doubt: use `bodyMedium` (16sp/w400) for primary readable copy; use `labelSmall` (14sp/w400) for secondary metadata.
 
 Source: `lib/core/theme/app_theme.dart`, `lib/features/health/widgets/health_check_banner.dart`
 
@@ -78,11 +89,11 @@ Material 3 dynamic color scheme seeded from `Color(0xFF2D6A4F)` (deep forest gre
 |------|-------|-------|
 | Dominant (60%) | `colorScheme.surface` / `colorScheme.background` | Screen backgrounds, Scaffold body |
 | Secondary (30%) | `colorScheme.surfaceContainer` / `colorScheme.surfaceContainerHighest` | Home list tile background (`tileColor: cs.surfaceContainer`), card surfaces, entry detail sections |
-| Accent (10%) | `colorScheme.primary` | Reserved for: active streak badge flame text, Submit button fill on `/checkin`, time picker confirm button, 4-left-border on highlighted dashboard rows (existing) |
+| Accent (10%) | `colorScheme.primary` | Reserved for: active streak badge flame text, Save check-in button fill on `/checkin`, time picker confirm button, 4-left-border on highlighted dashboard rows (existing) |
 | Destructive | `colorScheme.error` | No new destructive actions in Phase 5 — error color reserved for existing delete-entry button (Phase 2 carry-forward) only |
 
 Accent reserved for (explicit list — Phase 5 additions only):
-1. Submit button fill on `/checkin` screen (`FilledButton` = primary by M3 default)
+1. Save check-in button fill on `/checkin` screen (`FilledButton` = primary by M3 default)
 2. Yes toggle selected state on `/checkin` row (`SegmentedButton` selected segment = primary)
 3. Reminder time picker confirm action
 
@@ -136,7 +147,7 @@ Body: SingleChildScrollView, padding 16px horizontal
     [entry row — see below]
     Divider
   SizedBox height 24
-  FilledButton "Submit" — full width (minimumSize: Size.fromHeight(48))
+  FilledButton "Save check-in" — full width (minimumSize: Size.fromHeight(48))
     Disabled until at least one entry answered
   SizedBox height 32
 ```
@@ -145,7 +156,7 @@ Body: SingleChildScrollView, padding 16px horizontal
 ```
 Row, height ≥ 44px (touch-target minimum)
   Leading: app icon (AppIcon widget) or spa_outlined icon (habit), size 32px
-  SizedBox width 12
+  SizedBox width 8   ← sm token (8px); on-scale
   Expanded: Text(entry.displayName, bodyMedium, maxLines: 1, ellipsis)
   SegmentedButton<bool> with two segments:
     Segment(value: true, label: Text('Yes'))   — "I avoided it"
@@ -164,7 +175,7 @@ Center:
   Text("Check back tomorrow.", bodyMedium, color: onSurfaceVariant)
 ```
 
-**Idempotency:** already-answered entries show their prior answer with the SegmentedButton locked (disabled). Submit button remains visible but shows "Done" label when all answered via prior path.
+**Idempotency:** already-answered entries show their prior answer with the SegmentedButton locked (disabled). Submit button remains visible but shows "All done" label when all entries were answered via a prior path.
 
 **No back-gesture block:** standard GoRouter back navigation allowed. Unanswered entries remain pending until next evaluation (D-04 all-day window).
 
@@ -305,8 +316,8 @@ All copy is locked. Do not paraphrase or add qualifiers.
 
 | Element | Exact Copy |
 |---------|-----------|
-| Primary CTA — check-in submit | `Submit` |
-| Primary CTA — checkin done (all pre-answered) | `Done` |
+| Primary CTA — check-in submit | `Save check-in` |
+| Primary CTA — checkin done (all pre-answered) | `All done` |
 | Check-in screen heading | `"How did today go?"` |
 | Check-in Yes toggle label | `"Yes"` |
 | Check-in No toggle label | `"No"` |
@@ -338,8 +349,8 @@ Source: CONTEXT.md D-05, D-06, D-10, D-12, D-14, D-15, Phase 4 carry-forward
 
 ### Check-In Flow
 
-1. Submit button is disabled (`FilledButton` with `onPressed: null`) until at least one Yes/No answer is recorded.
-2. On Submit: write all answered rows to `daily_checkins` in a single Drift transaction. Unanswered rows are NOT written (they remain pending until midnight rollover per D-04).
+1. Save check-in button is disabled (`FilledButton` with `onPressed: null`) until at least one Yes/No answer is recorded.
+2. On Save check-in: write all answered rows to `daily_checkins` in a single Drift transaction. Unanswered rows are NOT written (they remain pending until midnight rollover per D-04).
 3. After successful write: `context.go('/')` — return to Home.
 4. On write error: show `SnackBar` with error copy above. Do not pop the screen.
 5. Idempotent: re-entering `/checkin` after partial submit shows already-answered entries with locked `SegmentedButton` (disabled). Already-answered entries render their stored answer.
