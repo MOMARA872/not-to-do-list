@@ -1,17 +1,23 @@
 package com.nottodo.not_to_do_list.platform
 
 import android.accessibilityservice.AccessibilityServiceInfo
+import android.app.Activity
 import android.app.AppOpsManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.PowerManager
 import android.os.Process
+import android.os.SystemClock
 import android.provider.Settings
 import android.view.accessibility.AccessibilityManager
+import androidx.core.content.ContextCompat
 import com.nottodo.not_to_do_list.service.NotToDoAccessibilityService
+import java.lang.ref.WeakReference
 
 /**
  * Phase 2 Plan 02-03 implementation of PermissionStatusApi.
@@ -101,6 +107,128 @@ class PermissionStatusApiImpl(private val context: Context) : PermissionStatusAp
         )
     }
 
+    override fun isPostNotificationsGranted(callback: (Result<Boolean>) -> Unit) {
+        try {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                callback(Result.success(true)); return
+            }
+            val granted = ContextCompat.checkSelfPermission(
+                context,
+                android.Manifest.permission.POST_NOTIFICATIONS,
+            ) == PackageManager.PERMISSION_GRANTED
+            callback(Result.success(granted))
+        } catch (e: Throwable) {
+            callback(Result.failure(e))
+        }
+    }
+
+    override fun postNotificationsRationaleState(callback: (Result<String>) -> Unit) {
+        try {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                // Pre-Android 13: permission auto-granted, no rationale needed.
+                callback(Result.success("grantable")); return
+            }
+            val prefs = getPostNotificationsPrefs()
+            val requestedAtLeastOnce = prefs.getBoolean(KEY_POST_NOTIFICATIONS_REQUESTED, false)
+            val granted = ContextCompat.checkSelfPermission(
+                context,
+                android.Manifest.permission.POST_NOTIFICATIONS,
+            ) == PackageManager.PERMISSION_GRANTED
+
+            val state = when {
+                granted -> "grantable"
+                !requestedAtLeastOnce -> "grantable"
+                else -> {
+                    // Read the rationale-visible flag written after each requestPostNotifications call.
+                    val rationaleVisible = prefs.getBoolean(KEY_POST_NOTIFICATIONS_RATIONALE_VISIBLE, false)
+                    if (rationaleVisible) "rationale" else "permanently_denied"
+                }
+            }
+            callback(Result.success(state))
+        } catch (e: Throwable) {
+            callback(Result.failure(e))
+        }
+    }
+
+    /**
+     * SEMANTIC NOTE — non-blocking return:
+     *
+     * This method returns the PRE-dialog granted state, NOT the post-dialog state. The Android runtime
+     * permission dialog dispatches its result to MainActivity.onRequestPermissionsResult asynchronously;
+     * blocking the Pigeon callback on that result would hold the Flutter engine thread for the duration
+     * of the user's interaction with the system dialog, which is not acceptable.
+     *
+     * Caller contract:
+     *   1. Dart side calls requestPostNotifications() — system dialog appears for the user
+     *   2. Kotlin returns the PRE-dialog granted state immediately (the dialog has not closed yet)
+     *   3. Dart side MUST re-poll isPostNotificationsGranted() on AppLifecycleState.resumed to observe
+     *      the post-dialog grant outcome
+     *
+     * The Plan 05-08 PostNotificationsEarnedStep ConsumerStatefulWidget implements this re-poll via
+     * WidgetsBindingObserver.didChangeAppLifecycleState — when the user returns from the system dialog
+     * the app is resumed and the widget re-checks the permission, advancing onboarding accordingly.
+     *
+     * See T-05-16 in 05-04-PLAN.md threat register for the full lifecycle contract.
+     */
+    override fun requestPostNotifications(callback: (Result<Boolean>) -> Unit) {
+        try {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                // Pre-Android 13: auto-granted, no dialog needed.
+                callback(Result.success(true)); return
+            }
+            val prefs = getPostNotificationsPrefs()
+            // Capture pre-dialog granted state — returned immediately (non-blocking).
+            val preDialogGranted = ContextCompat.checkSelfPermission(
+                context,
+                android.Manifest.permission.POST_NOTIFICATIONS,
+            ) == PackageManager.PERMISSION_GRANTED
+
+            // Write the requested-at-least-once flag and capture shouldShowRationale
+            // BEFORE launching the dialog so postNotificationsRationaleState reads fresh state.
+            val activity = weakRef?.get()
+            val rationaleVisible = activity?.shouldShowRequestPermissionRationale(
+                android.Manifest.permission.POST_NOTIFICATIONS,
+            ) ?: false
+
+            prefs.edit()
+                .putBoolean(KEY_POST_NOTIFICATIONS_REQUESTED, true)
+                .putBoolean(KEY_POST_NOTIFICATIONS_RATIONALE_VISIBLE, rationaleVisible)
+                .apply()
+
+            // Launch the system dialog via the Activity if available.
+            activity?.requestPermissions(
+                arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                REQUEST_CODE_POST_NOTIFICATIONS,
+            )
+
+            // Return PRE-dialog state immediately. Caller re-polls on AppLifecycleState.resumed.
+            callback(Result.success(preDialogGranted))
+        } catch (e: Throwable) {
+            callback(Result.failure(e))
+        }
+    }
+
+    override fun bootMonotonicNanos(callback: (Result<Long>) -> Unit) {
+        try {
+            callback(Result.success(SystemClock.elapsedRealtimeNanos()))
+        } catch (e: Throwable) {
+            callback(Result.failure(e))
+        }
+    }
+
+    override fun openAppNotificationSettings(callback: (Result<Unit>) -> Unit) {
+        launchSettingsOrFallback(
+            primary = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                .putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName),
+            fallback = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                .setData(Uri.parse("package:${context.packageName}")),
+            callback = callback,
+        )
+    }
+
+    private fun getPostNotificationsPrefs(): SharedPreferences =
+        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+
     private fun launchSettingsOrFallback(
         primary: Intent,
         fallback: Intent,
@@ -126,5 +254,23 @@ class PermissionStatusApiImpl(private val context: Context) : PermissionStatusAp
             }
         }
         callback(Result.failure(Exception("No Settings activity resolves on this device")))
+    }
+
+    companion object {
+        private const val PREFS_NAME = "FlutterSharedPreferences"
+        private const val KEY_POST_NOTIFICATIONS_REQUESTED =
+            "flutter.post_notifications_requested_at_least_once"
+        private const val KEY_POST_NOTIFICATIONS_RATIONALE_VISIBLE =
+            "flutter.post_notifications_rationale_visible"
+        private const val REQUEST_CODE_POST_NOTIFICATIONS = 1001
+
+        /**
+         * Weak reference to the host Activity.
+         * Plan 05-05 populates this in MainActivity.configureFlutterEngine so that
+         * [requestPostNotifications] can launch the runtime permission dialog.
+         * Null-safe: if no Activity is bound, requestPostNotifications returns the
+         * current PRE-dialog granted state without launching a dialog.
+         */
+        var weakRef: WeakReference<Activity>? = null
     }
 }

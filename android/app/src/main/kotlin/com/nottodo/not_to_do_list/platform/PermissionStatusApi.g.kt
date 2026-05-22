@@ -93,6 +93,26 @@ interface PermissionStatusApi {
    * fallback (T-2-02 mitigation).
    */
   fun openBatteryOptSettings(callback: (Result<Unit>) -> Unit)
+  /** POST_NOTIFICATIONS runtime permission status (Android 13+) — NOTF-06. */
+  fun isPostNotificationsGranted(callback: (Result<Boolean>) -> Unit)
+  /** Three-state for D-12 banner UX — grantable/rationale/permanently_denied. */
+  fun postNotificationsRationaleState(callback: (Result<String>) -> Unit)
+  /**
+   * Launches the runtime POST_NOTIFICATIONS dialog (NOTF-06 earned prompt).
+   *
+   * SEMANTIC NOTE — non-blocking return value:
+   * This method returns the PRE-dialog granted state, NOT the post-dialog state.
+   * The Android runtime permission dialog is delivered to MainActivity.onRequestPermissionsResult
+   * asynchronously; this Pigeon method cannot block on that callback without holding the Flutter
+   * engine thread. The caller (Plan 05-08 PostNotificationsEarnedStep) re-polls
+   * isPostNotificationsGranted() on AppLifecycleState.resumed via WidgetsBindingObserver to observe
+   * the user's grant decision. See T-05-16 threat entry for the full lifecycle contract.
+   */
+  fun requestPostNotifications(callback: (Result<Boolean>) -> Unit)
+  /** Boot-monotonic clock for clock-tamper detection — STRK-06. */
+  fun bootMonotonicNanos(callback: (Result<Long>) -> Unit)
+  /** ACTION_APP_NOTIFICATION_SETTINGS deep-link with resolveActivity guard + applicationDetails fallback (T-2-02 mitigation). */
+  fun openAppNotificationSettings(callback: (Result<Unit>) -> Unit)
 
   companion object {
     /** The codec used by PermissionStatusApi. */
@@ -232,6 +252,95 @@ interface PermissionStatusApi {
         if (api != null) {
           channel.setMessageHandler { _, reply ->
             api.openBatteryOptSettings{ result: Result<Unit> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(PermissionStatusApiPigeonUtils.wrapError(error))
+              } else {
+                reply.reply(PermissionStatusApiPigeonUtils.wrapResult(null))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.not_to_do_list.PermissionStatusApi.isPostNotificationsGranted$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            api.isPostNotificationsGranted{ result: Result<Boolean> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(PermissionStatusApiPigeonUtils.wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(PermissionStatusApiPigeonUtils.wrapResult(data))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.not_to_do_list.PermissionStatusApi.postNotificationsRationaleState$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            api.postNotificationsRationaleState{ result: Result<String> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(PermissionStatusApiPigeonUtils.wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(PermissionStatusApiPigeonUtils.wrapResult(data))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.not_to_do_list.PermissionStatusApi.requestPostNotifications$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            api.requestPostNotifications{ result: Result<Boolean> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(PermissionStatusApiPigeonUtils.wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(PermissionStatusApiPigeonUtils.wrapResult(data))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.not_to_do_list.PermissionStatusApi.bootMonotonicNanos$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            api.bootMonotonicNanos{ result: Result<Long> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(PermissionStatusApiPigeonUtils.wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(PermissionStatusApiPigeonUtils.wrapResult(data))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.not_to_do_list.PermissionStatusApi.openAppNotificationSettings$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            api.openAppNotificationSettings{ result: Result<Unit> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(PermissionStatusApiPigeonUtils.wrapError(error))
