@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:not_to_do_list/core/router/pending_nav_request_provider.dart';
 import 'package:not_to_do_list/data/database/app_database.dart';
 import 'package:not_to_do_list/domain/providers/block_list_repo_provider.dart';
 import 'package:not_to_do_list/features/health/permission_health_provider.dart';
@@ -35,10 +36,30 @@ class HomeScreen extends ConsumerWidget {
     final cs = Theme.of(context).colorScheme;
     final entriesAsync = ref.watch(_homeEntriesProvider);
     final healthAsync = ref.watch(permissionHealthProvider);
+
+    // NOTF-06: listen for the earned-prompt nav signal set by
+    // BlockListRepository after the first entry insert.
+    ref.listen<String?>(pendingNavRequestProvider, (prev, next) {
+      if (next != null) {
+        ref.read(pendingNavRequestProvider.notifier).state = null;
+        context.go(next);
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Not To-Do List'),
         centerTitle: false,
+        actions: [
+          Semantics(
+            label: 'Daily reminder settings',
+            child: IconButton(
+              icon: const Icon(Icons.notifications_outlined),
+              tooltip: 'Daily reminder',
+              onPressed: () => context.go('/settings/reminder'),
+            ),
+          ),
+        ],
       ),
       body: Column(
         children: [

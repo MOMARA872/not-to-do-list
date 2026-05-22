@@ -13,6 +13,15 @@ class BlockListDao extends DatabaseAccessor<AppDatabase>
     with _$BlockListDaoMixin {
   BlockListDao(super.attachedDatabase);
 
+  /// Total row count — used by BlockListRepository to detect the 0→1
+  /// transition for the NOTF-06 earned-prompt fire-once trigger.
+  Future<int> count() async {
+    final result = await customSelect(
+      'SELECT COUNT(*) AS c FROM block_list',
+    ).getSingle();
+    return result.read<int>('c');
+  }
+
   /// All entries sorted by `updatedAt` desc.
   Future<List<BlockListData>> getAll() {
     return (select(blockList)

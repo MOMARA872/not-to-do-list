@@ -8,11 +8,13 @@ import 'package:not_to_do_list/features/list/pages/add_habit_screen.dart';
 import 'package:not_to_do_list/features/list/pages/edit_entry_screen.dart';
 import 'package:not_to_do_list/features/onboarding/pages/accessibility_step.dart';
 import 'package:not_to_do_list/features/onboarding/pages/battery_opt_step.dart';
+import 'package:not_to_do_list/features/onboarding/pages/post_notifications_earned_step.dart';
 import 'package:not_to_do_list/features/onboarding/pages/quick_add_screen.dart';
 import 'package:not_to_do_list/features/onboarding/pages/usage_access_step.dart';
 import 'package:not_to_do_list/features/onboarding/pages/welcome_screen.dart';
 import 'package:not_to_do_list/features/onboarding/providers/onboarding_complete_provider.dart';
 import 'package:not_to_do_list/features/pause/pages/pause_screen.dart';
+import 'package:not_to_do_list/features/reminder/pages/reminder_settings_screen.dart';
 
 /// GoRouter provider — hand-written (no `@riverpod` codegen) because Plan 01-01
 /// dropped `riverpod_annotation`/`riverpod_generator` due to analyzer-pin
@@ -29,7 +31,15 @@ final Provider<GoRouter> appRouterProvider = Provider<GoRouter>((ref) {
       final goingToOnboarding =
           state.matchedLocation.startsWith('/onboarding');
       if (!completed && !goingToOnboarding) return '/onboarding/welcome';
-      if (completed && goingToOnboarding) return '/';
+      if (completed && goingToOnboarding) {
+        // T-05-31: narrow exception — earned-prompt route is reached AFTER
+        // onboarding completes + first entry insert. Must NOT redirect to '/'.
+        // ignore: lines_longer_than_80_chars
+        if (state.matchedLocation == '/onboarding/permissions/notifications') {
+          return null;
+        }
+        return '/';
+      }
       return null;
     },
     routes: [
@@ -44,6 +54,10 @@ final Provider<GoRouter> appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/list/edit/:id', builder: (ctx, state) => EditEntryScreen(id: int.parse(state.pathParameters['id']!))),
       GoRoute(path: '/dashboard', builder: (_, __) => const DashboardScreen()),
       GoRoute(path: '/checkin', builder: (_, __) => const CheckinScreen()),
+      // ignore: lines_longer_than_80_chars
+      GoRoute(path: '/settings/reminder', builder: (_, __) => const ReminderSettingsScreen()),
+      // ignore: lines_longer_than_80_chars
+      GoRoute(path: '/onboarding/permissions/notifications', builder: (_, __) => const PostNotificationsEarnedStep()),
       GoRoute(
         path: '/pause/:entryId',
         builder: (ctx, state) {
