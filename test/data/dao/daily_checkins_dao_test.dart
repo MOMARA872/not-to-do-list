@@ -1,21 +1,29 @@
-// Plan 05-01 — Wave 0 RED stub: DailyCheckinsDao tests.
+// Plan 05-02 — Wave 1: DailyCheckinsDao tests (GREEN).
 //
 // Covers: STRK-03 (one check-in per entry per day, UNIQUE constraint).
 //
-// All tests are skipped — Plan 05-02 fills.
 // Scaffold mirrors test/data/repositories/pause_event_repository_test.dart.
 
-import 'package:drift/drift.dart' hide isNull;
+import 'package:drift/drift.dart' hide isNull, isNotNull;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:not_to_do_list/data/database/app_database.dart';
+import 'package:not_to_do_list/data/database/daos/daily_checkins_dao.dart';
 
 void main() {
   late AppDatabase db;
+  late DailyCheckinsDao dao;
   late int blockListEntryId;
+
+  // Use local-time DateTime to match Drift NativeDatabase read-back format.
+  final day1 = DateTime(2026, 5, 10);
+  final day2 = DateTime(2026, 5, 11);
+  final t1 = DateTime(2026, 5, 10, 9, 0);
+  final t2 = DateTime(2026, 5, 10, 9, 5);
 
   setUp(() async {
     db = AppDatabase(NativeDatabase.memory());
+    dao = DailyCheckinsDao(db);
     blockListEntryId = await db.into(db.blockList).insert(
           BlockListCompanion.insert(
             kind: 0,
@@ -37,25 +45,63 @@ void main() {
       test(
         'upsert with same (entryId, day) does not create duplicate row',
         () async {
-          // Plan 05-02 fills
+          await dao.upsert(
+            entryId: blockListEntryId,
+            day: day1,
+            avoided: true,
+            answeredAt: t1,
+          );
+          await dao.upsert(
+            entryId: blockListEntryId,
+            day: day1,
+            avoided: false,
+            answeredAt: t2,
+          );
+          final rows = await db.select(db.dailyCheckins).get();
+          expect(rows, hasLength(1));
         },
-        skip: 'Plan 05-02 fills',
       );
 
       test(
         'upsert with same (entryId, day) updates avoided field',
         () async {
-          // Plan 05-02 fills
+          await dao.upsert(
+            entryId: blockListEntryId,
+            day: day1,
+            avoided: true,
+            answeredAt: t1,
+          );
+          await dao.upsert(
+            entryId: blockListEntryId,
+            day: day1,
+            avoided: false,
+            answeredAt: t2,
+          );
+          final row = await dao.getFor(blockListEntryId, day1);
+          expect(row, isNotNull);
+          expect(row!.avoided, isFalse);
+          expect(row.answeredAt, t2);
         },
-        skip: 'Plan 05-02 fills',
       );
 
       test(
         'upsert on different days creates separate rows (STRK-03)',
         () async {
-          // Plan 05-02 fills
+          await dao.upsert(
+            entryId: blockListEntryId,
+            day: day1,
+            avoided: true,
+            answeredAt: t1,
+          );
+          await dao.upsert(
+            entryId: blockListEntryId,
+            day: day2,
+            avoided: false,
+            answeredAt: t2,
+          );
+          final rows = await db.select(db.dailyCheckins).get();
+          expect(rows, hasLength(2));
         },
-        skip: 'Plan 05-02 fills',
       );
     },
   );
@@ -64,17 +110,25 @@ void main() {
     test(
       'getFor returns null when no row exists for (entryId, day)',
       () async {
-        // Plan 05-02 fills
+        final result = await dao.getFor(blockListEntryId, day1);
+        expect(result, isNull);
       },
-      skip: 'Plan 05-02 fills',
     );
 
     test(
       'getFor returns the row when a row exists for (entryId, day)',
       () async {
-        // Plan 05-02 fills
+        await dao.upsert(
+          entryId: blockListEntryId,
+          day: day1,
+          avoided: true,
+          answeredAt: t1,
+        );
+        final result = await dao.getFor(blockListEntryId, day1);
+        expect(result, isNotNull);
+        expect(result!.entryId, blockListEntryId);
+        expect(result.day, day1);
       },
-      skip: 'Plan 05-02 fills',
     );
   });
 
@@ -82,17 +136,31 @@ void main() {
     test(
       'upsert with avoided=true roundtrips to true on read',
       () async {
-        // Plan 05-02 fills
+        await dao.upsert(
+          entryId: blockListEntryId,
+          day: day1,
+          avoided: true,
+          answeredAt: t1,
+        );
+        final row = await dao.getFor(blockListEntryId, day1);
+        expect(row, isNotNull);
+        expect(row!.avoided, isTrue);
       },
-      skip: 'Plan 05-02 fills',
     );
 
     test(
       'upsert with avoided=false roundtrips to false on read',
       () async {
-        // Plan 05-02 fills
+        await dao.upsert(
+          entryId: blockListEntryId,
+          day: day1,
+          avoided: false,
+          answeredAt: t1,
+        );
+        final row = await dao.getFor(blockListEntryId, day1);
+        expect(row, isNotNull);
+        expect(row!.avoided, isFalse);
       },
-      skip: 'Plan 05-02 fills',
     );
   });
 }
