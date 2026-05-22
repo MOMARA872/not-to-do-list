@@ -20,7 +20,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('Phase 5 source-policy invariants', () {
     // ---- NOTF-05: BootReceiver declared with BOOT_COMPLETED ----
-    // Skipped until Plan 05-05 adds the receiver declaration.
+    // Unskipped in Plan 05-05 — receiver and intent-filter now declared.
     test(
       'NOTF-05: BootReceiver declared with BOOT_COMPLETED intent-filter '
       'in AndroidManifest',
@@ -47,7 +47,6 @@ void main() {
               'required for BootReceiver re-arm of daily reminder',
         );
       },
-      skip: 'Plan 05-05 fills receiver declaration',
     );
 
     // ---- PLAY-Phase5: no USE_EXACT_ALARM permission (REAL — passes today) ----
@@ -168,21 +167,63 @@ void main() {
     );
 
     // ---- PLAY-Phase5 privacy: notification body must not contain entry names ----
-    // Skipped until Plan 05-05 ships the notification builder.
+    // Unskipped in Plan 05-05 — ReminderAlarmReceiver and strings.xml now shipped.
     test(
       'PLAY-Phase5: notification body must not contain entry names',
       () {
-        // Plan 05-05 fills notification body — privacy check applied then.
-        // Per CONTEXT D-10: body = "How did today go?" — no entry names.
-        final libDir = Directory('lib');
-        expect(libDir.existsSync(), isTrue);
+        // D-10 lock: notification body must be a static phrase, never entry names.
+        // Per CONTEXT D-10: body = "How did today go?" — no entry names in body.
 
-        // When Plan 05-05 ships NotificationApiImpl, this test verifies that
-        // the notification body literal does not embed entry displayName.
-        // For now: no notification builder exists → trivially passes.
+        // 1. Verify ReminderAlarmReceiver uses R.string.notification_body_daily_checkin
+        //    (static resource), not a dynamic entry-name concatenation.
+        final receiverSrc = File(
+          'android/app/src/main/kotlin/com/nottodo/not_to_do_list/receiver/'
+          'ReminderAlarmReceiver.kt',
+        ).readAsStringSync();
+
+        // Body must reference the static string resource.
+        expect(
+          receiverSrc.contains('R.string.notification_body_daily_checkin'),
+          isTrue,
+          reason:
+              'PLAY-Phase5: ReminderAlarmReceiver.kt must pull notification body '
+              'from R.string.notification_body_daily_checkin (static resource) '
+              'not a dynamic literal — D-10 privacy lock',
+        );
+
+        // Body must NOT embed dynamic entry-name patterns (e.g. Instagram, TikTok).
+        final dynamicNamePattern = RegExp(
+          'Instagram|TikTok|YouTube|Reddit|displayName|entryName|app_name_dynamic',
+        );
+        expect(
+          dynamicNamePattern.hasMatch(receiverSrc),
+          isFalse,
+          reason:
+              'PLAY-Phase5: ReminderAlarmReceiver.kt must not embed entry names '
+              'or app names in notification body — D-10 privacy lock',
+        );
+
+        // 2. Verify strings.xml body value is the expected static phrase.
+        final stringsSrc = File(
+          'android/app/src/main/res/values/strings.xml',
+        ).readAsStringSync();
+
+        expect(
+          stringsSrc.contains('notification_body_daily_checkin'),
+          isTrue,
+          reason:
+              'PLAY-Phase5: strings.xml must declare notification_body_daily_checkin '
+              '— static body string for privacy compliance (D-10)',
+        );
+
+        expect(
+          stringsSrc.contains('How did today go?'),
+          isTrue,
+          reason:
+              'PLAY-Phase5: notification_body_daily_checkin value must be '
+              '"How did today go?" — exact UI-SPEC copywriting contract',
+        );
       },
-      skip:
-          'Plan 05-05 fills notification body — privacy check applied then',
     );
 
     // ---- NOTF-02 / NOTF-04: manual-only real-device gates ----

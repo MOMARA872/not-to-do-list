@@ -111,6 +111,24 @@
                 android:resource="@xml/not_todo_a11y_config" />
         </service>
 
+        <!-- Daily reminder receiver (Phase 5, NOTF-02/04).
+             android:exported="false" prevents external triggers (T-05-16 mitigation).
+             Alarm is a one-shot; ReminderAlarmReceiver self-re-arms at end of onReceive. -->
+        <receiver
+            android:name=".receiver.ReminderAlarmReceiver"
+            android:exported="false" />
+
+        <!-- Boot re-arm receiver (Phase 5, NOTF-05).
+             android:exported="true" required so the OS can deliver ACTION_BOOT_COMPLETED.
+             RECEIVE_BOOT_COMPLETED permission declared above (already present since Phase 1). -->
+        <receiver android:name=".receiver.BootReceiver" android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
         <!-- Flutter standard meta-data (auto-inserted by `flutter create`; preserve it). -->
         <meta-data
             android:name="flutterEmbedding"

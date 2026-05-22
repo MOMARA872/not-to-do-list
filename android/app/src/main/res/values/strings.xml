@@ -2,4 +2,9 @@
     <string name="app_name">Not To-Do List</string>
     <string name="a11y_service_label">Not To-Do List</string>
     <string name="a11y_service_description">Reads the foreground app\'s package name and shows your reflection screen when you open an app on your Not-To-Do list. Never automates clicks, gestures, or any UI action on your behalf.</string>
+    <!-- Phase 5 daily check-in notification (Plan 05-05).
+         D-10 privacy lock: body is a static phrase — no entry names, no app names.
+         Referenced by ReminderAlarmReceiver via R.string.* to satisfy the privacy invariant. -->
+    <string name="notification_channel_daily_checkin">Daily check-in</string>
+    <string name="notification_body_daily_checkin">How did today go?</string>
 </resources>
