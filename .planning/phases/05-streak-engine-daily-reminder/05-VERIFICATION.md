@@ -1,8 +1,12 @@
 ---
 phase: 05-streak-engine-daily-reminder
-status: draft
-nyquist_compliant: false
-wave_0_complete: false
+status: software_complete
+nyquist_compliant: true
+wave_0_complete: true
+wave_1_complete: true
+wave_2_complete: true
+wave_3_complete: true
+wave_4_complete: false
 rel_05_status: pending_overnight_run
 rel_05_device_class: TBD
 rel_05_device_model: TBD
@@ -108,16 +112,16 @@ rel_05_pass_date: TBD
 
 ## Pre-Overnight Verification Snapshot
 
-*To be captured after Plan 05-09 software-complete — all gates green before REL-05 overnight run.*
+*Captured 2026-05-22 — Plan 05-09 software-complete; all gates green before REL-05 overnight run.*
 
 | Check | Command | Result |
 |-------|---------|--------|
-| flutter test (full suite) | `flutter test` | TBD |
-| flutter analyze | `flutter analyze` | TBD |
-| flutter build apk --debug | `flutter build apk --debug` | TBD |
-| PLAY-02 invariants 9/9 | `flutter test test/policy/play_invariants_test.dart` | TBD |
-| Phase 5 invariants | `flutter test test/policy/phase_5_invariants_test.dart` | TBD |
-| StreakDayAnchoringTest | `cd android && ./gradlew :app:testDebugUnitTest --tests "*.StreakDayAnchoringTest"` | TBD |
+| flutter test (full suite) | `flutter test` | PASS — 487 passing, 5 skipped, 0 failures |
+| flutter analyze | `flutter analyze` | PASS — 0 errors / 0 warnings (589 infos, all pre-existing; no new issues from Plan 05-09) |
+| flutter build apk --debug | `flutter build apk --debug` | PASS — build/app/outputs/flutter-apk/app-debug.apk |
+| PLAY-02 invariants 10/10 | `flutter test test/policy/play_invariants_test.dart` | PASS — 10/10 green (was 9; Plan 05-09 added 10th: android/.../receiver/ scope) |
+| Phase 5 invariants | `flutter test test/policy/phase_5_invariants_test.dart` | PASS — 5/5 real passing, 2 manual-only skips (NOTF-02, NOTF-04 — intentional real-device gates) |
+| StreakDayAnchoringTest | `cd android && ./gradlew :app:testDebugUnitTest --tests "*.ScheduleWindowTest" --tests "*.StreakDayAnchoringTest"` | PASS — BUILD SUCCESSFUL |
 
 ---
 
