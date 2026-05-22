@@ -234,4 +234,111 @@ class PermissionStatusApi {
     )
     ;
   }
+
+  /// POST_NOTIFICATIONS runtime permission status (Android 13+) — NOTF-06.
+  Future<bool> isPostNotificationsGranted() async {
+    final pigeonVar_channelName = 'dev.flutter.pigeon.not_to_do_list.PermissionStatusApi.isPostNotificationsGranted$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
+    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
+    final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
+
+    final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: false,
+    )
+    ;
+    return pigeonVar_replyValue! as bool;
+  }
+
+  /// Three-state for D-12 banner UX — grantable/rationale/permanently_denied.
+  Future<String> postNotificationsRationaleState() async {
+    final pigeonVar_channelName = 'dev.flutter.pigeon.not_to_do_list.PermissionStatusApi.postNotificationsRationaleState$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
+    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
+    final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
+
+    final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: false,
+    )
+    ;
+    return pigeonVar_replyValue! as String;
+  }
+
+  /// Launches the runtime POST_NOTIFICATIONS dialog (NOTF-06 earned prompt).
+  ///
+  /// SEMANTIC NOTE — non-blocking return value:
+  /// This method returns the PRE-dialog granted state, NOT the post-dialog state.
+  /// The Android runtime permission dialog is delivered to MainActivity.onRequestPermissionsResult
+  /// asynchronously; this Pigeon method cannot block on that callback without holding the Flutter
+  /// engine thread. The caller (Plan 05-08 PostNotificationsEarnedStep) re-polls
+  /// isPostNotificationsGranted() on AppLifecycleState.resumed via WidgetsBindingObserver to observe
+  /// the user's grant decision. See T-05-16 threat entry for the full lifecycle contract.
+  Future<bool> requestPostNotifications() async {
+    final pigeonVar_channelName = 'dev.flutter.pigeon.not_to_do_list.PermissionStatusApi.requestPostNotifications$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
+    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
+    final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
+
+    final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: false,
+    )
+    ;
+    return pigeonVar_replyValue! as bool;
+  }
+
+  /// Boot-monotonic clock for clock-tamper detection — STRK-06.
+  Future<int> bootMonotonicNanos() async {
+    final pigeonVar_channelName = 'dev.flutter.pigeon.not_to_do_list.PermissionStatusApi.bootMonotonicNanos$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
+    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
+    final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
+
+    final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: false,
+    )
+    ;
+    return pigeonVar_replyValue! as int;
+  }
+
+  /// ACTION_APP_NOTIFICATION_SETTINGS deep-link with resolveActivity guard + applicationDetails fallback (T-2-02 mitigation).
+  Future<void> openAppNotificationSettings() async {
+    final pigeonVar_channelName = 'dev.flutter.pigeon.not_to_do_list.PermissionStatusApi.openAppNotificationSettings$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
+    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
+    final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
+
+    _extractReplyValueOrThrow(
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: true,
+    )
+    ;
+  }
 }
