@@ -9,8 +9,10 @@
 //   NOTF-02 — reminder fires at chosen time (manual-only — AlarmManager real-device)
 //   NOTF-04 — alarm fires within 5 min even under Doze (manual-only — real-device)
 //
-// Tests 2, 3, 4 are REAL (non-skipped) — pass today because artifacts are absent.
-// Tests 1 and 5 are skipped until Plan 05-05 ships the receiver + notification body.
+// Phase 5 invariants finalized 2026-05-22 by Plan 05-09:
+//   5/5 automated invariants REAL and passing (Plans 05-01 + 05-05 unskipped all three sentinel skips).
+//   2 manual-only stubs (NOTF-02, NOTF-04) remain skip: — correctly documented; cannot be unit-tested
+//   (AlarmManager real-device behavior; see 05-VERIFICATION.md REL-05 protocol for the manual procedure).
 //
 // Run from project root: flutter test test/policy/phase_5_invariants_test.dart
 

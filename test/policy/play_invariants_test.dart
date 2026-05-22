@@ -118,6 +118,24 @@ void main() {
       },
     );
 
+    // ---- PLAY-02 (Phase 5 expanded scope): android/.../receiver/ ----
+    // 10th invariant: Phase 5 expanded scope to android/.../receiver/.
+    // Mirrors Plan 04-08 Task 2 pattern (Phase 4 expanded to
+    // android/.../service/ + android/.../not_to_do_list/ root).
+    test('PLAY-02 Phase 5 expanded scope: no autonomous-action calls in android/.../receiver/', () {
+      final dir = Directory('android/app/src/main/kotlin/com/nottodo/not_to_do_list/receiver');
+      if (!dir.existsSync()) return; // phase order: skip if Phase 5 not yet implemented
+      for (final entity in dir.listSync(recursive: true).whereType<File>()) {
+        if (!entity.path.endsWith('.kt')) continue;
+        final src = entity.readAsStringSync();
+        // grep-v hygiene: strip comment lines before counting (Nyquist absence-grep rule)
+        final code = src.split('\n').where((l) => !l.trimLeft().startsWith('//')).join('\n');
+        expect(code.contains('performAction('), isFalse, reason: 'PLAY-02: receivers must not call performAction');
+        expect(code.contains('performGlobalAction('), isFalse, reason: 'PLAY-02: receivers must not call performGlobalAction');
+        expect(code.contains('dispatchGesture('), isFalse, reason: 'PLAY-02: receivers must not call dispatchGesture');
+      }
+    });
+
     // ---- PLAY-03: AccessibilityService events scoped to
     //               typeWindowStateChanged ----
     test(
