@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:not_to_do_list/features/checkin/pages/checkin_screen.dart';
 import 'package:not_to_do_list/features/dashboard/pages/dashboard_screen.dart';
 import 'package:not_to_do_list/features/home/pages/home_screen.dart';
 import 'package:not_to_do_list/features/list/pages/add_app_picker_screen.dart';
@@ -42,6 +43,7 @@ final Provider<GoRouter> appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/list/add-habit', builder: (_, __) => const AddHabitScreen()),
       GoRoute(path: '/list/edit/:id', builder: (ctx, state) => EditEntryScreen(id: int.parse(state.pathParameters['id']!))),
       GoRoute(path: '/dashboard', builder: (_, __) => const DashboardScreen()),
+      GoRoute(path: '/checkin', builder: (_, __) => const CheckinScreen()),
       GoRoute(
         path: '/pause/:entryId',
         builder: (ctx, state) {
