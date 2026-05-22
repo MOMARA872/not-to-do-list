@@ -110,9 +110,9 @@
 - [x] 05-02-PLAN.md — Wave 1: DailyCheckinsDao + DailyStreakDao + StreakKeys constants + AppDatabase registration (no schema bump)
 - [x] 05-03-PLAN.md — Wave 2: StreakRolloverService (pure-Dart 2x2 matrix + clock-tamper + DST-safe day step + 30-day backfill cap) + Kotlin StreakDay.kt parity helper
 - [x] 05-04-PLAN.md — Wave 3: PermissionStatusApi extension (POST_NOTIFICATIONS three-state + bootMonotonicNanos + openAppNotificationSettings) + Riverpod providers
-- [ ] 05-05-PLAN.md — Wave 4: NotificationApiImpl.kt + ReminderAlarmReceiver + BootReceiver + MainActivity wiring + manifest receivers + strings.xml
+- [x] 05-05-PLAN.md — Wave 4: NotificationApiImpl.kt + ReminderAlarmReceiver + BootReceiver + MainActivity wiring + manifest receivers + strings.xml
 - [ ] 05-06-PLAN.md — Wave 5: /checkin GoRoute + CheckinScreen + idempotent single-Drift-transaction submit + post-rollover trigger
-- [ ] 05-07-PLAN.md — Wave 5: StreakBadge + DayDot + StreakHistorySection + ReminderOffBanner + Home wiring + HealthLifecycleObserver lazy-rollover trigger
+- [x] 05-07-PLAN.md — Wave 5: StreakBadge + DayDot + StreakHistorySection + ReminderOffBanner + Home wiring + HealthLifecycleObserver lazy-rollover trigger
 - [ ] 05-08-PLAN.md — Wave 6: Reminder settings screen (showTimePicker) + earned POST_NOTIFICATIONS prompt + BlockListRepository post-insert fire-once hook + 2 new routes
 - [ ] 05-09-PLAN.md — Wave 7: PLAY-02 10th invariant (android/.../receiver/ scope) + REL-05 OEM-survival overnight gate [BLOCKING manual] + REQUIREMENTS/ROADMAP/STATE bookkeeping flips
 **UI hint**: yes
@@ -138,7 +138,7 @@
 | 2. List CRUD + Onboarding & Permissions | 10/10 | ✅ Complete | 2026-05-07 |
 | 3. Screen-Time Dashboard | 6/6 | Complete   | 2026-05-08 |
 | 4. Pause UX (the wedge) | 8/8 | Complete (REL-04 PASS) | 2026-05-21 |
-| 5. Streak Engine & Daily Reminder | 4/9 | In Progress|  |
+| 5. Streak Engine & Daily Reminder | 6/9 | In Progress|  |
 | 6. Polish & Play Store Submission | 0/0 | Not started | - |
 
 ## Coverage Summary
