@@ -14,11 +14,14 @@ import 'package:not_to_do_list/data/database/app_database.dart';
 import 'package:not_to_do_list/data/database/daos/block_list_dao.dart';
 import 'package:not_to_do_list/data/repositories/block_list_repository.dart';
 import 'package:not_to_do_list/domain/providers/block_list_repo_provider.dart';
+import 'package:not_to_do_list/domain/providers/database_provider.dart';
+import 'package:not_to_do_list/domain/streak/streak_rollover_service_providers.dart';
 import 'package:not_to_do_list/features/list/pages/edit_entry_screen.dart';
 import 'package:not_to_do_list/features/list/widgets/block_mode_segmented.dart';
 
 Widget _wrap({
   required BlockListRepository repo,
+  required AppDatabase db,
   required int id,
 }) {
   final router = GoRouter(
@@ -39,6 +42,12 @@ Widget _wrap({
   return ProviderScope(
     overrides: [
       blockListRepoProvider.overrideWithValue(repo),
+      databaseProvider.overrideWithValue(db),
+      streakHistoryProvider.overrideWith((ref, entryId) => Stream.value([])),
+      streakBadgeProvider.overrideWith(
+        (ref, entryId) async =>
+            (current: 0, longest: 0, breakDetectedToday: false),
+      ),
     ],
     child: MaterialApp.router(routerConfig: router),
   );
@@ -64,7 +73,7 @@ void main() {
         'edit screen for habit hides the BlockModeSegmented widget',
         (tester) async {
           final id = await repo.add(kind: 1, displayName: 'Doomscrolling');
-          await tester.pumpWidget(_wrap(repo: repo, id: id));
+          await tester.pumpWidget(_wrap(repo: repo, db: db, id: id));
           await tester.pumpAndSettle();
 
           // Kind-aware title.
@@ -82,7 +91,7 @@ void main() {
             packageName: 'com.instagram.android',
             displayName: 'Instagram',
           );
-          await tester.pumpWidget(_wrap(repo: repo, id: id));
+          await tester.pumpWidget(_wrap(repo: repo, db: db, id: id));
           await tester.pumpAndSettle();
 
           expect(find.text('Edit app'), findsOneWidget);
@@ -98,7 +107,7 @@ void main() {
             packageName: 'com.instagram.android',
             displayName: 'Instagram',
           );
-          await tester.pumpWidget(_wrap(repo: repo, id: id));
+          await tester.pumpWidget(_wrap(repo: repo, db: db, id: id));
           await tester.pumpAndSettle();
 
           // Drive the controller directly — viewport is too tight in
@@ -135,7 +144,7 @@ void main() {
         'no AlertDialog appears (Surface 10 invariant)',
         (tester) async {
           final id = await repo.add(kind: 1, displayName: 'Late-night Reddit');
-          await tester.pumpWidget(_wrap(repo: repo, id: id));
+          await tester.pumpWidget(_wrap(repo: repo, db: db, id: id));
           await tester.pumpAndSettle();
 
           // Scroll to the bottom-of-page Delete button.
@@ -168,7 +177,7 @@ void main() {
             packageName: 'com.instagram.android',
             displayName: 'Instagram',
           );
-          await tester.pumpWidget(_wrap(repo: repo, id: id));
+          await tester.pumpWidget(_wrap(repo: repo, db: db, id: id));
           await tester.pumpAndSettle();
 
           // Default reason is empty → no counter.
