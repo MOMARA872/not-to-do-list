@@ -114,7 +114,7 @@
 - [x] 05-06-PLAN.md — Wave 5: /checkin GoRoute + CheckinScreen + idempotent single-Drift-transaction submit + post-rollover trigger
 - [x] 05-07-PLAN.md — Wave 5: StreakBadge + DayDot + StreakHistorySection + ReminderOffBanner + Home wiring + HealthLifecycleObserver lazy-rollover trigger
 - [x] 05-08-PLAN.md — Wave 6: Reminder settings screen (showTimePicker) + earned POST_NOTIFICATIONS prompt + BlockListRepository post-insert fire-once hook + 2 new routes
-- [ ] 05-09-PLAN.md — Wave 7: PLAY-02 10th invariant (android/.../receiver/ scope) + REL-05 OEM-survival overnight gate [BLOCKING manual] + REQUIREMENTS/ROADMAP/STATE bookkeeping flips
+- [x] 05-09-PLAN.md — Wave 7: PLAY-02 10th invariant (android/.../receiver/ scope) + REL-05 OEM-survival overnight gate [BLOCKING manual] + REQUIREMENTS/ROADMAP/STATE bookkeeping flips
 **UI hint**: yes
 
 ### Phase 6: Polish & Play Store Submission
@@ -138,7 +138,7 @@
 | 2. List CRUD + Onboarding & Permissions | 10/10 | ✅ Complete | 2026-05-07 |
 | 3. Screen-Time Dashboard | 6/6 | Complete   | 2026-05-08 |
 | 4. Pause UX (the wedge) | 8/8 | Complete (REL-04 PASS) | 2026-05-21 |
-| 5. Streak Engine & Daily Reminder | 8/9 | In Progress|  |
+| 5. Streak Engine & Daily Reminder | 9/9 | Software-complete; REL-05 pending | Software-complete 2026-05-22 |
 | 6. Polish & Play Store Submission | 0/0 | Not started | - |
 
 ## Coverage Summary
@@ -170,3 +170,4 @@
 *Phase 3 plans created: 2026-05-07*
 *Phase 4 software-complete: 2026-05-13 — 8/8 plans landed; REL-04 overnight test pending (Samsung; target 2026-05-13 to 2026-05-16)*
 *Phase 4 complete: 2026-05-21 — REL-04 PASS on Samsung Galaxy S20 Ultra 5G (Android 13, OneUI 5.1) after ≥71 h unplugged Doze. Run #1 logcat 320 ms detect-to-pause (charging-confounded). Run #2 manual <1 s. Phase 4 closed; Phase 5 unblocked.*
+*Phase 5 software-complete: 2026-05-22 — 9/9 plans landed. Streak engine + daily reminder fully implemented. REL-05 overnight gate pending (9-step protocol documented in 05-VERIFICATION.md; target: Samsung Galaxy S20 Ultra or equivalent Xiaomi/Samsung device). PLAY-02 expanded to 10th invariant covering android/.../receiver/. Phase 5 row: 9/9 Software-complete; REL-05 pending.*

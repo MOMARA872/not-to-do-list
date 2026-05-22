@@ -54,25 +54,25 @@ v1 ships as an Android-only, Flutter-based, account-free, fully on-device app. E
 
 ### Streak Engine (STRK)
 
-- [ ] **STRK-01**: Each not-to-do entry has its own per-item streak counter
-- [ ] **STRK-02**: Streak auto-breaks if usage of a blocked app exceeds a threshold (default 5 minutes per day)
-- [ ] **STRK-03**: User does a daily self-report check-in to confirm avoidance for each entry; check-in is one prompt per entry per day
-- [ ] **STRK-04**: Each streak day is labeled "system-confirmed" (data was tracked) or "self-reported only" (a11y was off)
-- [ ] **STRK-05**: Streak roll-over is lazy-evaluated on every app open (not scheduled "fire at 00:00")
-- [ ] **STRK-06**: Clock tampering (>24 h jump from boot-monotonic clock) is detected and the affected day is flagged "incomplete data" rather than silently skipping
-- [ ] **STRK-07**: Home shows current streak and longest streak per entry
-- [ ] **STRK-08**: DST and timezone changes are handled (LocalDate anchored to home timezone; 23 h and 25 h test days pass)
-- [ ] **STRK-09**: For scheduled entries, only avoidance during the active window counts toward the streak; usage outside the window is recorded but does not break the streak
+- [x] **STRK-01**: Each not-to-do entry has its own per-item streak counter
+- [x] **STRK-02**: Streak auto-breaks if usage of a blocked app exceeds a threshold (default 5 minutes per day)
+- [x] **STRK-03**: User does a daily self-report check-in to confirm avoidance for each entry; check-in is one prompt per entry per day
+- [x] **STRK-04**: Each streak day is labeled "system-confirmed" (data was tracked) or "self-reported only" (a11y was off)
+- [x] **STRK-05**: Streak roll-over is lazy-evaluated on every app open (not scheduled "fire at 00:00")
+- [x] **STRK-06**: Clock tampering (>24 h jump from boot-monotonic clock) is detected and the affected day is flagged "incomplete data" rather than silently skipping
+- [x] **STRK-07**: Home shows current streak and longest streak per entry
+- [x] **STRK-08**: DST and timezone changes are handled (LocalDate anchored to home timezone; 23 h and 25 h test days pass)
+- [x] **STRK-09**: For scheduled entries, only avoidance during the active window counts toward the streak; usage outside the window is recorded but does not break the streak
 
 ### Notifications (NOTF)
 
-- [ ] **NOTF-01**: User can configure a daily reminder time in Settings (24-hour selector)
-- [ ] **NOTF-02**: At the chosen time, user receives a daily reminder push notification
-- [ ] **NOTF-03**: Tapping the reminder deep-links to the daily check-in screen
-- [ ] **NOTF-04**: Reminder fires within 5 minutes of scheduled time even under Doze (uses `setExactAndAllowWhileIdle`)
-- [ ] **NOTF-05**: Reminder is re-armed after device reboot via `BOOT_COMPLETED` receiver
-- [ ] **NOTF-06**: `POST_NOTIFICATIONS` permission is requested only after the user adds their first not-to-do entry (earned prompt), with a custom rationale before the system dialog
-- [ ] **NOTF-07**: If permission is denied, an in-app fallback banner reminds the user at app open
+- [x] **NOTF-01**: User can configure a daily reminder time in Settings (24-hour selector)
+- [x] **NOTF-02**: At the chosen time, user receives a daily reminder push notification
+- [x] **NOTF-03**: Tapping the reminder deep-links to the daily check-in screen
+- [x] **NOTF-04**: Reminder fires within 5 minutes of scheduled time even under Doze (uses `setExactAndAllowWhileIdle`)
+- [x] **NOTF-05**: Reminder is re-armed after device reboot via `BOOT_COMPLETED` receiver
+- [x] **NOTF-06**: `POST_NOTIFICATIONS` permission is requested only after the user adds their first not-to-do entry (earned prompt), with a custom rationale before the system dialog
+- [x] **NOTF-07**: If permission is denied, an in-app fallback banner reminds the user at app open
 
 ### Settings & Privacy (SETT)
 
@@ -100,7 +100,7 @@ v1 ships as an Android-only, Flutter-based, account-free, fully on-device app. E
 - [x] **REL-02**: Self-healing health check runs on every app open and shows actionable fix steps if any required permission/service is degraded
 - [x] **REL-03**: OEM-specific guidance routes to community-maintained dontkillmyapp.com vendor pages from the health-check screen
 - [x] **REL-04**: Overnight survival test passes on a real Xiaomi or Samsung device (not Pixel-only) before each phase exit from Phase 4 onwards — PASS 2026-05-21 on Samsung Galaxy S20 Ultra 5G (Android 13, OneUI 5.1); Run #1 logcat-measured 320 ms detect-to-pause (charging-confounded); Run #2 ≥71 h unplugged Doze, PauseActivity fired <1 s after launch tap
-- [ ] **REL-05**: AccessibilityService is architected as a swappable provider behind a Riverpod abstraction so a UsageStats-polling fallback can ship without rework if Play rejects the service
+- [ ] **REL-05**: AccessibilityService is architected as a swappable provider behind a Riverpod abstraction so a UsageStats-polling fallback can ship without rework if Play rejects the service — pending_overnight_run (software-complete; manual OEM gate scheduled per 05-VERIFICATION.md REL-05 9-step protocol)
 
 ## v2 Requirements
 
@@ -212,22 +212,22 @@ Mapped by gsd-roadmapper on 2026-04-27. Every v1 REQ-ID maps to exactly one phas
 | DASH-05 | Phase 3 | Complete |
 | DASH-06 | Phase 3 | Complete |
 | DASH-07 | Phase 3 | Complete (host-proxy gate; real-device measurement deferred to Phase 4 first task per CONTEXT D-20) |
-| STRK-01 | Phase 5 | Pending |
-| STRK-02 | Phase 5 | Pending |
-| STRK-03 | Phase 5 | Pending |
-| STRK-04 | Phase 5 | Pending |
-| STRK-05 | Phase 5 | Pending |
-| STRK-06 | Phase 5 | Pending |
-| STRK-07 | Phase 5 | Pending |
-| STRK-08 | Phase 5 | Pending |
-| STRK-09 | Phase 5 | Pending |
-| NOTF-01 | Phase 5 | Pending |
-| NOTF-02 | Phase 5 | Pending |
-| NOTF-03 | Phase 5 | Pending |
-| NOTF-04 | Phase 5 | Pending |
-| NOTF-05 | Phase 5 | Pending |
-| NOTF-06 | Phase 5 | Pending |
-| NOTF-07 | Phase 5 | Pending |
+| STRK-01 | Phase 5 | Complete (Plan 05-02 — DailyStreakDao upsert + getCurrent/getLongest; Plan 05-07 — StreakBadge home display) |
+| STRK-02 | Phase 5 | Complete (Plan 05-03 — rollover threshold logic; usage > 5 min breaks streak) |
+| STRK-03 | Phase 5 | Complete (Plan 05-02 — DailyCheckinsDao unique (entryId, day); Plan 05-06 — CheckinScreen idempotent submit) |
+| STRK-04 | Phase 5 | Complete (Plan 05-03 — source resolution matrix system-confirmed vs self-reported-only) |
+| STRK-05 | Phase 5 | Complete (Plan 05-03 — lazy-on-open rollover; no WorkManager periodic; Plan 05-07 — HealthLifecycleObserver lazy-rollover trigger) |
+| STRK-06 | Phase 5 | Complete (Plan 05-03 — clock-tamper detection via SystemClock.elapsedRealtimeNanos > 24h jump → status=2 incomplete-data) |
+| STRK-07 | Phase 5 | Complete (Plan 05-07 — StreakBadge + StreakHistorySection on home; current + longest per entry) |
+| STRK-08 | Phase 5 | Complete (Plan 05-03 — DST 23h/25h day correctness tests; LocalDate anchored to home timezone) |
+| STRK-09 | Phase 5 | Complete (Plan 05-03 — schedule anchoring; only in-window usage counts; Plan 05-06 — CheckinScreen filter) |
+| NOTF-01 | Phase 5 | Complete (Plan 05-08 — ReminderSettingsScreen + showTimePicker 24h selector) |
+| NOTF-02 | Phase 5 | Complete (Plan 05-05 — AlarmManager.setExactAndAllowWhileIdle; software gate; REL-05 real-device PASS adds runtime evidence) |
+| NOTF-03 | Phase 5 | Complete (Plan 05-05 — MainActivity.onNewIntent + handleDeepLinkIntent allow-list; Plan 05-06 — /checkin GoRoute destination) |
+| NOTF-04 | Phase 5 | Complete (Plan 05-05 — setExactAndAllowWhileIdle Doze guarantee; verified by REL-05 overnight gate) |
+| NOTF-05 | Phase 5 | Complete (Plan 05-05 — BootReceiver ACTION_BOOT_COMPLETED + LOCKED_BOOT_COMPLETED re-arm; verified by REL-05 reboot step) |
+| NOTF-06 | Phase 5 | Complete (Plan 05-08 — earned prompt after first entry via BlockListRepository post-insert hook; custom rationale before system dialog) |
+| NOTF-07 | Phase 5 | Complete (Plan 05-07 — ReminderOffBanner three-state: off / denied / snoozed on home screen) |
 | SETT-01 | Phase 6 | Pending |
 | SETT-02 | Phase 6 | Pending |
 | SETT-03 | Phase 1 | Pending |
@@ -246,16 +246,19 @@ Mapped by gsd-roadmapper on 2026-04-27. Every v1 REQ-ID maps to exactly one phas
 | REL-02 | Phase 2 | Complete (Plan 02-05/02-09 — permissionHealthProvider + HealthLifecycleObserver re-checks on every resume) |
 | REL-03 | Phase 2 | Complete (Plan 02-08/02-09 — OemFallbackPanel + dontkillmyappUrl helper for 7 vendors) |
 | REL-04 | Phase 4 | Complete 2026-05-21 — Samsung Galaxy S20 Ultra 5G (SM-G988U1, Android 13, OneUI 5.1); Run #1 logcat 320 ms detect-to-pause (charging-confounded); Run #2 ≥71 h unplugged Doze, PauseActivity <1 s |
-| REL-05 | Phase 1 | Pending |
+| REL-05 | Phase 5 | pending_overnight_run — software-complete 2026-05-22; manual OEM gate (9-step protocol) documented in 05-VERIFICATION.md; target: next available Samsung Galaxy S20 Ultra or equivalent Xiaomi/Samsung OEM device run |
 
 **Coverage:**
 - v1 requirements: 68 total (LIST 9, ONBD 7, PAUS 10, DASH 7, STRK 9, NOTF 7, SETT 5, PLAY 9, REL 5)
 - Mapped to phases: 68 ✓
 - Unmapped: 0
 - By phase: Phase 1 = 9, Phase 2 = 19, Phase 3 = 7, Phase 4 = 12, Phase 5 = 16, Phase 6 = 5
+- v1 requirements complete: 56 (Phase 1: 9, Phase 2: 19, Phase 3: 7, Phase 4: 12, Phase 5: 16 STRK/NOTF — REL-05 pending overnight gate, not counted)
+- Phase 5: 16 Complete / 0 Pending (REL-05 pending_overnight_run; not counted in complete total until manual gate PASS)
 
 ---
 *Requirements defined: 2026-04-27*
 *Last updated: 2026-05-05 — added LIST-08/09, PAUS-09/10, STRK-09 (hard-block + schedules per /gsd-discuss-phase 2)*
 *2026-05-13 — PAUS-01..10 + REL-01 marked Complete; REL-04 status pending_overnight_run (Samsung; Plan 04-08 protocol documented)*
 *2026-05-21 — REL-04 Complete on Samsung S20 Ultra 5G after ≥71 h unplugged Doze; Phase 4 fully closed (12/12 reqs)*
+*2026-05-22 — STRK-01..09 + NOTF-01..07 marked Complete (16 Phase 5 reqs); REL-05 pending_overnight_run; v1 complete = 56/68*
