@@ -106,7 +106,7 @@
   5. `POST_NOTIFICATIONS` permission is requested only after the user adds their first not-to-do entry (earned prompt) with a custom rationale screen before the system dialog; if denied, an in-app banner reminds the user at app open.
   6. **OEM-survival overnight exit gate:** Streak rollover, alarm-fired reminder, and `BOOT_COMPLETED` re-arm all pass on a real Xiaomi or Samsung device (not Pixel-only) — overnight idle, reminder fires within 5 min of scheduled time, streak rolls over correctly the next morning.
 **Plans**: 9 plans
-- [ ] 05-01-PLAN.md — Wave 0: 14 RED test stubs + StreakDayAnchoringTest.kt parity oracle + phase_5_invariants_test.dart + REL-05 verification skeleton
+- [x] 05-01-PLAN.md — Wave 0: 14 RED test stubs + StreakDayAnchoringTest.kt parity oracle + phase_5_invariants_test.dart + REL-05 verification skeleton
 - [ ] 05-02-PLAN.md — Wave 1: DailyCheckinsDao + DailyStreakDao + StreakKeys constants + AppDatabase registration (no schema bump)
 - [ ] 05-03-PLAN.md — Wave 2: StreakRolloverService (pure-Dart 2x2 matrix + clock-tamper + DST-safe day step + 30-day backfill cap) + Kotlin StreakDay.kt parity helper
 - [ ] 05-04-PLAN.md — Wave 3: PermissionStatusApi extension (POST_NOTIFICATIONS three-state + bootMonotonicNanos + openAppNotificationSettings) + Riverpod providers
@@ -138,7 +138,7 @@
 | 2. List CRUD + Onboarding & Permissions | 10/10 | ✅ Complete | 2026-05-07 |
 | 3. Screen-Time Dashboard | 6/6 | Complete   | 2026-05-08 |
 | 4. Pause UX (the wedge) | 8/8 | Complete (REL-04 PASS) | 2026-05-21 |
-| 5. Streak Engine & Daily Reminder | 0/0 | Not started | - |
+| 5. Streak Engine & Daily Reminder | 1/9 | In Progress|  |
 | 6. Polish & Play Store Submission | 0/0 | Not started | - |
 
 ## Coverage Summary
