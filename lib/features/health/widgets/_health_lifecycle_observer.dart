@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:not_to_do_list/domain/providers/block_list_repo_provider.dart';
+import 'package:not_to_do_list/domain/streak/streak_rollover_service_providers.dart';
 import 'package:not_to_do_list/features/health/permission_health_provider.dart';
+import 'package:not_to_do_list/features/onboarding/providers/post_notifications_provider.dart';
 
 /// Top-level `WidgetsBindingObserver` that triggers
 /// [permissionHealthProvider] re-evaluation on every
@@ -48,6 +50,11 @@ class _HealthLifecycleObserverState
       // D-10: re-publish the block-list snapshot to the AccessibilityService's
       // in-memory map. Cheap (one Pigeon round-trip + one LocalBroadcast).
       unawaited(ref.read(blockListRepoProvider).republishCurrent());
+      // STRK-05: trigger lazy streak rollover on every resume.
+      unawaited(ref.read(streakRolloverServiceProvider.notifier).rollover());
+      // NOTF-07: refresh POST_NOTIFICATIONS grant state so the reminder-off
+      // banner appears/disappears correctly after the user changes settings.
+      unawaited(ref.read(postNotificationsGrantedProvider.notifier).refresh());
     }
   }
 

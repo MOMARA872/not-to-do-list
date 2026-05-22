@@ -9,6 +9,8 @@ import 'package:not_to_do_list/features/home/widgets/avoided_today_card.dart';
 import 'package:not_to_do_list/features/home/widgets/block_list_row.dart';
 import 'package:not_to_do_list/features/home/widgets/cumulative_totals_card.dart';
 import 'package:not_to_do_list/features/home/widgets/empty_home_state.dart';
+import 'package:not_to_do_list/features/onboarding/providers/post_notifications_provider.dart';
+import 'package:not_to_do_list/features/reminder/widgets/reminder_off_banner.dart';
 
 /// Private stream provider over [blockListRepoProvider]'s `watchAll()`.
 /// `autoDispose` cancels the Drift subscription when the home tree leaves
@@ -40,6 +42,7 @@ class HomeScreen extends ConsumerWidget {
       ),
       body: Column(
         children: [
+          // Banner 1 (tracking-offline) — higher priority per D-12.
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),
             child: healthAsync.maybeWhen(
@@ -48,6 +51,16 @@ class HomeScreen extends ConsumerWidget {
                   : HealthCheckBanner(health: h),
               orElse: () => const SizedBox.shrink(),
             ),
+          ),
+          // Banner 2 (reminder-off, NOTF-07) — below tracking-offline per D-12.
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 200),
+            child: ref.watch(postNotificationsGrantedProvider).maybeWhen(
+                  data: (granted) => granted
+                      ? const SizedBox.shrink()
+                      : const ReminderOffBanner(),
+                  orElse: () => const SizedBox.shrink(),
+                ),
           ),
           // Phase 3 D-17 — two home cards above the unified list. NOT
           // wrapped in AnimatedSwitcher: they belong to the home identity,

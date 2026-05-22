@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:not_to_do_list/data/database/app_database.dart';
 import 'package:not_to_do_list/features/list/widgets/app_icon.dart';
+import 'package:not_to_do_list/features/streak/widgets/streak_badge.dart';
 
 /// 64 dp compact row. Icon source distinguishes Apps (AppIcon for packageName)
 /// from Habits (Icons.spa_outlined). No badges, no tags, no sectioning.
 /// CONTEXT.md "App vs Habit visual distinction: Icon source only."
-class BlockListRow extends StatelessWidget {
+class BlockListRow extends ConsumerWidget {
   const BlockListRow({required this.entry, super.key});
 
   final BlockListData entry;
@@ -14,7 +16,7 @@ class BlockListRow extends StatelessWidget {
   bool get _isApp => entry.kind == 0;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
     return SizedBox(
@@ -50,11 +52,7 @@ class BlockListRow extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
-        trailing: Text(
-          // Phase 2 streak placeholder; Phase 5 STRK-01/07 fills the integer.
-          '—',
-          style: tt.labelSmall?.copyWith(color: cs.onSurfaceVariant),
-        ),
+        trailing: StreakBadge(entryId: entry.id),
         onTap: () => context.go('/list/edit/${entry.id}'),
         // Tap is the only row gesture in v1 (per CONTEXT.md row UX rules).
       ),
