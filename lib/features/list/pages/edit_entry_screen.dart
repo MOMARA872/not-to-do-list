@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:not_to_do_list/features/list/controllers/edit_entry_controller.dart';
 import 'package:not_to_do_list/features/list/widgets/block_mode_segmented.dart';
 import 'package:not_to_do_list/features/list/widgets/schedule_editor.dart';
+import 'package:not_to_do_list/features/streak/widgets/streak_history_section.dart';
 
 /// Surface 7 — UI-SPEC LIST-04, LIST-05, LIST-08, LIST-09. Single full-page
 /// editor for one block_list row: name + reason + (apps-only) block mode +
@@ -182,7 +183,7 @@ class _EditEntryView extends StatelessWidget {
               weekdayMask: draft.scheduleWeekdayMask,
               onChanged: onScheduleChanged,
             ),
-            const SizedBox(height: 32),
+            StreakHistorySection(entryId: draft.id),
             FilledButton(
               onPressed: onSave,
               style: FilledButton.styleFrom(
