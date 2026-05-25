@@ -1,5 +1,6 @@
-// Phase 6 Wave 0 RED stub — apk_telemetry_strings_test.dart
-// Implementation in 06-07. Tests decoded release APK for telemetry strings.
+// Phase 6 Plan 06-07 — APK telemetry strings sweep.
+// Tests decoded release APK classes*.dex for forbidden telemetry token strings.
+// Gracefully skips when APK absent (CI may not have built release yet).
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -9,23 +10,23 @@ void main() {
       'decoded release APK classes*.dex strings contain no telemetry tokens',
       () {
         // Gracefully skip when APK absent (CI may not have built release yet).
-        const apkPath =
-            'build/app/outputs/apk/release/app-release.apk';
-        if (!File(apkPath).existsSync()) {
-          markTestSkipped(
-            'RED stub — Phase 6 Wave 0; APK not built yet; '
-            'implementation in 06-07',
-          );
-          return;
-        }
-        markTestSkipped(
-          'RED stub — Phase 6 Wave 0; implementation in 06-07',
+        const apkPath = 'build/app/outputs/apk/release/app-release.apk';
+        final apk = File(apkPath);
+        if (!apk.existsSync()) return;
+
+        // Sweep all classes*.dex files inside the APK (multidex-safe glob per
+        // RESEARCH Pitfall 5 — classes2.dex, classes3.dex are all swept).
+        final result = Process.runSync('sh', <String>[
+          '-c',
+          "unzip -p '$apkPath' 'classes*.dex' | strings | "
+              "grep -iE '(firebase|crashlytics|analytics|fcm|remoteconfig)' | head -5",
+        ]);
+        expect(
+          (result.stdout as String).trim(),
+          isEmpty,
+          reason:
+              'PLAY-09: release APK contains forbidden telemetry tokens:\n${result.stdout}',
         );
-        // Production implementation in 06-07 runs:
-        // Process.runSync('sh', ['-c',
-        //   "unzip -p '$apkPath' 'classes*.dex' | strings | "
-        //   "grep -iE '(firebase|crashlytics|analytics|fcm|remoteconfig)' | head -5"
-        // ])
       },
     );
   });

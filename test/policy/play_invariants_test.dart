@@ -282,5 +282,98 @@ void main() {
         }
       },
     );
+
+    // ---- PLAY-09: telemetry absence across pubspec.lock, Dart sources, Kotlin sources ----
+    // Phase 6 Plan 06-07 — locks zero-telemetry promise at the source level.
+    // Mirrors Phase 5's FCM absence-grep idiom (phase_5_invariants_test.dart lines 80-127).
+
+    test('PLAY-09: pubspec.lock contains no telemetry deps', () {
+      final src = File('pubspec.lock').readAsStringSync().toLowerCase();
+      for (final token in <String>[
+        'firebase',
+        'crashlytics',
+        'analytics',
+        'fcm',
+        'remoteconfig',
+      ]) {
+        expect(
+          src.contains(token),
+          isFalse,
+          reason:
+              'PLAY-09: pubspec.lock contains forbidden telemetry token "$token"',
+        );
+      }
+    });
+
+    test('PLAY-09: lib/ Dart sources contain no telemetry imports', () {
+      final libDir = Directory('lib');
+      expect(libDir.existsSync(), isTrue, reason: 'lib/ directory must exist');
+      final dartFiles = libDir
+          .listSync(recursive: true)
+          .whereType<File>()
+          .where(
+            (f) => f.path.endsWith('.dart') && !f.path.endsWith('.g.dart'),
+          );
+      final tokens = <String>[
+        'firebase',
+        'crashlytics',
+        'analytics',
+        'fcm',
+        'remoteconfig',
+      ];
+      for (final file in dartFiles) {
+        final src = file.readAsStringSync();
+        // Strip single-line comment lines before scanning (Nyquist absence-grep rule).
+        final codeOnly = src
+            .split('\n')
+            .where((line) => !RegExp(r'^\s*//').hasMatch(line))
+            .join('\n')
+            .toLowerCase();
+        for (final token in tokens) {
+          expect(
+            codeOnly.contains(token),
+            isFalse,
+            reason:
+                'PLAY-09: ${file.path} contains forbidden telemetry token "$token"',
+          );
+        }
+      }
+    });
+
+    test('PLAY-09: android/ Kotlin sources contain no telemetry imports', () {
+      final androidDir = Directory('android');
+      if (!androidDir.existsSync()) return;
+      final kotlinFiles = androidDir
+          .listSync(recursive: true)
+          .whereType<File>()
+          .where((f) => f.path.endsWith('.kt'));
+      final tokens = <String>[
+        'firebase',
+        'crashlytics',
+        'analytics',
+        'fcm',
+        'remoteconfig',
+      ];
+      for (final file in kotlinFiles) {
+        final src = file.readAsStringSync();
+        // Strip single-line comment (//) and block comment (*) lines before scanning
+        // (Kotlin block comments use leading * on continuation lines).
+        final codeOnly = src
+            .split('\n')
+            .where(
+              (line) => !RegExp(r'^\s*(//|\*)').hasMatch(line),
+            )
+            .join('\n')
+            .toLowerCase();
+        for (final token in tokens) {
+          expect(
+            codeOnly.contains(token),
+            isFalse,
+            reason:
+                'PLAY-09: ${file.path} contains forbidden telemetry token "$token"',
+          );
+        }
+      }
+    });
   });
 }

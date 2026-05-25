@@ -1,6 +1,6 @@
-// Phase 6 Wave 0 RED stub — privacy_policy_url_present_test.dart
-// Implementation in 06-06/06-08. Tests docs/PRIVACY.md existence and
-// SettingsScreen Privacy tile linkage.
+// Phase 6 Plan 06-07 — Privacy policy present and in-app linkage assertion.
+// Tests docs/PRIVACY.md existence and SettingsScreen Privacy tile linkage.
+// Note: full public GitHub Pages URL assertion lands in 06-08 once listing is written.
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -27,8 +27,17 @@ void main() {
       'SettingsScreen source contains Privacy Policy ListTile entry '
       'pointing to /settings/privacy',
       () {
-        markTestSkipped(
-          'RED stub — Phase 6 Wave 0; implementation in 06-06',
+        final src = File(
+          'lib/features/settings/pages/settings_screen.dart',
+        ).readAsStringSync();
+
+        expect(
+          src.contains('/settings/privacy'),
+          isTrue,
+          reason:
+              'SETT-05/PLAY-08: settings_screen.dart must contain the route '
+              '"/settings/privacy" — Privacy Policy tile must link to the '
+              'privacy screen (06-03 route registration)',
         );
       },
     );
