@@ -134,7 +134,7 @@
 - [x] 06-04-PLAN.md — Wave 3: FileSavePort port + FlutterFileDialogSavePort impl + ExportController (5 DAO reads → CSV+JSON envelope → ZIP → SAF) + ExportScreen body (SETT-01)
 - [x] 06-05-PLAN.md — Wave 3: ResetController (cancelDailyReminder → Drift txn FK-safe child-first wipe → prefs.clear → 5 provider invalidations → /onboarding/welcome) + verbatim D-13 AlertDialog in SettingsScreen (SETT-02)
 - [x] 06-06-PLAN.md — Wave 3: PrivacyScreen body (flutter_markdown_plus render of bundled docs/PRIVACY.md) + AccessibilityStep fromSettings:bool param + /settings/disclosure builder update (SETT-05)
-- [ ] 06-07-PLAN.md — Wave 4: Extend play_invariants_test.dart with PLAY-09 telemetry absence (pubspec.lock + Dart + Kotlin) + apk_telemetry_strings_test.dart (decoded APK classes*.dex multidex sweep) + privacy_policy_url_present_test.dart + pubspec version bump to 1.0.0+1 + build.gradle.kts Play App Signing annotation
+- [x] 06-07-PLAN.md — Wave 4: Extend play_invariants_test.dart with PLAY-09 telemetry absence (pubspec.lock + Dart + Kotlin) + apk_telemetry_strings_test.dart (decoded APK classes*.dex multidex sweep) + privacy_policy_url_present_test.dart + pubspec version bump to 1.0.0+1 + build.gradle.kts Play App Signing annotation
 - [ ] 06-08-PLAN.md — Wave 5: Final docs/PRIVACY.md + docs/play-listing/ tree (short/full description, permission-declaration, screenshots checklist, README field map) + assets/onboarding/README + 06-VERIFICATION.md (9-step OEM protocol + Play funnel runbook + demo video + GitHub Pages + Privacy URL curl + Phase 5 D-08 closure note) + BLOCKING manual gate (Samsung + Xiaomi overnight + Play closed-track review) + final bookkeeping flips
 **UI hint**: yes
 
@@ -147,7 +147,7 @@
 | 3. Screen-Time Dashboard | 6/6 | Complete   | 2026-05-08 |
 | 4. Pause UX (the wedge) | 8/8 | Complete (REL-04 PASS) | 2026-05-21 |
 | 5. Streak Engine & Daily Reminder | 9/9 | Software-complete; REL-05 pending | Software-complete 2026-05-22 |
-| 6. Polish & Play Store Submission | 6/8 | In Progress|  |
+| 6. Polish & Play Store Submission | 7/8 | In Progress|  |
 
 ## Coverage Summary
 
