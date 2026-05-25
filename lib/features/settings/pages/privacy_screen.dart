@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 
-// TODO(06-06): body lands in privacy plan
-/// Placeholder Settings → Privacy Policy screen.
-/// Full privacy screen implementation lands in Phase 6 Plan 06-06.
+/// Settings → Privacy Policy screen (SETT-05).
+/// Renders the bundled docs/PRIVACY.md asset via flutter_markdown_plus.
+/// Final privacy policy copy lands in Plan 06-08.
 class PrivacyScreen extends StatelessWidget {
   const PrivacyScreen({super.key});
 
@@ -10,7 +12,15 @@ class PrivacyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Privacy Policy'), centerTitle: false),
-      body: const Center(child: CircularProgressIndicator()),
+      body: FutureBuilder<String>(
+        future: rootBundle.loadString('docs/PRIVACY.md'),
+        builder: (ctx, snap) {
+          if (!snap.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return Markdown(data: snap.data!);
+        },
+      ),
     );
   }
 }
