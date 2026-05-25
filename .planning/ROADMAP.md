@@ -130,7 +130,7 @@
 **Plans**: 8 plans
 - [x] 06-01-PLAN.md — Wave 0: 17 RED test stubs + 4 pubspec deps (archive ^4.0.9, flutter_file_dialog ^3.0.3, flutter_markdown_plus ^1.0.7, package_info_plus ^10.1.0) + docs/PRIVACY.md stub + 4 DAOs gain getAll() + FileSavePort mock fixture
 - [x] 06-02-PLAN.md — Wave 1: themeModeProvider AsyncNotifier + OnboardingKeys.themeMode constant + lib/app.dart wires `themeMode:` into MaterialApp.router (SETT-04 persistence layer)
-- [ ] 06-03-PLAN.md — Wave 2: SettingsScreen hub (6 sections, 8 tiles in D-04 order with Phase 5 D-08 inline Streak closure) + SectionHeader/ThemeTile/AboutTile/StreakThresholdTile widgets + HomeScreen AppBar gear icon + 4 new GoRouter routes registered
+- [x] 06-03-PLAN.md — Wave 2: SettingsScreen hub (6 sections, 8 tiles in D-04 order with Phase 5 D-08 inline Streak closure) + SectionHeader/ThemeTile/AboutTile/StreakThresholdTile widgets + HomeScreen AppBar gear icon + 4 new GoRouter routes registered
 - [ ] 06-04-PLAN.md — Wave 3: FileSavePort port + FlutterFileDialogSavePort impl + ExportController (5 DAO reads → CSV+JSON envelope → ZIP → SAF) + ExportScreen body (SETT-01)
 - [ ] 06-05-PLAN.md — Wave 3: ResetController (cancelDailyReminder → Drift txn FK-safe child-first wipe → prefs.clear → 5 provider invalidations → /onboarding/welcome) + verbatim D-13 AlertDialog in SettingsScreen (SETT-02)
 - [ ] 06-06-PLAN.md — Wave 3: PrivacyScreen body (flutter_markdown_plus render of bundled docs/PRIVACY.md) + AccessibilityStep fromSettings:bool param + /settings/disclosure builder update (SETT-05)
@@ -147,7 +147,7 @@
 | 3. Screen-Time Dashboard | 6/6 | Complete   | 2026-05-08 |
 | 4. Pause UX (the wedge) | 8/8 | Complete (REL-04 PASS) | 2026-05-21 |
 | 5. Streak Engine & Daily Reminder | 9/9 | Software-complete; REL-05 pending | Software-complete 2026-05-22 |
-| 6. Polish & Play Store Submission | 2/8 | In Progress|  |
+| 6. Polish & Play Store Submission | 3/8 | In Progress|  |
 
 ## Coverage Summary
 
