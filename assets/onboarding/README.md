@@ -30,3 +30,38 @@ renders cleanly via `Image.asset` without error so layout reserves
 space correctly.
 
 Tracked replacement task: Phase 6 PLAY-08 closed-track submission.
+
+---
+
+## All 8 placeholder PNGs requiring replacement before Play submission
+
+Per STATE.md deferred items 2026-05-22, these 8 placeholder PNG files must be
+replaced with real Pixel device captures BEFORE Phase 6 PLAY-08 closed-track submission.
+
+### assets/onboarding/ (3 files)
+
+| File | Required capture |
+|------|------------------|
+| `usage_access_step.png` | Pixel running stock Android 16 — `Settings.ACTION_USAGE_ACCESS_SETTINGS` screen (Apps with usage access list) |
+| `accessibility_step.png` | Pixel running stock Android 16 — `Settings.ACTION_ACCESSIBILITY_SETTINGS` screen (Accessibility services list) |
+| `battery_opt_step.png` | Pixel running stock Android 16 — `Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS` confirmation dialog |
+
+### assets/logos/ (5 files)
+
+| File | Notes |
+|------|-------|
+| `instagram.png` | Logo placeholder — see `assets/logos/README.md` for trademark strategy options |
+| `reddit.png` | Logo placeholder — see `assets/logos/README.md` |
+| `tiktok.png` | Logo placeholder — see `assets/logos/README.md` |
+| `x.png` | Logo placeholder — see `assets/logos/README.md` |
+| `youtube.png` | Logo placeholder — see `assets/logos/README.md` |
+
+**Recommended logo strategy:** Delete placeholder logo files and modify
+`quick_add_screen.dart` to fetch each app's icon at runtime via
+`PackageManager.getApplicationIcon` if installed, falling back to `Icons.android`
+if not — this avoids trademark exposure. See `assets/logos/README.md` for the
+full rationale.
+
+All 8 files are 1×1 transparent PNG placeholders. The app renders without visible
+errors due to `errorBuilder` fallback in the relevant widgets, but real captures
+or the runtime-fetch approach should be in place before Play submission.

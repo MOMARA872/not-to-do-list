@@ -1,0 +1,36 @@
+Not To-Do List is a self-control app for adults who have decided — deliberately — to use certain apps and habits less. It is not a content filter, a parental control, or a gamification system. It is a simple, honest tool that creates a moment of pause between impulse and action.
+
+When you open an app on your not-to-do list, a reflection screen appears: "Do you really need it now?" You can start a cooldown timer (1, 3, 5, or 10 minutes), or choose to use the app anyway. The choice is always yours. The app never forces a hard block unless you specifically opt in to that mode for a particular entry.
+
+What Not To-Do List does:
+
+- Lets you build a personal not-to-do list of apps and habits you want to use less
+- Shows a soft pause screen when you open a listed app, giving you a moment to reconsider
+- Tracks an honest per-item streak combining your daily self-report check-in with system-detected usage
+- Sends a single daily reminder at a time you choose, so you can reflect on how the day went
+- Shows a screen-time dashboard (daily, weekly, monthly) so you can see your patterns clearly
+- Runs entirely on your device — no account, no backend, no telemetry, no analytics
+
+What Not To-Do List does not do:
+
+- It does not block websites
+- It does not include a content filter or parental controls — those are a different product
+- It does not use gamification (no points, badges, coins, or leaderboards)
+- It does not share any data with anyone, including the developer
+
+Privacy and data:
+
+Everything stays on your device. Your list, your streaks, your check-ins, and your usage summaries are stored in a local database and never transmitted anywhere. There is no server, no sync, no advertising ID, and no crash reporter. You can export all your data as CSV and JSON from Settings, and delete everything with a single tap in Settings.
+
+Permissions explained:
+
+Not To-Do List requires four permissions to work:
+
+1. Usage Access — reads per-app screen time from Android to power the dashboard and streak detection.
+2. Accessibility Service — detects when you open a listed app so the pause screen can appear. The service reads only which app you opened; it never reads on-screen content, never performs gestures, and never automates any action on your behalf.
+3. Battery optimization exemption — keeps the accessibility service running in the background so the pause screen appears reliably, even after the phone has been idle for hours.
+4. Notifications (Android 13 and later) — delivers the single daily reminder.
+
+Each permission is explained inside the app before you are asked to grant it. You can revoke any permission from system Settings at any time; the app degrades gracefully.
+
+Requires Android 10 or higher.
