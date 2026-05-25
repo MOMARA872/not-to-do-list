@@ -15,14 +15,18 @@ environment:
 #   is still active via very_good_analysis.
 
 dependencies:
+  archive: ^4.0.9
   drift: ^2.33.0
   drift_flutter: ^0.3.0
   dynamic_color: ^1.7.0
   flutter:
     sdk: flutter
+  flutter_file_dialog: ^3.0.3
+  flutter_markdown_plus: ^1.0.7
   flutter_riverpod: ^3.3.1
   go_router: ^17.2.3
   intl: ^0.20.2
+  package_info_plus: ^10.1.0
   path: ^1.9.1
   path_provider: ^2.1.5
   shared_preferences: ^2.5.5
@@ -42,3 +46,4 @@ flutter:
   assets:
     - assets/onboarding/
     - assets/logos/
+    - docs/PRIVACY.md

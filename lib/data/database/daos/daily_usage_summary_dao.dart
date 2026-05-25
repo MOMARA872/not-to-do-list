@@ -56,11 +56,14 @@ class DailyUsageSummaryDao extends DatabaseAccessor<AppDatabase>
     return (select(dailyUsageSummary)
           ..where(
             (t) =>
-                t.packageName.equals(packageName) &
-                t.day.equals(localMidnight),
+                t.packageName.equals(packageName) & t.day.equals(localMidnight),
           ))
         .getSingleOrNull();
   }
+
+  /// Phase 6 SETT-01: all rows for export.
+  Future<List<DailyUsageSummaryData>> getAll() =>
+      select(dailyUsageSummary).get();
 
   /// Reactive stream over [startDay, endDay] (inclusive on both ends — Drift's
   /// isBetweenValues is inclusive). Emits on every transaction commit

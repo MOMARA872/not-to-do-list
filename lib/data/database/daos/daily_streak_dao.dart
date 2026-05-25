@@ -76,6 +76,9 @@ class DailyStreakDao extends DatabaseAccessor<AppDatabase>
     return into(dailyStreak).insert(companion);
   }
 
+  /// Phase 6 SETT-01: all rows for export.
+  Future<List<DailyStreakData>> getAll() => select(dailyStreak).get();
+
   /// Returns the streak row for (entryId, day), or null when no row exists.
   Future<DailyStreakData?> getFor(int entryId, DateTime day) {
     return (select(dailyStreak)
@@ -108,13 +111,11 @@ class DailyStreakDao extends DatabaseAccessor<AppDatabase>
     // Use local-time midnight throughout so Drift's local-time read-back is
     // consistently compared (Drift NativeDatabase returns local DateTime).
     final today = DateTime.now();
-    final todayMidnight =
-        DateTime(today.year, today.month, today.day);
+    final todayMidnight = DateTime(today.year, today.month, today.day);
     final yesterday = todayMidnight.subtract(const Duration(days: 1));
 
     // Normalize row.day to local midnight (strip sub-day components)
-    DateTime toLocalMidnight(DateTime d) =>
-        DateTime(d.year, d.month, d.day);
+    DateTime toLocalMidnight(DateTime d) => DateTime(d.year, d.month, d.day);
 
     final firstDayMidnight = toLocalMidnight(rows.first.day);
 
@@ -155,8 +156,7 @@ class DailyStreakDao extends DatabaseAccessor<AppDatabase>
     if (rows.isEmpty) return 0;
 
     // Normalize to local midnight for consistent day comparison
-    DateTime toLocalMidnight(DateTime d) =>
-        DateTime(d.year, d.month, d.day);
+    DateTime toLocalMidnight(DateTime d) => DateTime(d.year, d.month, d.day);
 
     var maxRun = 1;
     var currentRun = 1;
@@ -189,8 +189,7 @@ class DailyStreakDao extends DatabaseAccessor<AppDatabase>
     return (select(dailyStreak)
           ..where(
             (t) =>
-                t.entryId.equals(entryId) &
-                t.day.isBiggerOrEqualValue(cutoff),
+                t.entryId.equals(entryId) & t.day.isBiggerOrEqualValue(cutoff),
           )
           ..orderBy([(t) => OrderingTerm.asc(t.day)]))
         .watch();

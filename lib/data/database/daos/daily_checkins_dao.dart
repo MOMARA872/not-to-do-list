@@ -44,6 +44,9 @@ class DailyCheckinsDao extends DatabaseAccessor<AppDatabase>
     );
   }
 
+  /// Phase 6 SETT-01: all rows for export.
+  Future<List<DailyCheckin>> getAll() => select(dailyCheckins).get();
+
   /// Returns the check-in row for (entryId, day), or null when no row exists.
   Future<DailyCheckin?> getFor(int entryId, DateTime day) {
     return (select(dailyCheckins)

@@ -16,4 +16,7 @@ class PauseEventDao extends DatabaseAccessor<AppDatabase>
   /// Insert one pause_events row. Returns the new row id.
   Future<int> insertEvent(PauseEventsCompanion entry) =>
       into(pauseEvents).insert(entry);
+
+  /// Phase 6 SETT-01: all rows for export.
+  Future<List<PauseEvent>> getAll() => select(pauseEvents).get();
 }
