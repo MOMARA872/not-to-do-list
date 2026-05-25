@@ -1,7 +1,7 @@
 name: not_to_do_list
 description: "Not To-Do List — mindful avoidance for self-disciplined adults"
 publish_to: 'none'
-version: 0.1.0+1
+version: 1.0.0+1
 
 environment:
   sdk: ^3.5.0

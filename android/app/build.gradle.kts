@@ -29,6 +29,7 @@ android {
 
     buildTypes {
         release {
+            // Play App Signing (default) — Google manages the upload keystore per Phase 6 D-15. Debug key here is for local debug builds only; release builds uploaded via Play Console use App Signing.
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
