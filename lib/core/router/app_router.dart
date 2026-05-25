@@ -60,9 +60,7 @@ final Provider<GoRouter> appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/settings', builder: (_, __) => const SettingsScreen()),
       GoRoute(path: '/settings/export', builder: (_, __) => const ExportScreen()),
       GoRoute(path: '/settings/privacy', builder: (_, __) => const PrivacyScreen()),
-      // TODO(06-06): pass fromSettings: true after AccessibilityStep
-      // fromSettings param lands.
-      GoRoute(path: '/settings/disclosure', builder: (_, __) => const AccessibilityStep()),
+      GoRoute(path: '/settings/disclosure', builder: (_, __) => const AccessibilityStep(fromSettings: true)),
       GoRoute(
         path: '/pause/:entryId',
         builder: (ctx, state) {

@@ -12,8 +12,13 @@ import 'package:not_to_do_list/features/onboarding/widgets/rationale_screen.dart
 /// onResume auto-advance. The body region carries the PLAY-06 prominent
 /// disclosure; the 5 verbatim phrases (`docs/play-declaration.md §4`) MUST
 /// remain byte-identical — `prominent_disclosure_test.dart` greps this file.
+///
+/// [fromSettings] (default false) — when true, post-success and post-skip
+/// navigation calls context.pop() instead of pushing
+/// /onboarding/permissions/battery-opt (SETT-05, RESEARCH §Pattern 5).
 class AccessibilityStep extends ConsumerStatefulWidget {
-  const AccessibilityStep({super.key});
+  const AccessibilityStep({super.key, this.fromSettings = false});
+  final bool fromSettings;
 
   @override
   ConsumerState<AccessibilityStep> createState() => _AccessibilityStepState();
@@ -51,7 +56,11 @@ class _AccessibilityStepState extends ConsumerState<AccessibilityStep>
     if (granted) {
       await ref.read(onboardingCursorProvider.notifier).set(3);
       if (!mounted) return;
-      context.go('/onboarding/permissions/battery-opt');
+      if (widget.fromSettings) {
+        context.pop();
+      } else {
+        context.go('/onboarding/permissions/battery-opt');
+      }
       return;
     }
     if (fromResume) {
@@ -81,7 +90,11 @@ class _AccessibilityStepState extends ConsumerState<AccessibilityStep>
   Future<void> _skip() async {
     await ref.read(onboardingCursorProvider.notifier).set(3);
     if (!mounted) return;
-    context.go('/onboarding/permissions/battery-opt');
+    if (widget.fromSettings) {
+      context.pop();
+    } else {
+      context.go('/onboarding/permissions/battery-opt');
+    }
   }
 
   @override
