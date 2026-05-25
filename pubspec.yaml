@@ -37,6 +37,8 @@ dev_dependencies:
   drift_dev: ^2.33.0
   flutter_test:
     sdk: flutter
+  integration_test:
+    sdk: flutter
   mocktail: ^1.0.5
   pigeon: ^26.3.4
   very_good_analysis: ^10.2.0
