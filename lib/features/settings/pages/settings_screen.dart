@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:not_to_do_list/domain/providers/database_provider.dart';
+import 'package:not_to_do_list/domain/providers/notification_api_provider.dart';
 import 'package:not_to_do_list/features/reminder/providers/reminder_providers.dart';
+import 'package:not_to_do_list/features/settings/services/reset_controller.dart';
 import 'package:not_to_do_list/features/settings/widgets/about_tile.dart';
 import 'package:not_to_do_list/features/settings/widgets/section_header.dart';
 import 'package:not_to_do_list/features/settings/widgets/streak_threshold_tile.dart';
@@ -81,24 +84,48 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
+  // Phase 6 SETT-02: Reset AlertDialog with verbatim D-13 body copy.
+  //
+  // Dialog split: "show dialog" → "if confirmed, run controller" ensures the
+  // controller's context is the SettingsScreen context (not the popped dialog
+  // context), so context.go() fires on a live widget tree (Pitfall 2).
   Future<void> _showResetDialog(BuildContext context, WidgetRef ref) async {
-    // TODO(06-05): wire ResetController + verbatim body copy per D-13
-    await showDialog<void>(
+    final cs = Theme.of(context).colorScheme;
+    final confirmed = await showDialog<bool>(
       context: context,
-      builder: (ctx) => AlertDialog(
+      builder: (dialogCtx) => AlertDialog(
         title: const Text('Reset all data'),
-        content: const Text('TODO(06-05): body copy literal'),
+        // Verbatim D-13 + UI-SPEC §Copywriting Contract: calm tone, no ! or ?
+        content: const Text(
+          'This deletes every entry, streak day, pause event, and check-in. '
+          'This cannot be undone.',
+        ),
         actions: [
+          // Cancel FIRST (default-focused per D-13 + UI-SPEC §Accessibility).
           TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
+            onPressed: () => Navigator.of(dialogCtx).pop(false),
             child: const Text('Cancel'),
           ),
+          // Reset SECOND — cs.error styled FilledButton per UI-SPEC §Color.
           FilledButton(
-            onPressed: () => Navigator.of(ctx).pop(),
+            style: FilledButton.styleFrom(
+              backgroundColor: cs.error,
+              foregroundColor: cs.onError,
+            ),
+            onPressed: () => Navigator.of(dialogCtx).pop(true),
             child: const Text('Reset'),
           ),
         ],
       ),
     );
+    if (confirmed != true) return;
+    if (!context.mounted) return;
+    final container = ProviderScope.containerOf(context, listen: false);
+    final controller = ResetController(
+      ref.read(databaseProvider),
+      ref.read(notificationApiProvider),
+      container,
+    );
+    await controller.resetAll(context);
   }
 }
