@@ -131,9 +131,9 @@
 - [x] 06-01-PLAN.md — Wave 0: 17 RED test stubs + 4 pubspec deps (archive ^4.0.9, flutter_file_dialog ^3.0.3, flutter_markdown_plus ^1.0.7, package_info_plus ^10.1.0) + docs/PRIVACY.md stub + 4 DAOs gain getAll() + FileSavePort mock fixture
 - [x] 06-02-PLAN.md — Wave 1: themeModeProvider AsyncNotifier + OnboardingKeys.themeMode constant + lib/app.dart wires `themeMode:` into MaterialApp.router (SETT-04 persistence layer)
 - [x] 06-03-PLAN.md — Wave 2: SettingsScreen hub (6 sections, 8 tiles in D-04 order with Phase 5 D-08 inline Streak closure) + SectionHeader/ThemeTile/AboutTile/StreakThresholdTile widgets + HomeScreen AppBar gear icon + 4 new GoRouter routes registered
-- [ ] 06-04-PLAN.md — Wave 3: FileSavePort port + FlutterFileDialogSavePort impl + ExportController (5 DAO reads → CSV+JSON envelope → ZIP → SAF) + ExportScreen body (SETT-01)
-- [ ] 06-05-PLAN.md — Wave 3: ResetController (cancelDailyReminder → Drift txn FK-safe child-first wipe → prefs.clear → 5 provider invalidations → /onboarding/welcome) + verbatim D-13 AlertDialog in SettingsScreen (SETT-02)
-- [ ] 06-06-PLAN.md — Wave 3: PrivacyScreen body (flutter_markdown_plus render of bundled docs/PRIVACY.md) + AccessibilityStep fromSettings:bool param + /settings/disclosure builder update (SETT-05)
+- [x] 06-04-PLAN.md — Wave 3: FileSavePort port + FlutterFileDialogSavePort impl + ExportController (5 DAO reads → CSV+JSON envelope → ZIP → SAF) + ExportScreen body (SETT-01)
+- [x] 06-05-PLAN.md — Wave 3: ResetController (cancelDailyReminder → Drift txn FK-safe child-first wipe → prefs.clear → 5 provider invalidations → /onboarding/welcome) + verbatim D-13 AlertDialog in SettingsScreen (SETT-02)
+- [x] 06-06-PLAN.md — Wave 3: PrivacyScreen body (flutter_markdown_plus render of bundled docs/PRIVACY.md) + AccessibilityStep fromSettings:bool param + /settings/disclosure builder update (SETT-05)
 - [ ] 06-07-PLAN.md — Wave 4: Extend play_invariants_test.dart with PLAY-09 telemetry absence (pubspec.lock + Dart + Kotlin) + apk_telemetry_strings_test.dart (decoded APK classes*.dex multidex sweep) + privacy_policy_url_present_test.dart + pubspec version bump to 1.0.0+1 + build.gradle.kts Play App Signing annotation
 - [ ] 06-08-PLAN.md — Wave 5: Final docs/PRIVACY.md + docs/play-listing/ tree (short/full description, permission-declaration, screenshots checklist, README field map) + assets/onboarding/README + 06-VERIFICATION.md (9-step OEM protocol + Play funnel runbook + demo video + GitHub Pages + Privacy URL curl + Phase 5 D-08 closure note) + BLOCKING manual gate (Samsung + Xiaomi overnight + Play closed-track review) + final bookkeeping flips
 **UI hint**: yes
@@ -147,7 +147,7 @@
 | 3. Screen-Time Dashboard | 6/6 | Complete   | 2026-05-08 |
 | 4. Pause UX (the wedge) | 8/8 | Complete (REL-04 PASS) | 2026-05-21 |
 | 5. Streak Engine & Daily Reminder | 9/9 | Software-complete; REL-05 pending | Software-complete 2026-05-22 |
-| 6. Polish & Play Store Submission | 3/8 | In Progress|  |
+| 6. Polish & Play Store Submission | 6/8 | In Progress|  |
 
 ## Coverage Summary
 
