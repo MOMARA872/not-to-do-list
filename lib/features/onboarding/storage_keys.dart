@@ -11,4 +11,8 @@ abstract final class OnboardingKeys {
   /// Build.FINGERPRINT recorded on first install + after every re-verify.
   /// Used by `PermissionHealthNotifier` to detect OS upgrades (ONBD-07).
   static const String lastKnownFingerprint = 'last_known_fingerprint';
+
+  /// Phase 6 SETT-04 (D-07): theme mode int (0=system, 1=light, 2=dark).
+  /// Read/written by themeModeProvider. Mirrors reminder_hour_minute pattern (Phase 5 D-09).
+  static const String themeMode = 'theme_mode';
 }
