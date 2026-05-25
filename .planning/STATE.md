@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-25T02:30:03.345Z"
+last_updated: "2026-05-25T04:00:00.000Z"
 progress:
   total_phases: 6
   completed_phases: 5
   total_plans: 46
-  completed_plans: 38
-  percent: 83
+  completed_plans: 45
+  percent: 98
 ---
 
 # Project State: Not To-Do List
@@ -26,18 +26,29 @@ progress:
 
 ## Current Position
 
-Phase: 5 (Streak Engine & Daily Reminder) — SOFTWARE-COMPLETE 2026-05-22; REL-05 pending overnight gate
-Plan: 9 of 9
-Next: Phase 6 (Polish & Play Store Submission) — `/gsd-plan-phase 6`
+Phase: 6 (Polish & Play Store Submission) — PAUSED 2026-05-25 at 06-08 Task 3a (OEM overnight gate)
+Plan: 8 of 8 (06-08 partial: Tasks 1-2 done; Tasks 3a/3b/4 blocking)
+Next: resume via `/gsd-execute-phase 6` after `PHASE-6 OEM PASS` (Samsung + Xiaomi overnight)
 
 - **Milestone:** v1
-- **Phase:** Phase 5 — Streak Engine & Daily Reminder (SOFTWARE-COMPLETE 2026-05-22; REL-05 pending)
-- **Status:** Ready to execute
-- **Progress:** [████████████████████░░░░] 82% (38/38 plans through Phase 5; 4/6 phases complete; REL-05 pending)
+- **Phase:** Phase 6 — Polish & Play Store Submission (SOFTWARE-COMPLETE except 06-08 manual gates; paused per user)
+- **Status:** Paused at OEM gate
+- **Progress:** [███████████████████████░] 98% (45/46 plans landed; 06-08 partial; REL-05 + PHASE-6 OEM + Play Console verdict pending)
 
 ```
-[████████████████████░░░░] Phase 5 SOFTWARE-COMPLETE — 9/9 plans landed; REL-05 overnight gate pending
+[███████████████████████░] Phase 6 SOFTWARE-COMPLETE — 7/8 plans landed + 06-08 Tasks 1-2; Task 3a (OEM overnight) BLOCKING
 ```
+
+### Phase 6 Plan Inventory (7/8 software-complete; 06-08 paused at Task 3a)
+
+- 06-01-PLAN — Wave 0 — RED test scaffold (19 test stubs + 4 pubspec deps + DAO `getAll()` audit + `docs/PRIVACY.md` stub) ✅
+- 06-02-PLAN — Wave 1 — `themeModeProvider` AsyncNotifier + `OnboardingKeys.themeMode` + `MaterialApp.router` wiring ✅
+- 06-03-PLAN — Wave 2 — Settings hub UI + Home AppBar gear + 4 GoRouter routes (incl. Phase 5 D-08 inline Streak section closure) ✅
+- 06-04-PLAN — Wave 3 — `FileSavePort` port + `ExportController` ZIP (5 CSVs + JSON envelope) + `ExportScreen` (SETT-01) ✅
+- 06-05-PLAN — Wave 3 — `ResetController` atomic reset (alarm cancel + Drift wipe + prefs.clear + 5 provider invalidations + nav to `/onboarding/welcome`) (SETT-02) ✅
+- 06-06-PLAN — Wave 3 — `PrivacyScreen` flutter_markdown_plus render + `AccessibilityStep.fromSettings` re-entry + `/settings/disclosure` (SETT-05) ✅
+- 06-07-PLAN — Wave 4 — PLAY-09 telemetry absence-grep across pubspec.lock + Dart + Kotlin + APK classes*.dex + pubspec `1.0.0+1` + Play App Signing annotation ✅
+- 06-08-PLAN — Wave 5 — PAUSED at Task 3a (Samsung + Xiaomi OEM overnight). Tasks 1-2 committed: final `docs/PRIVACY.md` + `docs/play-listing/` tree + `06-VERIFICATION.md` 9-step OEM protocol + Play Console runbook ⏸
 
 ### Phase 4 Plan Inventory (all complete)
 
