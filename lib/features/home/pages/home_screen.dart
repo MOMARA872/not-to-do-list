@@ -51,6 +51,15 @@ class HomeScreen extends ConsumerWidget {
         title: const Text('Not To-Do List'),
         centerTitle: false,
         actions: [
+          // Phase 6 D-01: Settings gear is FIRST action (UI-SPEC §HomeScreen).
+          Semantics(
+            label: 'Settings',
+            child: IconButton(
+              icon: const Icon(Icons.settings),
+              tooltip: 'Settings',
+              onPressed: () => context.go('/settings'),
+            ),
+          ),
           Semantics(
             label: 'Daily reminder settings',
             child: IconButton(
