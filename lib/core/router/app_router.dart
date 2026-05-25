@@ -15,6 +15,9 @@ import 'package:not_to_do_list/features/onboarding/pages/welcome_screen.dart';
 import 'package:not_to_do_list/features/onboarding/providers/onboarding_complete_provider.dart';
 import 'package:not_to_do_list/features/pause/pages/pause_screen.dart';
 import 'package:not_to_do_list/features/reminder/pages/reminder_settings_screen.dart';
+import 'package:not_to_do_list/features/settings/pages/export_screen.dart';
+import 'package:not_to_do_list/features/settings/pages/privacy_screen.dart';
+import 'package:not_to_do_list/features/settings/pages/settings_screen.dart';
 
 /// GoRouter provider — hand-written (no `@riverpod` codegen) because Plan 01-01
 /// dropped `riverpod_annotation`/`riverpod_generator` due to analyzer-pin
@@ -26,15 +29,13 @@ final Provider<GoRouter> appRouterProvider = Provider<GoRouter>((ref) {
     redirect: (ctx, state) {
       // T-2-10: onboarding-redirect-bypass mitigation. The redirect runs
       // on EVERY navigation, so even direct route URLs trigger the gate.
-      final completed =
-          ref.read(onboardingCompleteProvider).value ?? false;
+      final completed = ref.read(onboardingCompleteProvider).value ?? false;
       final goingToOnboarding =
           state.matchedLocation.startsWith('/onboarding');
       if (!completed && !goingToOnboarding) return '/onboarding/welcome';
       if (completed && goingToOnboarding) {
         // T-05-31: narrow exception — earned-prompt route is reached AFTER
         // onboarding completes + first entry insert. Must NOT redirect to '/'.
-        // ignore: lines_longer_than_80_chars
         if (state.matchedLocation == '/onboarding/permissions/notifications') {
           return null;
         }
@@ -54,10 +55,14 @@ final Provider<GoRouter> appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/list/edit/:id', builder: (ctx, state) => EditEntryScreen(id: int.parse(state.pathParameters['id']!))),
       GoRoute(path: '/dashboard', builder: (_, __) => const DashboardScreen()),
       GoRoute(path: '/checkin', builder: (_, __) => const CheckinScreen()),
-      // ignore: lines_longer_than_80_chars
       GoRoute(path: '/settings/reminder', builder: (_, __) => const ReminderSettingsScreen()),
-      // ignore: lines_longer_than_80_chars
       GoRoute(path: '/onboarding/permissions/notifications', builder: (_, __) => const PostNotificationsEarnedStep()),
+      GoRoute(path: '/settings', builder: (_, __) => const SettingsScreen()),
+      GoRoute(path: '/settings/export', builder: (_, __) => const ExportScreen()),
+      GoRoute(path: '/settings/privacy', builder: (_, __) => const PrivacyScreen()),
+      // TODO(06-06): pass fromSettings: true after AccessibilityStep
+      // fromSettings param lands.
+      GoRoute(path: '/settings/disclosure', builder: (_, __) => const AccessibilityStep()),
       GoRoute(
         path: '/pause/:entryId',
         builder: (ctx, state) {
