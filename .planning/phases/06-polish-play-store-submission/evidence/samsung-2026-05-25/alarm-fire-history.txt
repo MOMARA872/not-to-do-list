@@ -1,0 +1,54 @@
+        com.sec.imsservice
+        com.nottodo.not_to_do_list
+        com.facebook.services
+        com.samsung.android.mobileservice
+        com.samsung.android.mdx.kit
+        com.samsung.storyservice
+--
+      idle-options=Bundle[{android.pendingIntent.backgroundActivityAllowed=false, android:broadcast.temporaryAppAllowlistReasonCode=-1, android:broadcast.temporaryAppAllowlistDuration=10000, android:broadcast.temporaryAppAllowlistReason=, android:broadcast.temporaryAppAllowlistType=1}]
+    RTC_WAKEUP #38: Alarm{e678a82 type 0 origWhen 1779851700000 whenElapsed 551370976 com.nottodo.not_to_do_list}
+      tag=*walarm*:com.nottodo.not_to_do_list/.receiver.ReminderAlarmReceiver
+      type=RTC_WAKEUP origWhen=2026-05-26 20:15:00.000 window=0 exactAllowReason=permission repeatInterval=0 count=0 flags=0x9
+      policyWhenElapsed: requester=+5h21m6s396ms app_standby=-13h49m36s721ms device_idle=-3m59s150ms battery_saver=-18h38m52s976ms tare=-18h38m52s976ms gms_manager=--
+      whenElapsed=+5h21m6s396ms maxWhenElapsed=+5h21m6s396ms
+      operation=PendingIntent{d5c593: PendingIntentRecord{fbd05e3 com.nottodo.not_to_do_list broadcastIntent}}
+      idle-options=Bundle[{android.pendingIntent.backgroundActivityAllowed=false, android:broadcast.temporaryAppAllowlistReasonCode=302, android:broadcast.temporaryAppAllowlistDuration=10000, android:broadcast.temporaryAppAllowlistReason=, android:broadcast.temporaryAppAllowlistType=0}]
+    RTC_WAKEUP #39: Alarm{fea19d0 type 0 origWhen 1779852479071 whenElapsed 552150047 com.android.vending}
+      tag=*walarm*:com.google.android.finsky.gamestreaks.ACTION_STREAK_AT_RISK_CHECK
+      type=RTC_WAKEUP origWhen=2026-05-26 20:27:59.071 window=+1h0m0s0ms repeatInterval=0 count=0 flags=0x0
+--
+    u0a1406:
+      [tag=*walarm*:com.nottodo.not_to_do_list/.receiver.ReminderAlarmReceiver H=PI:fbd05e3 reason=alarm_cancelled elapsed=421707957  rtc=2026-05-25 08:13:56.981]
+      [tag=*walarm*:com.nottodo.not_to_do_list/.receiver.ReminderAlarmReceiver H=PI:fbd05e3 reason=alarm_cancelled elapsed=421711662  rtc=2026-05-25 08:14:00.685]
+      [tag=*walarm*:com.nottodo.not_to_do_list/.receiver.ReminderAlarmReceiver H=PI:fbd05e3 reason=alarm_cancelled elapsed=421735361  rtc=2026-05-25 08:14:24.384]
+    u150a246:
+      [tag=*alarm*:com.google.android.chimera.container.IntentOperationService.SAVED_INTENT H=PI:9a4e116 reason=alarm_cancelled elapsed=133321  rtc=2026-05-20 11:07:42.345]
+      [tag=*alarm*:com.google.android.chimera.container.IntentOperationService.SAVED_INTENT H=PI:17b2453 reason=alarm_cancelled elapsed=133431  rtc=2026-05-20 11:07:42.455]
+      [tag=*alarm*:com.google.android.chimera.container.IntentOperationService.SAVED_INTENT H=PI:2bd16f1 reason=alarm_cancelled elapsed=1788711  rtc=2026-05-20 11:35:17.735]
+--
+    u0a1406:
+      [tag=*walarm*:com.nottodo.not_to_do_list/.receiver.ReminderAlarmReceiver T=0 F=9 AC=false H=PI:fbd05e3 OW=2026-05-25 22:15:00.000 elapsed=419067563 rtc=2026-05-25 07:29:56.587]
+      [tag=*walarm*:com.nottodo.not_to_do_list/.receiver.ReminderAlarmReceiver T=0 F=9 AC=false H=PI:fbd05e3 OW=2026-05-25 20:15:00.000 elapsed=421707960 rtc=2026-05-25 08:13:56.984]
+      [tag=*walarm*:com.nottodo.not_to_do_list/.receiver.ReminderAlarmReceiver T=0 F=9 AC=false H=PI:fbd05e3 OW=2026-05-25 08:15:00.000 elapsed=421711663 rtc=2026-05-25 08:14:00.687]
+      [tag=*walarm*:com.nottodo.not_to_do_list/.receiver.ReminderAlarmReceiver T=0 F=9 AC=false H=PI:fbd05e3 OW=2026-05-25 20:15:00.000 elapsed=421735363 rtc=2026-05-25 08:14:24.387]
+      [tag=*walarm*:com.nottodo.not_to_do_list/.receiver.ReminderAlarmReceiver T=0 F=9 AC=false H=PI:fbd05e3 OW=2026-05-26 20:15:00.000 elapsed=464971604 rtc=2026-05-25 20:15:00.628]
+    u150a246:
+      [tag=*alarm*:com.google.android.chimera.container.IntentOperationService.SAVED_INTENT T=3 F=0 AC=false H=PI:9a4e116 OW=315360117333 WL=3600000 elapsed=117350 rtc=2026-05-20 11:07:25.632]
+      [tag=*alarm*:com.google.android.chimera.container.IntentOperationService.SAVED_INTENT T=3 F=0 AC=false H=PI:17b2453 OW=315360118172 WL=3600000 elapsed=118175 rtc=2026-05-20 11:07:27.198]
+      [tag=*alarm*:com.google.android.chimera.container.IntentOperationService.SAVED_INTENT T=3 F=0 AC=false H=PI:2bd16f1 OW=315361781675 WL=3600000 elapsed=1781675 rtc=2026-05-20 11:35:10.699]
+--
+    u0a1406:
+      [tag=*walarm*:com.nottodo.not_to_do_list/.receiver.ReminderAlarmReceiver origWhen=1779765300000 H=PI:fbd05e3 elapsed=464971541 rtc=2026-05-25 20:15:00.565]
+  
+  Expiration history: 
+    [flag=8 wakeup=530550976 non-wakeup=530190976 elapsed=530190977 rtc=2026-05-26 14:22:00.000]
+    [flag=65544 diff=741 wakeup=530550976 non-wakeup=530293810 elapsed=530335426 rtc=2026-05-26 14:24:24.450]
+--
+      *walarm*:com.goodloop.app/com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver
+  u0a1406:com.nottodo.not_to_do_list +103ms running, 1 wakeups:
+    +103ms 1 wakes 1 alarms, last -18h38m53s72ms:
+      *walarm*:com.nottodo.not_to_do_list/.receiver.ReminderAlarmReceiver
+  
+  Alarm manager stats:
+    REORDER_ALARMS_FOR_STANDBY: count=6794, total=1094.2ms, avg=0.161ms, max calls/s=1226 max dur/s=18.8ms max time=18.8ms
+    HAS_SCHEDULE_EXACT_ALARM: count=85949, total=1454.0ms, avg=0.017ms, max calls/s=1325 max dur/s=54.9ms max time=24.5ms

@@ -1,0 +1,6 @@
+VIBRATE: allow; time=+12m53s203ms ago; duration=+5s2ms
+SYSTEM_ALERT_WINDOW: default; rejectTime=+21m3s247ms ago
+GET_USAGE_STATS: allow; time=+57m6s452ms ago
+BIND_ACCESSIBILITY_SERVICE: allow; time=+13m44s932ms ago
+ACCESS_ACCESSIBILITY: allow; time=+11m50s201ms ago
+ACCESS_RESTRICTED_SETTINGS: allow; time=+1h31m59s231ms ago

@@ -1,0 +1,1 @@
+05-25 08:15:39.738 W/BroadcastQueue( 1473): Permission Denial: broadcasting Intent { flg=0x400010 cmp=com.nottodo.not_to_do_list/.receiver.ReminderAlarmReceiver } from null (pid=3740, uid=2000) to com.nottodo.not_to_do_list/.receiver.ReminderAlarmReceiver is not exported from uid 11406

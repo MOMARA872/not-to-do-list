@@ -1,0 +1,4 @@
+      tag=*walarm*:com.nottodo.not_to_do_list/.receiver.ReminderAlarmReceiver
+      type=RTC_WAKEUP origWhen=2026-05-25 20:15:00.000 window=0 exactAllowReason=permission repeatInterval=0 count=0 flags=0x9
+      policyWhenElapsed: requester=+11h47m42s898ms app_standby=-12m52s715ms device_idle=-12m52s715ms battery_saver=-12m52s715ms tare=-12m52s715ms gms_manager=--
+--

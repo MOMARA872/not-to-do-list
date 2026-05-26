@@ -1,11 +1,14 @@
 ---
 phase: 6
 slug: polish-play-store-submission
-status: pending_overnight_run
-rel_06_status: pending
+status: samsung_pass_xiaomi_deferred
+rel_06_status: pass_samsung_only
+xiaomi_status: deferred_post_v1
 play_08_status: pending_closed_track_review
 created: "2026-05-24"
-last_updated: "2026-05-24"
+last_updated: "2026-05-26"
+samsung_pass_token: "SAMSUNG OEM PASS 2026-05-26 13:58 MST"
+samsung_evidence_dir: ".planning/phases/06-polish-play-store-submission/evidence/samsung-2026-05-25/"
 ---
 
 # Phase 6 Verification — Polish & Play Store Submission
@@ -136,11 +139,19 @@ Expected: 0 grep matches (no telemetry strings in decoded APK).
 If either gate fails: type `BLOCKED: <reason>` with failure details. Do NOT proceed
 to Task 3b until BOTH OEM gates PASS.
 
+### Actual outcome — 2026-05-26
+
+**`SAMSUNG OEM PASS 2026-05-26 13:58 MST`** — all 9 steps verified on Samsung Galaxy S20 Ultra (SM-G988U1) / Android 13. Real 12h overnight Doze. Alarm fired `rtc=2026-05-25 20:15:00.628` (0.6s precision) and self-re-armed to next day in same `onReceive()`. Pause screen <1s on Instagram. Check-in submit idempotent. Full evidence + PASS.md in `.planning/phases/06-polish-play-store-submission/evidence/samsung-2026-05-25/`.
+
+**Xiaomi gate (Step 9) — DEFERRED to post-v1.** User confirmed no Xiaomi device available 2026-05-26. Accepted risk per CONTEXT D-15 (Internal testing track + Closed testing is itself an OEM-survival proxy — Play closed-track testers run on diverse OEMs including Xiaomi). Mitigation: Closed-track tester pool will cover MIUI/HyperOS, and a Xiaomi-specific OEM gate becomes a M2 / v1.1 requirement before any Open beta promotion.
+
+`rel_06_status` set to `pass_samsung_only`. Phase 6 unblocks Task 3b (Play Console submission) with Samsung-only PASS + documented Xiaomi deferral.
+
 ---
 
 ## Section 4: Play Console submission runbook
 
-**Status:** Pending Task 3a PHASE-6 OEM PASS
+**Status:** Unblocked 2026-05-26 — Samsung OEM PASS; Xiaomi deferred.
 
 ### 4a. Pre-submission gates
 

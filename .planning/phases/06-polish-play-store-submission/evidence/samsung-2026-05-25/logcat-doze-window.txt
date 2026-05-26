@@ -1,0 +1,228 @@
+--------- beginning of system
+05-25 07:49:22.763 D/AlarmManager( 1473): BT=2, AT=3, WE=600000, WL=450000, uid=10078, pkg=com.facebook.services, action=com.facebook.rti.fbns.intent.ACTION_ALARM.FBNS_SCHEDULED_BROADCAST_TIMEOUT
+--------- beginning of main
+05-25 07:50:02.648 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 422073624]
+05-25 07:50:02.679 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 422073656]
+05-25 07:50:02.693 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: FcmRetry type: 2 triggerAtMillis: 420393668]
+05-25 07:50:12.190 D/NotificationService( 1473): 0|com.google.android.gm|-877381312|null|10266: granting content://settings/system/notification_sound
+05-25 07:50:12.190 D/NotificationService( 1473): 0|com.google.android.gm|-877381312|null|10266: granting content://settings/system/notification_sound
+05-25 07:50:12.191 D/NotificationService( 1473): 0|com.google.android.gm|-877381312|null|10266: granting content://settings/system/notification_sound
+05-25 07:50:12.192 D/NotificationService( 1473): 0|com.google.android.gm|-877381312|null|10266: granting content://settings/system/notification_sound
+05-25 07:50:12.193 D/NotificationService( 1473): 0|com.google.android.gm|-877381312|null|10266: granting content://settings/system/notification_sound
+05-25 07:50:12.193 D/NotificationService( 1473): 0|com.google.android.gm|-877381312|null|10266: granting content://settings/system/notification_sound
+05-25 07:50:12.194 D/NotificationService( 1473): 0|com.google.android.gm|-877381312|null|10266: granting content://settings/system/notification_sound
+05-25 07:50:12.195 D/NotificationService( 1473): 0|com.google.android.gm|-877381312|null|10266: granting content://settings/system/notification_sound
+05-25 07:50:12.195 D/NotificationService( 1473): 0|com.google.android.gm|-877381312|null|10266: granting content://settings/system/notification_sound
+05-25 07:50:15.030 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|1619422321|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.059 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|1084556895|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.091 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|2112417660|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.122 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-1660132066|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.153 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|108569441|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.194 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|2018274776|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.229 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-2035572145|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.258 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-920317457|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.290 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|841532672|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.331 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|1475245790|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.369 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-569835548|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.402 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-934538061|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.439 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-2111870128|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.480 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|1512766580|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.517 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|664455409|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.553 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-141719417|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.597 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-1288138227|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.627 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|247586853|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.674 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-1693492909|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.710 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-1716819719|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.746 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|1608219908|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.780 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|1614905906|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.812 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|75394598|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.849 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|2140235352|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.889 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|1063596395|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.923 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-988515852|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:15.962 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-1471382834|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:16.001 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-150494257|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:16.042 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-1888821975|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:16.072 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-1846387368|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:16.108 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-428369218|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:16.146 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-893749548|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:16.184 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-237833979|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:16.222 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-1488229890|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:16.257 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|252881406|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:16.289 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-463505346|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266
+05-25 07:50:16.340 D/NotificationService( 1473): 0|com.google.android.gm|-1858112066|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 07:50:16.341 D/NotificationService( 1473): 0|com.google.android.gm|-1858112066|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 07:50:16.342 D/NotificationService( 1473): 0|com.google.android.gm|-1858112066|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 07:50:16.346 D/NotificationService( 1473): 0|com.google.android.gm|-1858112066|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 07:50:16.347 D/NotificationService( 1473): 0|com.google.android.gm|-1858112066|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 07:50:16.347 D/NotificationService( 1473): 0|com.google.android.gm|-1858112066|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 07:50:16.349 D/NotificationService( 1473): 0|com.google.android.gm|-1858112066|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 07:50:16.350 D/NotificationService( 1473): 0|com.google.android.gm|-1858112066|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 07:50:16.350 D/NotificationService( 1473): 0|com.google.android.gm|-1858112066|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 07:50:16.372 D/NotificationService( 1473): 0|com.google.android.gm|335298160|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 07:50:16.373 D/NotificationService( 1473): 0|com.google.android.gm|335298160|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 07:50:16.373 D/NotificationService( 1473): 0|com.google.android.gm|335298160|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 07:50:16.373 D/NotificationService( 1473): 0|com.google.android.gm|335298160|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 07:50:16.373 D/NotificationService( 1473): 0|com.google.android.gm|335298160|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 07:50:16.374 D/NotificationService( 1473): 0|com.google.android.gm|335298160|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 07:50:16.374 D/NotificationService( 1473): 0|com.google.android.gm|335298160|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 07:50:16.374 D/NotificationService( 1473): 0|com.google.android.gm|335298160|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 07:50:16.374 D/NotificationService( 1473): 0|com.google.android.gm|335298160|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 07:50:32.813 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 422103789]
+05-25 07:50:32.832 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: FcmRetry type: 2 triggerAtMillis: 420423807]
+05-25 07:50:35.479 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|0|gig:-490052469:^sq_ig_i_personal|10266
+05-25 07:50:35.503 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|588683700|gig:-490052469:^sq_ig_i_personal|10266
+05-25 07:50:35.565 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|6766612|gig:-490052469:^sq_ig_i_personal|10266
+05-25 07:50:35.610 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-2080744461|gig:-490052469:^sq_ig_i_personal|10266
+05-25 07:50:35.647 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|30174025|gig:-490052469:^sq_ig_i_personal|10266
+05-25 07:50:35.687 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-879739855|gig:-490052469:^sq_ig_i_personal|10266
+05-25 07:50:35.736 D/NotificationService( 1473): 0|com.google.android.gm|1953458702|gig:-490052469:^sq_ig_i_personal|10266: granting content://settings/system/notification_sound
+05-25 07:50:35.737 D/NotificationService( 1473): 0|com.google.android.gm|1953458702|gig:-490052469:^sq_ig_i_personal|10266: granting content://settings/system/notification_sound
+05-25 07:50:35.738 D/NotificationService( 1473): 0|com.google.android.gm|1953458702|gig:-490052469:^sq_ig_i_personal|10266: granting content://settings/system/notification_sound
+05-25 07:50:35.739 D/NotificationService( 1473): 0|com.google.android.gm|1953458702|gig:-490052469:^sq_ig_i_personal|10266: granting content://settings/system/notification_sound
+05-25 07:50:35.739 D/NotificationService( 1473): 0|com.google.android.gm|1953458702|gig:-490052469:^sq_ig_i_personal|10266: granting content://settings/system/notification_sound
+05-25 07:50:35.740 D/NotificationService( 1473): 0|com.google.android.gm|1953458702|gig:-490052469:^sq_ig_i_personal|10266: granting content://settings/system/notification_sound
+05-25 07:50:35.740 D/NotificationService( 1473): 0|com.google.android.gm|1953458702|gig:-490052469:^sq_ig_i_personal|10266: granting content://settings/system/notification_sound
+05-25 07:50:35.741 D/NotificationService( 1473): 0|com.google.android.gm|1953458702|gig:-490052469:^sq_ig_i_personal|10266: granting content://settings/system/notification_sound
+05-25 07:50:35.742 D/NotificationService( 1473): 0|com.google.android.gm|1953458702|gig:-490052469:^sq_ig_i_personal|10266: granting content://settings/system/notification_sound
+05-25 07:53:27.609 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 422278585]
+05-25 07:53:27.626 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: FcmRetry type: 2 triggerAtMillis: 420598601]
+05-25 07:53:27.631 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 422278607]
+05-25 07:53:31.094 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|0|gig:2140776222:^sq_ig_i_personal|10266
+05-25 07:53:31.112 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|287517910|gig:2140776222:^sq_ig_i_personal|10266
+05-25 07:53:31.165 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-247063083|gig:2140776222:^sq_ig_i_personal|10266
+05-25 07:53:31.196 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-1721975805|gig:2140776222:^sq_ig_i_personal|10266
+05-25 07:53:31.225 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-1643625047|gig:2140776222:^sq_ig_i_personal|10266
+05-25 07:53:31.261 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-269986073|gig:2140776222:^sq_ig_i_personal|10266
+05-25 07:53:31.294 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-698038657|gig:2140776222:^sq_ig_i_personal|10266
+05-25 07:53:31.327 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|1007892484|gig:2140776222:^sq_ig_i_personal|10266
+05-25 07:53:31.368 I/NotificationService( 1473): Cannot find enqueued record for key: 0|com.google.android.gm|-1385688902|gig:2140776222:^sq_ig_i_personal|10266
+05-25 07:53:31.406 D/NotificationService( 1473): 0|com.google.android.gm|1738485325|gig:2140776222:^sq_ig_i_personal|10266: granting content://settings/system/notification_sound
+05-25 07:53:31.407 D/NotificationService( 1473): 0|com.google.android.gm|1738485325|gig:2140776222:^sq_ig_i_personal|10266: granting content://settings/system/notification_sound
+05-25 07:53:31.409 D/NotificationService( 1473): 0|com.google.android.gm|1738485325|gig:2140776222:^sq_ig_i_personal|10266: granting content://settings/system/notification_sound
+05-25 07:53:31.410 D/NotificationService( 1473): 0|com.google.android.gm|1738485325|gig:2140776222:^sq_ig_i_personal|10266: granting content://settings/system/notification_sound
+05-25 07:53:31.410 D/NotificationService( 1473): 0|com.google.android.gm|1738485325|gig:2140776222:^sq_ig_i_personal|10266: granting content://settings/system/notification_sound
+05-25 07:53:31.411 D/NotificationService( 1473): 0|com.google.android.gm|1738485325|gig:2140776222:^sq_ig_i_personal|10266: granting content://settings/system/notification_sound
+05-25 07:53:31.412 D/NotificationService( 1473): 0|com.google.android.gm|1738485325|gig:2140776222:^sq_ig_i_personal|10266: granting content://settings/system/notification_sound
+05-25 07:53:31.413 D/NotificationService( 1473): 0|com.google.android.gm|1738485325|gig:2140776222:^sq_ig_i_personal|10266: granting content://settings/system/notification_sound
+05-25 07:53:31.414 D/NotificationService( 1473): 0|com.google.android.gm|1738485325|gig:2140776222:^sq_ig_i_personal|10266: granting content://settings/system/notification_sound
+05-25 07:55:22.852 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 422393828]
+05-25 07:55:22.881 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: FcmRetry type: 2 triggerAtMillis: 420713855]
+05-25 07:57:17.103 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 422508079]
+05-25 07:57:17.117 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: FcmRetry type: 2 triggerAtMillis: 420828091]
+05-25 07:57:17.125 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 422508101]
+05-25 07:57:17.952 D/NotificationService( 1473): 0|com.google.android.youtube|0|v4ChgqenpKw::7359cff5-5936-406a-9ee2-464da3f911e1|10264: granting content://settings/system/notification_sound
+05-25 07:57:17.953 D/NotificationService( 1473): 0|com.google.android.youtube|0|v4ChgqenpKw::7359cff5-5936-406a-9ee2-464da3f911e1|10264: granting content://settings/system/notification_sound
+05-25 07:57:17.954 D/NotificationService( 1473): 0|com.google.android.youtube|0|v4ChgqenpKw::7359cff5-5936-406a-9ee2-464da3f911e1|10264: granting content://settings/system/notification_sound
+05-25 07:57:17.956 D/NotificationService( 1473): 0|com.google.android.youtube|0|v4ChgqenpKw::7359cff5-5936-406a-9ee2-464da3f911e1|10264: granting content://settings/system/notification_sound
+05-25 07:57:17.958 D/NotificationService( 1473): 0|com.google.android.youtube|0|v4ChgqenpKw::7359cff5-5936-406a-9ee2-464da3f911e1|10264: granting content://settings/system/notification_sound
+05-25 07:57:17.959 D/NotificationService( 1473): 0|com.google.android.youtube|0|v4ChgqenpKw::7359cff5-5936-406a-9ee2-464da3f911e1|10264: granting content://settings/system/notification_sound
+05-25 07:57:17.960 D/NotificationService( 1473): 0|com.google.android.youtube|0|v4ChgqenpKw::7359cff5-5936-406a-9ee2-464da3f911e1|10264: granting content://settings/system/notification_sound
+05-25 07:57:17.960 D/NotificationService( 1473): 0|com.google.android.youtube|0|v4ChgqenpKw::7359cff5-5936-406a-9ee2-464da3f911e1|10264: granting content://settings/system/notification_sound
+05-25 07:57:17.961 D/NotificationService( 1473): 0|com.google.android.youtube|0|v4ChgqenpKw::7359cff5-5936-406a-9ee2-464da3f911e1|10264: granting content://settings/system/notification_sound
+05-25 07:59:07.339 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 422618315]
+05-25 07:59:07.349 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 422618325]
+05-25 07:59:07.356 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 422618332]
+05-25 07:59:07.361 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 422618337]
+05-25 07:59:07.368 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 422618344]
+05-25 07:59:07.374 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 422618350]
+05-25 07:59:07.540 E/NotificationService( 1473): Suppressing notification from package com.discord by user request.
+05-25 07:59:07.999 E/NotificationService( 1473): Suppressing notification from package com.discord by user request.
+05-25 07:59:08.444 E/NotificationService( 1473): Suppressing notification from package com.discord by user request.
+05-25 08:00:30.616 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 422701592]
+05-25 08:00:30.630 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: FcmRetry type: 2 triggerAtMillis: 421021605]
+05-25 08:01:19.946 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 422750922]
+05-25 08:01:19.958 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: FcmRetry type: 2 triggerAtMillis: 421070934]
+05-25 08:01:19.973 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 422750950]
+05-25 08:01:28.136 D/NotificationService( 1473): 0|com.google.android.gm|-15611569|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 08:01:28.137 D/NotificationService( 1473): 0|com.google.android.gm|-15611569|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 08:01:28.137 D/NotificationService( 1473): 0|com.google.android.gm|-15611569|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 08:01:28.137 D/NotificationService( 1473): 0|com.google.android.gm|-15611569|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 08:01:28.138 D/NotificationService( 1473): 0|com.google.android.gm|-15611569|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 08:01:28.138 D/NotificationService( 1473): 0|com.google.android.gm|-15611569|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 08:01:28.138 D/NotificationService( 1473): 0|com.google.android.gm|-15611569|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 08:01:28.138 D/NotificationService( 1473): 0|com.google.android.gm|-15611569|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 08:01:28.139 D/NotificationService( 1473): 0|com.google.android.gm|-15611569|gig:-673610753:CLASSIC_INBOX_ALL_MAIL|10266: granting content://settings/system/notification_sound
+05-25 08:01:48.756 W/AlarmManager( 1473): Unrecognized alarm listener com.android.server.locksettings.LockSettingsStrongAuth$NonStrongBiometricIdleTimeoutAlarmListener@c6f9aab
+05-25 08:02:53.448 D/AlarmManager( 1473): Sending alarms blocked by MARsFreecess for uid 10303
+05-25 08:03:01.857 D/NotificationService( 1473): Doesn't turn on screen for notification.
+05-25 08:03:02.067 D/NotificationService( 1473): 0|com.fitbit.FitbitMobile|37|null|11371: granting content://settings/system/notification_sound
+05-25 08:03:02.068 D/NotificationService( 1473): 0|com.fitbit.FitbitMobile|37|null|11371: granting content://settings/system/notification_sound
+05-25 08:03:02.069 D/NotificationService( 1473): 0|com.fitbit.FitbitMobile|37|null|11371: granting content://settings/system/notification_sound
+05-25 08:03:02.069 D/NotificationService( 1473): 0|com.fitbit.FitbitMobile|37|null|11371: granting content://settings/system/notification_sound
+05-25 08:03:02.070 D/NotificationService( 1473): 0|com.fitbit.FitbitMobile|37|null|11371: granting content://settings/system/notification_sound
+05-25 08:03:02.071 D/NotificationService( 1473): 0|com.fitbit.FitbitMobile|37|null|11371: granting content://settings/system/notification_sound
+05-25 08:03:02.072 D/NotificationService( 1473): 0|com.fitbit.FitbitMobile|37|null|11371: granting content://settings/system/notification_sound
+05-25 08:03:02.073 D/NotificationService( 1473): 0|com.fitbit.FitbitMobile|37|null|11371: granting content://settings/system/notification_sound
+05-25 08:03:02.073 D/NotificationService( 1473): 0|com.fitbit.FitbitMobile|37|null|11371: granting content://settings/system/notification_sound
+05-25 08:03:34.950 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 422885926]
+05-25 08:03:34.963 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: FcmRetry type: 2 triggerAtMillis: 421205937]
+05-25 08:03:35.311 D/NotificationService( 1473): Doesn't turn on screen for notification.
+05-25 08:05:46.437 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 423017413]
+05-25 08:05:46.453 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: FcmRetry type: 2 triggerAtMillis: 421337426]
+05-25 08:05:46.463 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 423017440]
+05-25 08:05:49.690 D/NotificationService( 1473): Doesn't turn on screen for notification.
+05-25 08:05:49.898 D/NotificationService( 1473): 0|com.reddit.frontpage|0|1f176062-cd0a-4397-b94d-634299b8815c|10300: granting content://settings/system/notification_sound
+05-25 08:05:49.899 D/NotificationService( 1473): 0|com.reddit.frontpage|0|1f176062-cd0a-4397-b94d-634299b8815c|10300: granting content://settings/system/notification_sound
+05-25 08:05:49.900 D/NotificationService( 1473): 0|com.reddit.frontpage|0|1f176062-cd0a-4397-b94d-634299b8815c|10300: granting content://settings/system/notification_sound
+05-25 08:05:49.901 D/NotificationService( 1473): 0|com.reddit.frontpage|0|1f176062-cd0a-4397-b94d-634299b8815c|10300: granting content://settings/system/notification_sound
+05-25 08:05:49.905 D/NotificationService( 1473): 0|com.reddit.frontpage|0|1f176062-cd0a-4397-b94d-634299b8815c|10300: granting content://settings/system/notification_sound
+05-25 08:05:49.906 D/NotificationService( 1473): 0|com.reddit.frontpage|0|1f176062-cd0a-4397-b94d-634299b8815c|10300: granting content://settings/system/notification_sound
+05-25 08:05:49.908 D/NotificationService( 1473): 0|com.reddit.frontpage|0|1f176062-cd0a-4397-b94d-634299b8815c|10300: granting content://settings/system/notification_sound
+05-25 08:05:49.910 D/NotificationService( 1473): 0|com.reddit.frontpage|0|1f176062-cd0a-4397-b94d-634299b8815c|10300: granting content://settings/system/notification_sound
+05-25 08:05:49.911 D/NotificationService( 1473): 0|com.reddit.frontpage|0|1f176062-cd0a-4397-b94d-634299b8815c|10300: granting content://settings/system/notification_sound
+05-25 08:05:55.087 D/AlarmManager( 1473): BT=2, AT=3, WE=600000, WL=450000, uid=10078, pkg=com.facebook.services, action=com.facebook.rti.fbns.intent.ACTION_ALARM.FBNS_SCHEDULED_BROADCAST_TIMEOUT
+05-25 08:05:57.513 D/NotificationService( 1473):      WAKELOCK/UP clear all delayed lists..
+05-25 08:05:59.057 W/AlarmManager( 1473): Unrecognized alarm listener com.samsung.android.server.battery.WatchBatteryManager$ScreenOffAlarmListener@775caec
+05-25 08:06:05.220 W/AlarmManager( 1473): Unrecognized alarm listener com.samsung.android.server.battery.WatchBatteryManager$ScreenOffAlarmListener@775caec
+05-25 08:06:07.109 W/AlarmManager( 1473): Unrecognized alarm listener com.samsung.android.server.battery.WatchBatteryManager$ScreenOffAlarmListener@775caec
+05-25 08:06:07.533 W/AlarmManager( 1473): Unrecognized alarm listener com.samsung.android.server.battery.WatchBatteryManager$ScreenOffAlarmListener@775caec
+05-25 08:06:12.197 W/AlarmManager( 1473): Unrecognized alarm listener com.samsung.android.server.battery.WatchBatteryManager$ScreenOffAlarmListener@775caec
+05-25 08:06:12.655 W/AlarmManager( 1473): Unrecognized alarm listener com.samsung.android.server.battery.WatchBatteryManager$ScreenOffAlarmListener@775caec
+05-25 08:06:13.489 W/AlarmManager( 1473): Unrecognized alarm listener com.samsung.android.server.battery.WatchBatteryManager$ScreenOffAlarmListener@775caec
+05-25 08:06:13.884 W/AlarmManager( 1473): Unrecognized alarm listener com.samsung.android.server.battery.WatchBatteryManager$ScreenOffAlarmListener@775caec
+05-25 08:06:14.756 W/AlarmManager( 1473): Unrecognized alarm listener com.samsung.android.server.battery.WatchBatteryManager$ScreenOffAlarmListener@775caec
+05-25 08:06:17.171 D/AlarmManager( 1473): BT=2, AT=3, WE=299999, WL=224999, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:06:18.709 D/AlarmManager( 1473): BT=2, AT=3, WE=300000, WL=225000, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:06:18.969 D/AlarmManager( 1473): BT=2, AT=3, WE=300000, WL=225000, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:06:24.576 D/AlarmManager( 1473): BT=2, AT=3, WE=300000, WL=225000, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:06:25.453 D/AlarmManager( 1473): BT=2, AT=3, WE=119993, WL=89994, uid=10207, pkg=com.facebook.katana, action=WakingExecutorService.ACTION_ALARM.com.facebook.katana.Mqtt_Wakeup
+05-25 08:06:25.462 D/AlarmManager( 1473): BT=2, AT=3, WE=299999, WL=224999, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:06:25.556 D/AlarmManager( 1473): BT=2, AT=3, WE=300000, WL=225000, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:06:27.018 D/AlarmManager( 1473): BT=2, AT=3, WE=300000, WL=225000, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:06:27.373 D/AlarmManager( 1473): BT=2, AT=3, WE=300000, WL=225000, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:06:27.641 D/AlarmManager( 1473): BT=2, AT=3, WE=300000, WL=225000, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:06:34.707 D/AlarmManager( 1473): BT=2, AT=3, WE=300000, WL=225000, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:06:50.887 D/AlarmManager( 1473): BT=2, AT=3, WE=300000, WL=225000, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:06:57.035 D/AlarmManager( 1473): BT=2, AT=3, WE=299999, WL=225000, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:07:17.386 D/AlarmManager( 1473): BT=2, AT=3, WE=299999, WL=224999, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:07:19.598 D/AlarmManager( 1473): BT=2, AT=3, WE=300000, WL=225000, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:07:19.704 D/AlarmManager( 1473): BT=2, AT=3, WE=300000, WL=225000, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:07:20.274 D/AlarmManager( 1473): BT=2, AT=3, WE=299998, WL=224998, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:07:20.278 D/AlarmManager( 1473): BT=2, AT=3, WE=299999, WL=224999, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:07:37.706 D/AlarmManager( 1473): BT=2, AT=3, WE=300000, WL=225000, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:07:47.725 D/AlarmManager( 1473): BT=2, AT=3, WE=300000, WL=225000, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:07:55.977 D/AlarmManager( 1473): BT=2, AT=3, WE=299999, WL=224999, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:08:00.538 D/AlarmManager( 1473): BT=2, AT=3, WE=299999, WL=224999, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:08:01.762 D/AlarmManager( 1473): BT=2, AT=3, WE=299999, WL=224999, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:08:02.706 D/AlarmManager( 1473): BT=2, AT=3, WE=300000, WL=225000, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:08:12.137 D/AlarmManager( 1473): BT=2, AT=3, WE=300000, WL=225000, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:08:37.096 D/AlarmManager( 1473): BT=2, AT=3, WE=300000, WL=225000, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:09:03.221 D/AlarmManager( 1473): BT=2, AT=3, WE=300000, WL=225000, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:09:13.454 D/AlarmManager( 1473): BT=2, AT=3, WE=119998, WL=89998, uid=10207, pkg=com.facebook.katana, action=WakingExecutorService.ACTION_ALARM.com.facebook.katana.Mqtt_Wakeup
+05-25 08:09:13.467 D/AlarmManager( 1473): BT=2, AT=3, WE=300000, WL=225000, uid=10207, pkg=com.facebook.katana, action=com.facebook.analytics2.logger.UPLOAD_NOW
+05-25 08:10:55.809 W/AlarmManager( 1473): Unrecognized alarm listener com.android.server.locksettings.LockSettingsStrongAuth$NonStrongBiometricIdleTimeoutAlarmListener@c6f9aab
+05-25 08:13:27.500 D/NotificationService( 1473):      WAKELOCK/UP clear all delayed lists..
+05-25 08:13:32.039 W/AlarmManager( 1473): Unrecognized alarm listener com.samsung.android.server.battery.WatchBatteryManager$ScreenOffAlarmListener@775caec
+05-25 08:13:44.745 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 423495721]
+05-25 08:13:44.756 I/AlarmManager(21176): setExactAndAllowWhileIdle [name: FcmRetry type: 2 triggerAtMillis: 421815731]
+05-25 08:13:46.436 D/NotificationService( 1473): 0|com.reddit.frontpage|0|a966bff6-47fb-4a22-9e34-820b766a5056|10300: granting content://settings/system/notification_sound
+05-25 08:13:46.437 D/NotificationService( 1473): 0|com.reddit.frontpage|0|a966bff6-47fb-4a22-9e34-820b766a5056|10300: granting content://settings/system/notification_sound
+05-25 08:13:46.438 D/NotificationService( 1473): 0|com.reddit.frontpage|0|a966bff6-47fb-4a22-9e34-820b766a5056|10300: granting content://settings/system/notification_sound
+05-25 08:13:46.438 D/NotificationService( 1473): 0|com.reddit.frontpage|0|a966bff6-47fb-4a22-9e34-820b766a5056|10300: granting content://settings/system/notification_sound
+05-25 08:13:46.440 D/NotificationService( 1473): 0|com.reddit.frontpage|0|a966bff6-47fb-4a22-9e34-820b766a5056|10300: granting content://settings/system/notification_sound
+05-25 08:13:46.441 D/NotificationService( 1473): 0|com.reddit.frontpage|0|a966bff6-47fb-4a22-9e34-820b766a5056|10300: granting content://settings/system/notification_sound
+05-25 08:13:46.441 D/NotificationService( 1473): 0|com.reddit.frontpage|0|a966bff6-47fb-4a22-9e34-820b766a5056|10300: granting content://settings/system/notification_sound
+05-25 08:13:46.442 D/NotificationService( 1473): 0|com.reddit.frontpage|0|a966bff6-47fb-4a22-9e34-820b766a5056|10300: granting content://settings/system/notification_sound
+05-25 08:13:46.442 D/NotificationService( 1473): 0|com.reddit.frontpage|0|a966bff6-47fb-4a22-9e34-820b766a5056|10300: granting content://settings/system/notification_sound
+05-25 08:15:29.522 W/AlarmManager( 1473): Unrecognized alarm listener com.android.server.locksettings.LockSettingsStrongAuth$NonStrongBiometricIdleTimeoutAlarmListener@c6f9aab
+05-25 08:18:30.078 D/AlarmManager( 1473): BT=2, AT=3, WE=599999, WL=449999, uid=10078, pkg=com.facebook.services, action=com.facebook.rti.fbns.intent.ACTION_ALARM.FBNS_SCHEDULED_BROADCAST_TIMEOUT
