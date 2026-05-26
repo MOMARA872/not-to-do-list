@@ -174,6 +174,14 @@
 - **Phases 4–6 carry the most research risk.** `/gsd-research-phase` recommended for Phase 4 (FlutterEngineCache cold-start, OEM fix-it flows, native Kotlin a11y fallback prototype) and Phase 5 (Doze-window behavior, lazy-rollover edge cases). Phases 1–3 use standard patterns.
 - **Phase 6 closes Phase 5 D-08 soft-lock**: Phase 5 promised a Settings Streak threshold tile but did not ship the UI. Phase 6 Plan 06-03 surfaces it as an inline Streak section above Appearance per RESEARCH §Streak Threshold Tile option a.i (Claude's Discretion).
 
+## M2 backlog (post-v1 — deferred 2026-05-26)
+
+Surfaced during Phase 6 ship review. Not in v1 scope. Reconsider after v1 closed-track PASS.
+
+- **Alphabet pause mode** — pause screen variant surfacing an alphabet/character from the user's chosen study language (Hebrew, Korean, Japanese, Cyrillic, etc.) during cooldown, turning the reflective moment into a micro language-study touchpoint. Adds: non-Latin font assets, language picker UI, study-language persistence, pause-screen variant rendering. Est. ~1-2 weeks. Anti-feature lock check: reflection-augmentation, not gamification — stays inside Phase 4 D-07 calm-tone constraint.
+- **Subscription system (Play Billing v7)** — paid tier gating the alphabet pause feature. Requires Play Billing client integration, entitlement state, restore-purchase flow, Play Console subscription product, ToS + refund policy, sandbox testing on closed track. Est. ~2-3 weeks. Violates v1 "no account / no backend" stance softly (Google account is implicit), so PROJECT.md needs an explicit M2 amendment before this lands. v1 ships free + lean to validate the wedge first.
+- **Xiaomi OEM-survival gate** — Phase 6 Task 3a Step 9 deferred 2026-05-26 (no Xiaomi device). Closed-track tester pool is the v1 mitigation; M2 adds a real Xiaomi (MIUI/HyperOS) overnight gate before any open beta promotion.
+
 ---
 *Roadmap created: 2026-04-27*
 *Phase 3 plans created: 2026-05-07*
