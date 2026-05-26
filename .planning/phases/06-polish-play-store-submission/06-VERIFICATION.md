@@ -207,8 +207,13 @@ reviewers will check it.
 
 Paste the live URL here once confirmed:
 ```
-Privacy Policy URL: https://________________________________/PRIVACY
+Privacy Policy URL: https://momara872.github.io/not-to-do-list/PRIVACY
 ```
+
+**Verified 2026-05-26:**
+- `curl -sIL https://momara872.github.io/not-to-do-list/PRIVACY | head -1` → `HTTP/2 200`
+- Content-Type: `text/html; charset=utf-8` (Jekyll-rendered, 7.6KB)
+- Repo `MOMARA872/not-to-do-list` switched from private to public to satisfy Pages free-plan constraint.
 
 ### 4c. Demo video recording (RESEARCH Pitfall 1 — REQUIRED)
 

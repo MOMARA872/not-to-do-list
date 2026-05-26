@@ -68,7 +68,9 @@ content, user-input data, text fields, clipboard data, or any other user data.
 
 ## 4. Demonstration video URL
 
-**[TODO: insert YouTube unlisted URL after recording per 06-VERIFICATION.md]**
+**https://youtube.com/shorts/gMzZExas9CA**
+
+Recorded 2026-05-26 on Samsung Galaxy S20 Ultra (SM-G988U1) / Android 13.
 
 The video must show:
 1. Cold launch of Not To-Do List from the home screen.
