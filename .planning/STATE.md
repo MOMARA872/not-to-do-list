@@ -26,17 +26,18 @@ progress:
 
 ## Current Position
 
-Phase: 6 (Polish & Play Store Submission) — PAUSED 2026-05-25 at 06-08 Task 3a (OEM overnight gate)
-Plan: 8 of 8 (06-08 partial: Tasks 1-2 done; Tasks 3a/3b/4 blocking)
-Next: resume via `/gsd-execute-phase 6` after `PHASE-6 OEM PASS` (Samsung + Xiaomi overnight)
+Phase: 6 (Polish & Play Store Submission) — HOLD 2026-05-26 at 06-08 Task 3b 4d (Play Console upload — user-only)
+Plan: 8 of 8 (06-08 partial: Tasks 1-2 + 3a Samsung PASS + 3b sub-steps 4a/4b/4c done; 4d Play Console + 4e closed-track pending user action)
+Next: user uploads `build/app/outputs/bundle/release/app-release.aab` to Play Console → resume via `/gsd-execute-phase 6` after closed-track PASS verdict
 
 - **Milestone:** v1
-- **Phase:** Phase 6 — Polish & Play Store Submission (SOFTWARE-COMPLETE except 06-08 manual gates; paused per user)
-- **Status:** Paused at OEM gate
-- **Progress:** [███████████████████████░] 98% (45/46 plans landed; 06-08 partial; REL-05 + PHASE-6 OEM + Play Console verdict pending)
+- **Phase:** Phase 6 — Polish & Play Store Submission (SHIP-READY; awaiting user Play Console submission)
+- **Status:** Hold at Play Console upload
+- **Release tag:** `v1.0.0-rc1`
+- **Progress:** [████████████████████████] 99% (all 46 plans landed; 06-08 Task 4 final bookkeeping gated on closed-track PASS verdict 1-7 day Play review wait)
 
 ```
-[███████████████████████░] Phase 6 SOFTWARE-COMPLETE — 7/8 plans landed + 06-08 Tasks 1-2; Task 3a (OEM overnight) BLOCKING
+[████████████████████████] Phase 6 SHIP-READY — Samsung OEM PASS + Privacy URL live + demo video live + .aab built + screenshots; user-only Play Console submission pending
 ```
 
 ### Phase 6 Plan Inventory (7/8 software-complete; 06-08 paused at Task 3a)
