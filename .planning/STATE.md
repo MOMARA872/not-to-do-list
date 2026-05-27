@@ -26,7 +26,7 @@ progress:
 
 ## Current Position
 
-Phase: 6 (Polish & Play Store Submission) — HOLD 2026-05-26 at 06-08 Task 3b 4d (Play Console upload — user-only)
+Phase: 6 (Polish & Play Store Submission) — HOLD 2026-05-26 at 06-08 Task 3b 4d (Play Console upload — BLOCKED on Google developer account ID verification, paid $25 reg fee 2026-05-26, awaiting approval)
 Plan: 8 of 8 (06-08 partial: Tasks 1-2 + 3a Samsung PASS + 3b sub-steps 4a/4b/4c done; 4d Play Console + 4e closed-track pending user action)
 Next: user uploads `build/app/outputs/bundle/release/app-release.aab` to Play Console → resume via `/gsd-execute-phase 6` after closed-track PASS verdict
 
